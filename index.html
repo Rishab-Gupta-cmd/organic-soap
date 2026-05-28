@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rudra Organics | Premium Natural Soaps</title>
+    <title>Rudra Organics | Premium Handcrafted Soaps</title>
     <style>
-        /* Minimalist Reset & Core Variables */
+        /* Immersive Premium Styling */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         :root {
-            --bg-color: #faf9f5;
-            --card-bg: #ffffff;
-            --text-main: #242423;
-            --text-muted: #686764;
-            --accent-earth: #3a4f3b; /* Deep Premium Earth Green */
-            --border-color: #e6e3dd;
+            --bg-dark: #121c13; /* Deep, luxurious forest green */
+            --card-bg: #1a261c; /* Muted olive-black for contrast */
+            --text-gold: #dfba73; /* Rich gold for accents */
+            --text-light: #f4f1de; /* Soft cream text */
+            --border-gold: rgba(223, 186, 115, 0.2);
             --font-serif: 'Playfair Display', Georgia, serif;
-            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         html {
@@ -27,211 +26,472 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             font-family: var(--font-sans);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Elegant Navigation */
-        nav {
+        /* Fixed Elegant Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: rgba(18, 28, 19, 0.95);
+            border-right: 1px solid var(--border-gold);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 3rem 5% 2rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
+            flex-direction: column;
+            padding: 4rem 2rem;
+            z-index: 100;
         }
         .logo {
             font-family: var(--font-serif);
             font-size: 1.8rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 500;
-            color: var(--accent-earth);
+            color: var(--text-gold);
+            margin-bottom: 4rem;
+            text-align: center;
         }
-        .shop-now-nav {
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .nav-menu a {
+            color: var(--text-light);
             text-decoration: none;
-            color: var(--text-main);
-            border-bottom: 1px solid var(--text-main);
-            padding-bottom: 2px;
-            transition: opacity 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            border-left: 2px solid transparent;
         }
-        .shop-now-nav:hover {
-            opacity: 0.6;
+        .nav-menu a:hover {
+            color: var(--text-gold);
+            border-left: 2px solid var(--text-gold);
+            background: rgba(223, 186, 115, 0.05);
         }
 
-        /* Hero Section */
-        header {
-            padding: 5rem 5% 7rem 5%;
+        /* Main Content Container */
+        .main-content {
+            margin-left: 280px;
+            padding: 4rem 5%;
+        }
+
+        /* Immersive Section Layouts */
+        .page-section {
+            min-height: 90vh;
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Hero Screen */
+        #home {
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
         }
-        header h1 {
+        #home h1 {
             font-family: var(--font-serif);
-            font-size: 3.2rem;
+            font-size: 3.8rem;
+            color: var(--text-gold);
+            line-height: 1.2;
+            margin-bottom: 2rem;
             font-weight: 400;
-            line-height: 1.25;
-            margin-bottom: 1.5rem;
         }
-        header p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
+        #home p {
+            font-size: 1.2rem;
             letter-spacing: 1px;
-            text-transform: uppercase;
+            color: #a3b19b;
         }
 
-        /* Elegant Product Grid */
-        .products-section {
-            padding: 0 5% 8rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Product Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 3rem;
+            margin-top: 2rem;
         }
         .product-card {
             background: var(--card-bg);
             padding: 2rem;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-gold);
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
-        
-        /* High-End Product Image Styling */
         .product-image {
             width: 100%;
-            height: 340px;
+            height: 320px;
             object-fit: cover;
-            margin-bottom: 1.75rem;
-            background-color: #f0ede6;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(223, 186, 115, 0.1);
         }
-        
         .product-card h3 {
             font-family: var(--font-serif);
-            font-size: 1.4rem;
-            font-weight: 400;
+            font-size: 1.5rem;
+            color: var(--text-gold);
             margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+        }
+        .soap-benefits {
+            color: #a3b19b;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
         .price {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 1.75rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-gold);
         }
-        
-        /* Elegant Order Button */
+
+        /* Elegant Button */
         .order-btn {
             display: inline-block;
-            background-color: var(--text-main);
-            color: #ffffff;
+            background-color: var(--text-gold);
+            color: var(--bg-dark);
             text-decoration: none;
-            padding: 0.9rem 2.5rem;
+            padding: 0.9rem 2rem;
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
             border: none;
             width: 100%;
+            cursor: pointer;
+            transition: background 0.3s;
         }
         .order-btn:hover {
-            background-color: var(--accent-earth);
+            background-color: #fff;
         }
 
-        /* Minimal Footer */
-        footer {
+        /* Story Page Styling */
+        .story-content {
+            max-width: 700px;
+            margin: 0 auto;
             text-align: center;
-            padding: 4rem 2rem;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
+        }
+        .story-content h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--text-gold);
+            margin-bottom: 1.5rem;
         }
 
-        /* Responsive adjustments */
+        /* Elegant Checkout Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--text-gold);
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--text-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal h2 {
+            font-family: var(--font-serif);
+            color: var(--text-gold);
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: #a3b19b;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-gold);
+            color: white;
+            font-family: inherit;
+        }
+        .form-group input:focus {
+            outline: 1px solid var(--text-gold);
+        }
+
+        /* Dynamic Status Messages inside modal */
+        #formStatus {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .success-msg { color: #81b29a; }
+        .error-msg { color: #e07a5f; }
+
+        /* Responsive Mobile Layout */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.25rem; }
-            .grid { gap: 2rem; }
-            .product-image { height: 280px; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 2rem;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+            #home h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar">
         <div class="logo">Rudra Organics</div>
-        <a href="#collection" class="shop-now-nav">Shop Collection</a>
-    </nav>
+        <nav class="nav-menu">
+            <a href="#home">Home</a>
+            <a href="#collection">Shop Soaps</a>
+            <a href="#philosophy">Our Story</a>
+        </nav>
+    </aside>
 
-    <!-- Brand Philosophy -->
-    <header>
-        <h1>Pure, handcrafted organic soaps for natural skincare.</h1>
-        <p>100% Organic • Chemical Free • Gentle Exfoliation</p>
-    </header>
+    <!-- Main Window Content -->
+    <main class="main-content">
 
-    <!-- Collection Grid -->
-    <section class="products-section" id="collection">
-        <div class="grid">
+        <!-- Section 1: Home -->
+        <section id="home" class="page-section">
+            <h1>Handcrafted organic soaps for mindful bath rituals.</h1>
+            <p>100% Organic • Chemical Free • Gentle Exfoliation</p>
+        </section>
+
+        <!-- Section 2: Storefront -->
+        <section id="collection" class="page-section">
+            <div class="grid">
+                
+                <!-- Soap 1 -->
+                <div class="product-card">
+                    <img src="neem.jpeg" alt="Neem Soap" class="product-image">
+                    <h3>Pure Neem</h3>
+                    <p class="soap-benefits">Natural Cleanser & Antibacterial</p>
+                    <p class="price"> can ₹100</p>
+                    <button class="order-btn" onclick="openOrderModal('Pure Neem')">Place Order</button>
+                </div>
+
+                <!-- Soap 2 -->
+                <div class="product-card">
+                    <img src="rose.jpeg" alt="Rose Soap" class="product-image">
+                    <h3>Wild Rose</h3>
+                    <p class="soap-benefits">Hydrating & Gentle Fragrance</p>
+                    <p class="price">₹100</p>
+                    <button class="order-btn" onclick="openOrderModal('Wild Rose')">Place Order</button>
+                </div>
+
+                <!-- Soap 3 -->
+                <div class="product-card">
+                    <img src="dtan.jpeg" alt="D-Tan Soap" class="product-image">
+                    <h3>D-Tan Cleansing</h3>
+                    <p class="soap-benefits">Brightening & Sun Repair</p>
+                    <p class="price">₹100</p>
+                    <button class="order-btn" onclick="openOrderModal('D-Tan Cleansing')">Place Order</button>
+                </div>
+
+                <!-- Soap 4 -->
+                <div class="product-card">
+                    <img src="multani.jpeg" alt="Multani Mitti Soap" class="product-image">
+                    <h3>Multani Mitti</h3>
+                    <p class="soap-benefits">Deep Oil Control & Glow</p>
+                    <p class="price">₹100</p>
+                    <button class="order-btn" onclick="openOrderModal('Multani Mitti')">Place Order</button>
+                </div>
+
+                <!-- Soap 5 -->
+                <div class="product-card">
+                    <img src="lemon.jpeg" alt="Lemon Soap" class="product-image">
+                    <h3>Refreshing Lemon</h3>
+                    <p class="soap-benefits">Detoxifying & Citrus Glow</p>
+                    <p class="price">₹100</p>
+                    <button class="order-btn" onclick="openOrderModal('Refreshing Lemon')">Place Order</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 3: Philosophy -->
+        <section id="philosophy" class="page-section">
+            <div class="story-content">
+                <h2>Our Philosophy</h2>
+                <p>At Rudra Organics, we believe that true skincare is an ancient, organic experience. Every single bar is carefully mixed, poured, and cold-processed by hand in small batches to preserve natural plant enzymes and earth oils. No synthetic foaming chemicals, artificial toxins, or paraben preservatives. Purely therapeutic.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- POPUP CHECKOUT BOX (Seamless Order Screen) -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content" id="modalBox">
+            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
             
-            <!-- Item 1: Neem -->
-            <div class="product-card">
-                <img src="neem.jpeg" alt="Neem Organic Soap" class="product-image">
-                <h3>Pure Neem</h3>
-                <p class="price">Natural Cleanser & Antibacterial</p>
-                <a href="https://forms.gle/1AnyaK2K2FG68XFc9" target="_blank" class="order-btn">Place Order</a>
+            <!-- THE CONTAINER INSIDE WHICH THE ENTIRE EXPERIENCE LIVES -->
+            <div id="formContainer">
+                <h2>Complete Your Order</h2>
+                
+                <!-- BACKGROUND SCRIPT TARGETS THIS FORM ID -->
+                <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-group">
+                        <label>Selected Product</label>
+                        <input type="text" id="selectedSoap" name="Product Chosen" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="Customer Name" required placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number / WhatsApp</label>
+                        <input type="tel" name="Contact Number" required placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label>Shipping Address</label>
+                        <input type="text" name="Delivery Address" required placeholder="Complete delivery address">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <select name="Quantity Selected">
+                            <option value="1">1 Bar — ₹100</option>
+                            <option value="2">2 Bars — ₹200</option>
+                            <option value="3">3 Bars — ₹300</option>
+                            <option value="5">5 Bars — ₹500</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submitBtn" class="order-btn" style="margin-top: 1rem;">Confirm Order</button>
+                    <div id="formStatus"></div>
+                </form>
             </div>
-
-            <!-- Item 2: Rose -->
-            <div class="product-card">
-                <img src="rose.jpeg" alt="Rose Organic Soap" class="product-image">
-                <h3>Wild Rose</h3>
-                <p class="price">Hydrating & Gentle Fragrance</p>
-                <a href="https://forms.gle/1AnyaK2K2FG68XFc9" target="_blank" class="order-btn">Place Order</a>
-            </div>
-
-            <!-- Item 3: D-Tan -->
-            <div class="product-card">
-                <img src="dtan.jpeg" alt="D-Tan Organic Soap" class="product-image">
-                <h3>D-Tan Cleansing</h3>
-                <p class="price">Brightening & Sun-Damage Repair</p>
-                <a href="https://forms.gle/1AnyaK2K2FG68XFc9" target="_blank" class="order-btn">Place Order</a>
-            </div>
-
-            <!-- Item 4: Multani Mitti -->
-            <div class="product-card">
-                <img src="multani.jpeg" alt="Multani Mitti Organic Soap" class="product-image">
-                <h3>Multani Mitti</h3>
-                <p class="price">Deep Oil Control & Glowing Skin</p>
-                <a href="https://forms.gle/1AnyaK2K2FG68XFc9" target="_blank" class="order-btn">Place Order</a>
-            </div>
-
-            <!-- Item 5: Lemon -->
-            <div class="product-card">
-                <img src="lemon.jpeg" alt="Lemon Organic Soap" class="product-image">
-                <h3>Refreshing Lemon</h3>
-                <p class="price">Detoxifying & Fresh Citrus Glow</p>
-                <a href="https://forms.gle/1AnyaK2K2FG68XFc9" target="_blank" class="order-btn">Place Order</a>
-            </div>
-
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 Rudra Organics. All rights reserved.</p>
-    </footer>
+    <!-- Scripting Operations for Seamless Interactivity -->
+    <script>
+        function openOrderModal(soapName) {
+            // Reset the form structure if it was filled before
+            document.getElementById('formContainer').innerHTML = `
+                <h2>Complete Your Order</h2>
+                <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-group">
+                        <label>Selected Product</label>
+                        <input type="text" id="selectedSoap" name="Product Chosen" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="Customer Name" required placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number / WhatsApp</label>
+                        <input type="tel" name="Contact Number" required placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label>Shipping Address</label>
+                        <input type="text" name="Delivery Address" required placeholder="Complete delivery address">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <select name="Quantity Selected">
+                            <option value="1">1 Bar — ₹100</option>
+                            <option value="2">2 Bars — ₹200</option>
+                            <option value="3">3 Bars — ₹300</option>
+                            <option value="5">5 Bars — ₹500</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submitBtn" class="order-btn" style="margin-top: 1rem;">Confirm Order</button>
+                    <div id="formStatus"></div>
+                </form>
+            `;
+            
+            // Set the clicked soap name and attach the background dynamic sender
+            document.getElementById('selectedSoap').value = soapName;
+            attachFormHandler();
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // BACKGROUND AJAX ENGINE (Stops redirect, captures data invisibly)
+        function attachFormHandler() {
+            const form = document.getElementById('orderForm');
+            const status = document.getElementById('formStatus');
+            const btn = document.getElementById('submitBtn');
+
+            form.addEventListener('submit', function(ev) {
+                ev.preventDefault(); // STOP THE BROWSER REDIRECT
+                btn.innerText = "PROCESSING...";
+                btn.disabled = true;
+
+                const data = new FormData(form);
+                
+                fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        // Dynamically swap the container text to an elegant Thank You screen without leaving the page!
+                        document.getElementById('formContainer').innerHTML = `
+                            <h2 style="color: var(--text-gold); margin-bottom: 1rem;">Order Received</h2>
+                            <p style="color: var(--text-light); font-size: 1.05rem; margin-bottom: 2rem;">Thank you for choosing Rudra Organics. We have received your delivery request and will contact you shortly on WhatsApp to confirm shipping details.</p>
+                            <button class="order-btn" onclick="closeOrderModal()">Continue Exploring</button>
+                        `;
+                    } else {
+                        response.json().then(data => {
+                            status.innerHTML = `<span class="error-msg">Error: ${data.error}</span>`;
+                            btn.innerText = "CONFIRM ORDER";
+                            btn.disabled = false;
+                        });
+                    }
+                }).catch(error => {
+                    status.innerHTML = `<span class="error-msg">Oops! There was a connection issue. Try again.</span>`;
+                    btn.innerText = "CONFIRM ORDER";
+                    btn.disabled = false;
+                });
+            });
+        }
+    </script>
 
 </body>
 </html>
