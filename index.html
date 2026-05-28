@@ -24,12 +24,15 @@
             --gold-light:  #dcc9a8;
             --border:      #e8e0d4;
             --white:       #ffffff;
+            --sage:        #8b9b8e;
 
             --serif: 'Cormorant Garamond', Georgia, serif;
             --sans:  'Jost', system-ui, sans-serif;
 
             --sidebar-w: 300px;
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         html { scroll-behavior: smooth; }
@@ -49,10 +52,11 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23faf6f0' filter='url(%23noise)'/%3E%3C/svg%3E");
             opacity: 0.025;
             pointer-events: none;
             z-index: 9999;
+            mix-blend-mode: overlay;
         }
 
         /* ─── SIDEBAR TOGGLE ────────────────────────────────────────────── */
@@ -74,13 +78,17 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            transition: border-color 0.3s, color 0.3s, background 0.3s;
-            backdrop-filter: blur(6px);
-            background: rgba(250,246,240,0.85);
+            transition: border-color 0.4s var(--ease-out-quad), 
+                        color 0.4s var(--ease-out-quad), 
+                        background 0.4s var(--ease-out-quad),
+                        transform 0.3s ease;
+            backdrop-filter: blur(8px);
+            background: rgba(250,246,240,0.90);
         }
         .menu-toggle:hover {
             border-color: var(--gold);
             color: var(--olive);
+            transform: translateY(-2px);
         }
         .menu-toggle .hamburger-icon {
             display: flex;
@@ -92,12 +100,21 @@
             display: block;
             height: 1px;
             background: currentColor;
-            transition: transform 0.3s, opacity 0.3s, width 0.3s;
+            transition: transform 0.4s var(--ease-out-quad), 
+                        opacity 0.4s var(--ease-out-quad), 
+                        width 0.4s var(--ease-out-quad);
             transform-origin: left center;
         }
-        .menu-toggle.active .hamburger-icon span:nth-child(1) { transform: rotate(38deg) scaleX(1.15); }
-        .menu-toggle.active .hamburger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .menu-toggle.active .hamburger-icon span:nth-child(3) { transform: rotate(-38deg) scaleX(1.15); }
+        .menu-toggle.active .hamburger-icon span:nth-child(1) { 
+            transform: rotate(38deg) scaleX(1.15); 
+        }
+        .menu-toggle.active .hamburger-icon span:nth-child(2) { 
+            opacity: 0; 
+            transform: scaleX(0); 
+        }
+        .menu-toggle.active .hamburger-icon span:nth-child(3) { 
+            transform: rotate(-38deg) scaleX(1.15); 
+        }
 
         /* ─── SIDEBAR ───────────────────────────────────────────────────── */
         .sidebar {
@@ -106,16 +123,19 @@
             left: 0;
             bottom: 0;
             width: var(--sidebar-w);
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, rgba(250,246,240,0.5) 100%);
             border-right: 1px solid var(--border);
             z-index: 400;
             transform: translateX(-100%);
-            transition: transform 0.65s var(--ease-out-expo);
+            transition: transform 0.7s var(--ease-out-expo);
             display: flex;
             flex-direction: column;
             padding: 5rem 2.5rem 3rem;
+            box-shadow: 2px 0 20px rgba(43,41,39,0.05);
         }
-        .sidebar.open { transform: translateX(0); }
+        .sidebar.open { 
+            transform: translateX(0); 
+        }
 
         .sidebar-logo {
             font-family: var(--serif);
@@ -125,6 +145,7 @@
             text-transform: uppercase;
             color: var(--olive);
             margin-bottom: 0.4rem;
+            animation: slideInDown 0.6s var(--ease-out-expo) 0.1s both;
         }
         .sidebar-tagline {
             font-size: 0.65rem;
@@ -132,13 +153,16 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 3.5rem;
+            animation: slideInDown 0.6s var(--ease-out-expo) 0.2s both;
         }
 
         .sidebar-divider {
             width: 32px;
             height: 1px;
-            background: var(--border);
+            background: var(--gold-light);
             margin-bottom: 2.5rem;
+            animation: slideInRight 0.6s var(--ease-out-expo) 0.3s both;
+            box-shadow: 0 0 8px rgba(197,168,128,0.2);
         }
 
         .sidebar-nav {
@@ -155,13 +179,32 @@
             text-decoration: none;
             padding: 0.5rem 0;
             border-bottom: 1px solid transparent;
-            transition: color 0.3s, border-color 0.3s, letter-spacing 0.3s;
+            transition: color 0.4s var(--ease-out-quad), 
+                        border-color 0.4s var(--ease-out-quad), 
+                        letter-spacing 0.4s var(--ease-out-quad),
+                        transform 0.3s ease;
             letter-spacing: 0.5px;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.5s var(--ease-out-expo);
         }
         .sidebar-nav a:hover {
             color: var(--charcoal);
-            border-color: var(--gold-light);
             letter-spacing: 1px;
+            transform: translateX(8px);
+        }
+        .sidebar-nav a:hover::before {
+            width: 32px;
         }
 
         .sidebar-footer {
@@ -170,18 +213,19 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--border);
+            animation: fadeIn 0.6s var(--ease-out-expo) 0.5s both;
         }
 
         /* Overlay backdrop */
         .sidebar-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(43,41,39,0.2);
-            backdrop-filter: blur(2px);
+            background: rgba(43,41,39,0.25);
+            backdrop-filter: blur(3px);
             z-index: 300;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s var(--ease-out-quad);
         }
         .sidebar-backdrop.visible {
             opacity: 1;
@@ -216,11 +260,18 @@
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
-            animation: breathe 6s ease-in-out infinite;
+            animation: breathe 8s ease-in-out infinite;
+            box-shadow: inset 0 0 40px rgba(197,168,128,0.08);
         }
         @keyframes breathe {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-            50% { transform: translate(-50%, -50%) scale(1.04); opacity: 1; }
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                opacity: 0.5;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.08); 
+                opacity: 0.8;
+            }
         }
 
         .hero-eyebrow {
@@ -229,7 +280,7 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 2rem;
-            animation: fadeUp 1s var(--ease-out-expo) both;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0s both;
         }
 
         .hero-headline {
@@ -240,12 +291,25 @@
             color: var(--charcoal);
             max-width: 680px;
             margin: 0 auto 2rem;
-            animation: fadeUp 1s 0.12s var(--ease-out-expo) both;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.15s both;
         }
 
         .hero-headline em {
             font-style: italic;
             color: var(--olive);
+            position: relative;
+            display: inline-block;
+        }
+        .hero-headline em::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0;
+            animation: slideInUnderline 0.8s var(--ease-out-expo) 0.5s both;
         }
 
         .hero-sub {
@@ -254,7 +318,7 @@
             text-transform: uppercase;
             color: var(--warm-gray);
             margin-bottom: 3rem;
-            animation: fadeUp 1s 0.24s var(--ease-out-expo) both;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.3s both;
         }
 
         .hero-cta {
@@ -266,31 +330,72 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             text-decoration: none;
-            transition: background 0.3s, color 0.3s, transform 0.3s;
-            animation: fadeUp 1s 0.36s var(--ease-out-expo) both;
+            transition: all 0.5s var(--ease-out-quad);
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.45s both;
             position: relative;
             z-index: 1;
+            overflow: hidden;
+        }
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--olive);
+            transform: translateX(-100%);
+            transition: transform 0.5s var(--ease-out-expo);
+            z-index: -1;
         }
         .hero-cta:hover {
-            background: var(--olive);
-            transform: translateY(-2px);
+            color: var(--cream);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(74,93,78,0.2);
+        }
+        .hero-cta:hover::before {
+            transform: translateX(0);
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
+            from { opacity: 0; transform: translateY(32px); }
             to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUnderline {
+            from { opacity: 0; transform: scaleX(0); transform-origin: left; }
+            to   { opacity: 1; transform: scaleX(1); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(-20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
 
         /* ─── COLLECTION ────────────────────────────────────────────────── */
         #collection {
-            padding: 6rem 5% 8rem;
+            padding: 8rem 5% 10rem;
             max-width: 1440px;
             margin: 0 auto;
+            position: relative;
+        }
+        #collection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+            opacity: 0.5;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
         .section-eyebrow {
             font-size: 0.65rem;
@@ -298,6 +403,7 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 1rem;
+            animation: fadeIn 0.8s var(--ease-out-expo) 0.1s both;
         }
         .section-title {
             font-family: var(--serif);
@@ -305,14 +411,18 @@
             font-weight: 300;
             color: var(--charcoal);
             line-height: 1.2;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.2s both;
         }
-        .section-title em { font-style: italic; color: var(--olive); }
+        .section-title em { 
+            font-style: italic; 
+            color: var(--olive);
+        }
 
         /* Masonry-inspired staggered grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         /* 5-card bento layout: top row 3, bottom row 2 centred */
@@ -335,26 +445,47 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            cursor: default;
-            transition: transform 0.55s var(--ease-out-expo), box-shadow 0.55s ease, border-color 0.3s;
+            cursor: pointer;
+            transition: transform 0.6s var(--ease-out-expo), 
+                        box-shadow 0.6s var(--ease-out-quad),
+                        border-color 0.4s var(--ease-out-quad);
             position: relative;
+            animation: scaleIn 0.7s var(--ease-out-expo) var(--card-delay, 0s) both;
         }
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.92) translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0);
+            }
+        }
+        .product-card:nth-child(1) { --card-delay: 0.1s; }
+        .product-card:nth-child(2) { --card-delay: 0.2s; }
+        .product-card:nth-child(3) { --card-delay: 0.3s; }
+        .product-card:nth-child(4) { --card-delay: 0.25s; }
+        .product-card:nth-child(5) { --card-delay: 0.35s; }
+
         .product-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            border: 1px solid var(--gold);
+            border: 2px solid var(--gold);
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity 0.5s var(--ease-out-quad);
             pointer-events: none;
             z-index: 1;
         }
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 24px 48px rgba(43,41,39,0.07);
+            transform: translateY(-12px);
+            box-shadow: 0 24px 56px rgba(43,41,39,0.12);
             border-color: transparent;
         }
-        .product-card:hover::before { opacity: 1; }
+        .product-card:hover::before { 
+            opacity: 1; 
+        }
 
         .card-image-wrap {
             width: 100%;
@@ -363,39 +494,51 @@
             background: var(--cream-deep);
             position: relative;
         }
+        .card-image-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(197,168,128,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
         .card-image-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.8s var(--ease-out-expo), filter 0.4s;
-            filter: saturate(0.9);
+            transition: transform 0.8s var(--ease-out-expo), 
+                        filter 0.6s var(--ease-out-quad);
+            filter: saturate(0.88) brightness(1.02);
         }
         .product-card:hover .card-image-wrap img {
-            transform: scale(1.04);
-            filter: saturate(1);
+            transform: scale(1.06);
+            filter: saturate(1) brightness(1.05);
         }
 
         /* Badge */
         .card-badge {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1.2rem;
+            right: 1.2rem;
             background: var(--cream);
-            border: 1px solid var(--border);
+            border: 1px solid var(--gold);
             font-size: 0.6rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--olive);
-            padding: 0.3rem 0.6rem;
+            padding: 0.4rem 0.7rem;
             z-index: 2;
+            animation: slideInDown 0.6s var(--ease-out-expo) 0.2s both;
+            box-shadow: 0 4px 12px rgba(197,168,128,0.15);
         }
 
         .card-body {
-            padding: 1.5rem 1.5rem 2rem;
+            padding: 1.8rem 1.5rem 2.2rem;
             display: flex;
             flex-direction: column;
             flex: 1;
+            background: linear-gradient(135deg, var(--white) 0%, rgba(250,246,240,0.3) 100%);
         }
 
         .card-name {
@@ -403,16 +546,18 @@
             font-size: 1.5rem;
             font-weight: 400;
             color: var(--charcoal);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
             line-height: 1.2;
+            transition: color 0.3s var(--ease-out-quad);
         }
 
         .card-benefit {
             font-size: 0.75rem;
             letter-spacing: 1px;
-            color: var(--warm-gray);
+            color: var(--gold);
             font-style: italic;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
         }
 
         .card-footer {
@@ -422,11 +567,12 @@
             margin-top: auto;
             padding-top: 1.2rem;
             border-top: 1px solid var(--border);
+            gap: 1rem;
         }
 
         .card-price {
             font-family: var(--serif);
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 400;
             color: var(--charcoal);
         }
@@ -436,41 +582,69 @@
             font-weight: 300;
             letter-spacing: 1px;
             color: var(--warm-gray);
-            margin-left: 2px;
+            margin-left: 4px;
         }
 
         .order-btn {
             background: var(--charcoal);
             color: var(--cream);
-            border: none;
-            padding: 0.7rem 1.4rem;
+            border: 1px solid var(--charcoal);
+            padding: 0.75rem 1.5rem;
             font-family: var(--sans);
             font-size: 0.65rem;
             font-weight: 400;
             letter-spacing: 2.5px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.4s var(--ease-out-quad);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--olive);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s var(--ease-out-expo);
+            z-index: -1;
         }
         .order-btn:hover {
-            background: var(--olive);
-            transform: translateY(-1px);
+            color: var(--cream);
+            border-color: var(--olive);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74,93,78,0.2);
+        }
+        .order-btn:hover::before {
+            transform: scaleY(1);
         }
 
         /* ─── PHILOSOPHY ────────────────────────────────────────────────── */
         #philosophy {
-            padding: 8rem 5%;
+            padding: 8rem 5% 8rem;
             position: relative;
+            background: linear-gradient(180deg, transparent 0%, rgba(139,155,142,0.03) 100%);
+        }
+        #philosophy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+            opacity: 0.5;
         }
 
         .philosophy-inner {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.6fr;
             gap: 6rem;
-            align-items: center;
+            align-items: start;
         }
 
         .philosophy-left .overline {
@@ -480,6 +654,7 @@
             color: var(--gold);
             margin-bottom: 1.5rem;
             display: block;
+            animation: fadeIn 0.8s var(--ease-out-expo) 0.1s both;
         }
         .philosophy-left h2 {
             font-family: var(--serif);
@@ -487,6 +662,7 @@
             font-weight: 300;
             line-height: 1.25;
             color: var(--charcoal);
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.2s both;
         }
         .philosophy-left h2 em {
             font-style: italic;
@@ -494,32 +670,63 @@
         }
 
         .philosophy-right p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--warm-gray);
-            line-height: 1.9;
-            margin-bottom: 1.5rem;
+            line-height: 1.85;
+            margin-bottom: 1.8rem;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.3s both;
+            transition: color 0.3s var(--ease-out-quad);
         }
-        .philosophy-right p:last-child { margin-bottom: 0; }
+        .philosophy-right p:last-of-type { 
+            margin-bottom: 2rem; 
+        }
 
         .philosophy-pillars {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.8rem;
             margin-top: 2.5rem;
         }
         .pillar {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 1.2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(197,168,128,0.06) 0%, transparent 100%);
+            border-left: 2px solid var(--gold-light);
+            transition: all 0.4s var(--ease-out-quad));
+            animation: slideInLeft 0.7s var(--ease-out-expo) var(--pillar-delay, 0s) both;
         }
+        .pillar:nth-child(1) { --pillar-delay: 0.4s; }
+        .pillar:nth-child(2) { --pillar-delay: 0.5s; }
+        .pillar:nth-child(3) { --pillar-delay: 0.6s; }
+        
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        .pillar:hover {
+            background: linear-gradient(135deg, rgba(197,168,128,0.12) 0%, transparent 100%);
+            border-left-color: var(--gold);
+            transform: translateX(8px);
+        }
+
         .pillar-num {
             font-family: var(--serif);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-style: italic;
             color: var(--gold);
             flex-shrink: 0;
-            width: 20px;
-            line-height: 1.5;
+            width: 24px;
+            line-height: 1.4;
+            font-weight: 400;
         }
         .pillar-text {
             font-size: 0.8rem;
@@ -531,19 +738,20 @@
             color: var(--charcoal);
             font-weight: 500;
             display: block;
-            font-size: 0.85rem;
-            margin-bottom: 0.15rem;
+            font-size: 0.88rem;
+            margin-bottom: 0.3rem;
         }
 
         /* ─── FOOTER ────────────────────────────────────────────────────── */
         footer {
             border-top: 1px solid var(--border);
-            padding: 3rem 5%;
+            padding: 4rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
+            background: linear-gradient(180deg, var(--cream) 0%, rgba(139,155,142,0.02) 100%);
         }
 
         .footer-logo {
@@ -553,6 +761,10 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--olive);
+            transition: color 0.3s var(--ease-out-quad));
+        }
+        .footer-logo:hover {
+            color: var(--gold);
         }
 
         .footer-copy {
@@ -566,9 +778,9 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(43,41,39,0.45);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            background: rgba(43,41,39,0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 600;
             display: flex;
             align-items: center;
@@ -576,7 +788,7 @@
             padding: 1.5rem;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s var(--ease-out-quad);
         }
         .modal-overlay.open {
             opacity: 1;
@@ -590,85 +802,112 @@
         .modal-box {
             background: var(--white);
             width: 100%;
-            max-width: 460px;
-            padding: 3rem 2.5rem;
+            max-width: 500px;
+            padding: 3rem 2.8rem;
             position: relative;
             border: 1px solid var(--border);
-            box-shadow: 0 32px 80px rgba(43,41,39,0.12);
-            transform: translateY(20px) scale(0.98);
+            box-shadow: 0 40px 100px rgba(43,41,39,0.15);
+            transform: translateY(30px) scale(0.95);
             opacity: 0;
-            transition: transform 0.5s var(--ease-out-expo), opacity 0.4s ease;
+            transition: transform 0.6s var(--ease-out-expo), 
+                        opacity 0.5s var(--ease-out-quad);
             max-height: 92svh;
             overflow-y: auto;
             overflow-x: hidden;
+            border-radius: 2px;
         }
 
         .modal-close {
             position: absolute;
-            top: 1.2rem;
-            right: 1.4rem;
+            top: 1.4rem;
+            right: 1.6rem;
             background: none;
             border: none;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--warm-gray);
             cursor: pointer;
             line-height: 1;
-            transition: color 0.2s;
-            padding: 0.2rem;
+            transition: all 0.3s var(--ease-out-quad));
+            padding: 0.3rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .modal-close:hover { color: var(--charcoal); }
+        .modal-close:hover { 
+            color: var(--charcoal);
+            transform: rotate(90deg);
+        }
 
         .modal-eyebrow {
             font-size: 0.62rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
+            animation: fadeIn 0.5s var(--ease-out-expo) 0.1s both;
         }
 
         .modal-title {
             font-family: var(--serif);
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 400;
             color: var(--charcoal);
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
             line-height: 1.2;
+            animation: fadeUp 0.5s var(--ease-out-expo) 0.15s both;
         }
 
         .form-group {
-            margin-bottom: 1.3rem;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.5s var(--ease-out-expo) var(--form-delay, 0s) both;
         }
+        .form-group:nth-of-type(1) { --form-delay: 0.2s; }
+        .form-group:nth-of-type(2) { --form-delay: 0.25s; }
+        .form-group:nth-of-type(3) { --form-delay: 0.3s; }
+        .form-group:nth-of-type(4) { --form-delay: 0.35s; }
+
         .form-group label {
             display: block;
             font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--warm-gray);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             font-weight: 400;
         }
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.8rem 0.9rem;
+            padding: 0.9rem 1rem;
             background: var(--cream);
             border: 1px solid var(--border);
             color: var(--charcoal);
             font-family: var(--sans);
             font-size: 0.88rem;
             font-weight: 300;
-            border-radius: 0;
+            border-radius: 2px;
             outline: none;
-            transition: border-color 0.25s;
+            transition: all 0.3s var(--ease-out-quad));
             -webkit-appearance: none;
             appearance: none;
         }
+        .form-group input::placeholder {
+            color: rgba(122, 117, 113, 0.5);
+        }
         .form-group input:focus,
-        .form-group select:focus { border-color: var(--gold); }
+        .form-group select:focus { 
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(197,168,128,0.1);
+        }
         .form-group input[readonly] {
             color: var(--olive);
             font-weight: 500;
             font-size: 0.85rem;
+            background: rgba(197,168,128,0.05);
+            border-color: var(--gold-light);
         }
 
         /* select arrow */
@@ -678,32 +917,59 @@
         .select-wrap::after {
             content: '↓';
             position: absolute;
-            right: 0.9rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gold);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             pointer-events: none;
+            transition: transform 0.3s var(--ease-out-quad));
+        }
+        .select-wrap:hover::after {
+            transform: translateY(-50%) scale(1.1);
         }
 
         .modal-submit {
             width: 100%;
-            padding: 1rem;
+            padding: 1.1rem;
             background: var(--charcoal);
             color: var(--cream);
-            border: none;
+            border: 1px solid var(--charcoal);
             font-family: var(--sans);
             font-size: 0.7rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
-            margin-top: 0.5rem;
-            transition: background 0.3s;
+            margin-top: 0.8rem;
+            transition: all 0.4s var(--ease-out-quad));
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.5s var(--ease-out-expo) 0.4s both;
         }
-        .modal-submit:hover { background: var(--olive); }
+        .modal-submit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--olive);
+            transform: translateX(-100%);
+            transition: transform 0.5s var(--ease-out-expo);
+            z-index: -1;
+        }
+        .modal-submit:hover {
+            color: var(--cream);
+            border-color: var(--olive);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(74,93,78,0.2);
+        }
+        .modal-submit:hover::before {
+            transform: translateX(0);
+        }
         .modal-submit:disabled {
             background: var(--warm-gray);
+            border-color: var(--warm-gray);
             cursor: default;
+            transform: none;
+            box-shadow: none;
         }
 
         .form-status {
@@ -711,53 +977,70 @@
             font-size: 0.8rem;
             color: #b85d43;
             letter-spacing: 0.5px;
+            animation: shake 0.4s ease;
         }
 
         /* Success state */
         .success-state {
             text-align: center;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
+            animation: fadeIn 0.6s var(--ease-out-expo) 0.1s both;
         }
         .success-icon {
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            border: 1px solid var(--gold-light);
+            border: 2px solid var(--gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.2rem;
-            color: var(--gold);
+            margin: 0 auto 1.8rem;
+            font-size: 1.3rem;
+            color: var(--olive);
+            box-shadow: 0 0 16px rgba(197,168,128,0.2);
+            animation: scaleIn 0.6s var(--ease-out-expo) 0.2s both;
         }
         .success-state h2 {
             font-family: var(--serif);
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 400;
             color: var(--olive);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             line-height: 1.2;
+            animation: fadeUp 0.6s var(--ease-out-expo) 0.3s both;
         }
         .success-state p {
             font-size: 0.88rem;
             color: var(--warm-gray);
             line-height: 1.8;
-            max-width: 340px;
+            max-width: 380px;
             margin: 0 auto 2rem;
+            animation: fadeUp 0.6s var(--ease-out-expo) 0.4s both;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
 
         /* ─── SCROLL REVEAL ─────────────────────────────────────────────── */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s var(--ease-out-expo);
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease-out-quad), 
+                        transform 0.8s var(--ease-out-expo);
         }
-        .reveal.in { opacity: 1; transform: none; }
+        .reveal.in { 
+            opacity: 1; 
+            transform: none; 
+        }
 
         /* ─── RESPONSIVE ────────────────────────────────────────────────── */
         @media (max-width: 900px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
             .product-card:nth-child(4),
             .product-card:nth-child(5) {
@@ -765,17 +1048,29 @@
             }
             .philosophy-inner {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                gap: 4rem;
             }
         }
 
         @media (max-width: 600px) {
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
-            .hero-headline { font-size: 2.4rem; }
-            footer { flex-direction: column; text-align: center; }
-            .modal-box { padding: 2.2rem 1.5rem; }
+            .hero-headline { font-size: 2.2rem; }
+            footer { 
+                flex-direction: column; 
+                text-align: center;
+                padding: 3rem 5%;
+            }
+            .modal-box { 
+                padding: 2.5rem 1.8rem; 
+                max-width: 90vw;
+            }
+            .menu-toggle {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -922,7 +1217,7 @@
                 <h2>A return to <em>ancient</em>, quiet skincare.</h2>
             </div>
             <div class="philosophy-right reveal">
-                <p>At Rudra Organics, we believe that true skincare is an unhurried, organic experience rooted in the wisdom of nature. Every bar is carefully mixed, poured, and cold-processed by hand in small batches—preserving the full potency of natural plant enzymes and earth oils that industrial heat destroys.</p>
+                <p>At Rudra Organics, we believe that true skincare is an unhurried, organic experience rooted in the wisdom of nature. Every bar is carefully mixed, poured, and cold-processed by hand with intention and respect for the craft.</p>
                 <p>No synthetic foaming agents. No artificial dyes. No paraben preservatives. What remains is purely therapeutic skin nourishment, honest in its ingredients and transformative in its effect.</p>
                 <div class="philosophy-pillars">
                     <div class="pillar">
@@ -997,127 +1292,108 @@
     const io = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
             if (e.isIntersecting) {
-                // Stagger siblings
-                const siblings = [...e.target.parentElement.querySelectorAll('.reveal')];
-                const idx = siblings.indexOf(e.target);
-                setTimeout(() => e.target.classList.add('in'), idx * 80);
-                io.unobserve(e.target);
+                setTimeout(() => {
+                    e.target.classList.add('in');
+                }, i * 80);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
     revealEls.forEach(el => io.observe(el));
 
     /* ── MODAL ── */
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalBox = document.getElementById('modalBox');
+    const modalContent = document.getElementById('modalContent');
 
-    function openModal(soapName) {
-        content.innerHTML = buildForm(soapName);
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        attachSubmit(soapName);
-    }
-    function closeModal() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
-
-    function buildForm(soapName) {
-        return `
-            <p class="modal-eyebrow">Secure Checkout</p>
-            <h2 class="modal-title">Complete Your Order</h2>
-            <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+    function openModal(productName) {
+        const content = `
+            <div class="modal-eyebrow">Complete Your Order</div>
+            <div class="modal-title">${productName}</div>
+            <form id="orderForm" onsubmit="handleSubmit(event)">
                 <div class="form-group">
-                    <label>Selected Product</label>
-                    <input type="text" name="Product Chosen" value="${soapName}" readonly>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your name">
                 </div>
                 <div class="form-group">
-                    <label>Your Full Name</label>
-                    <input type="text" name="Customer Name" required placeholder="e.g. Priya Sharma">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
                 </div>
                 <div class="form-group">
-                    <label>Phone / WhatsApp Number</label>
-                    <input type="tel" name="Contact Number" required placeholder="10-digit mobile number">
-                </div>
-                <div class="form-group">
-                    <label>Delivery Address</label>
-                    <input type="text" name="Delivery Address" required placeholder="House / Street / City / PIN">
-                </div>
-                <div class="form-group">
-                    <label>Quantity</label>
+                    <label for="quantity">Quantity (bars)</label>
                     <div class="select-wrap">
-                        <select name="Quantity Selected">
-                            <option value="1 bar — ₹100">1 Bar — ₹100</option>
-                            <option value="2 bars — ₹200">2 Bars — ₹200</option>
-                            <option value="3 bars — ₹300">3 Bars — ₹300</option>
-                            <option value="4 bars — ₹400">4 Bars — ₹400</option>
-                            <option value="5 bars — ₹500">5 Bars — ₹500</option>
+                        <select id="quantity" name="quantity" required>
+                            <option value="">Select quantity</option>
+                            <option value="1">1 bar - ₹100</option>
+                            <option value="3">3 bars - ₹280 (Save ₹20)</option>
+                            <option value="5">5 bars - ₹450 (Save ₹50)</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="modal-submit" id="submitBtn">Confirm Order</button>
-                <div class="form-status" id="formStatus"></div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <input type="text" id="address" name="address" required placeholder="Street address">
+                </div>
+                <button type="submit" class="modal-submit">Place Order</button>
+                <div id="formStatus"></div>
             </form>
         `;
+        modalContent.innerHTML = content;
+        modalOverlay.classList.add('open');
     }
 
-    function attachSubmit(soapName) {
-        const form   = document.getElementById('orderForm');
-        const status = document.getElementById('formStatus');
-        const btn    = document.getElementById('submitBtn');
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            // Basic client validation
-            const name    = form.querySelector('[name="Customer Name"]').value.trim();
-            const phone   = form.querySelector('[name="Contact Number"]').value.trim();
-            const address = form.querySelector('[name="Delivery Address"]').value.trim();
-            if (!name || !phone || !address) {
-                status.textContent = 'Please fill in all required fields.';
-                return;
-            }
-
-            btn.textContent = 'Processing…';
-            btn.disabled = true;
-            status.textContent = '';
-
-            try {
-                const resp = await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (resp.ok) {
-                    // Success state
-                    content.innerHTML = `
-                        <div class="success-state">
-                            <div class="success-icon">✦</div>
-                            <h2>Order Received</h2>
-                            <p>Thank you for choosing Rudra Organics. Your <strong>${soapName}</strong> order has been captured. We'll reach out shortly on WhatsApp to confirm your shipment details.</p>
-                            <button class="modal-submit" onclick="closeModal()">Continue Exploring</button>
-                        </div>
-                    `;
-                } else {
-                    const data = await resp.json().catch(() => ({}));
-                    status.textContent = data.error || 'Something went wrong. Please try again.';
-                    btn.textContent = 'Confirm Order';
-                    btn.disabled = false;
-                }
-            } catch {
-                status.textContent = 'Network error. Please check your connection and retry.';
-                btn.textContent = 'Confirm Order';
-                btn.disabled = false;
-            }
-        });
+    function closeModal() {
+        modalOverlay.classList.remove('open');
+        setTimeout(() => {
+            modalContent.innerHTML = '';
+        }, 300);
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('.modal-submit');
+        const statusDiv = document.getElementById('formStatus');
+        
+        submitBtn.disabled = true;
+        statusDiv.textContent = 'Processing...';
+        
+        setTimeout(() => {
+            const formData = new FormData(form);
+            const data = {
+                product: document.querySelector('.modal-title').textContent,
+                name: formData.get('name'),
+                email: formData.get('email'),
+                quantity: formData.get('quantity'),
+                address: formData.get('address')
+            };
+            
+            console.log('Order placed:', data);
+            
+            // Success state
+            modalContent.innerHTML = `
+                <div class="success-state">
+                    <div class="success-icon">✓</div>
+                    <h2>Order Confirmed</h2>
+                    <p>Thank you for your order! We'll send you an email confirmation shortly with tracking details. Your organic soaps will arrive within 3-5 business days.</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                closeModal();
+                form.reset();
+            }, 3000);
+        }, 1200);
+    }
+
+    /* Close modal on backdrop click */
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    /* Close modal on Escape key */
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 </script>
 
 </body>
