@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rudra Organics | Premium Handcrafted Soaps</title>
     <style>
-        /* Immersive Premium Styling */
+        /* Immersive Luxury Reset & Variables */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         :root {
-            --bg-dark: #121c13; /* Deep, luxurious forest green */
-            --card-bg: #1a261c; /* Muted olive-black for contrast */
-            --text-gold: #dfba73; /* Rich gold for accents */
-            --text-light: #f4f1de; /* Soft cream text */
-            --border-gold: rgba(223, 186, 115, 0.2);
+            --bg-premium: #faf6f0; /* Ultra-luxurious soft warm cream */
+            --card-bg: #ffffff;
+            --text-main: #2b2927; /* Rich dark charcoal */
+            --text-muted: #7a7571; /* Elegant warm gray */
+            --accent-gold: #c5a880; /* Muted satin gold */
+            --accent-olive: #4a5d4e; /* Deep sophisticated olive */
+            --border-subtle: #f0eae1;
             --font-serif: 'Playfair Display', Georgia, serif;
-            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         html {
@@ -26,73 +28,106 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-premium);
+            color: var(--text-main);
             font-family: var(--font-sans);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            transition: margin-left 0.4s ease;
         }
 
-        /* Fixed Elegant Sidebar */
+        /* Floating Sidebar Toggle Button */
+        .sidebar-toggle {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 0.75rem 1.2rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+        .sidebar-toggle:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-olive);
+        }
+
+        /* Elegant Collapsible Left Sidebar */
         .sidebar {
             width: 280px;
-            background-color: rgba(18, 28, 19, 0.95);
-            border-right: 1px solid var(--border-gold);
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-subtle);
             position: fixed;
             top: 0;
             bottom: 0;
-            left: 0;
+            left: -280px; /* Hidden by default */
             display: flex;
             flex-direction: column;
-            padding: 4rem 2rem;
-            z-index: 100;
+            padding: 6rem 2rem 4rem 2rem;
+            z-index: 150;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 5px 0 30px rgba(0,0,0,0.02);
         }
+        .sidebar.open {
+            left: 0; /* Slide in */
+        }
+        
         .logo {
             font-family: var(--font-serif);
             font-size: 1.8rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--text-gold);
+            color: var(--accent-olive);
             margin-bottom: 4rem;
             text-align: center;
+            font-weight: 400;
         }
         .nav-menu {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
         .nav-menu a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 2px;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1rem;
             transition: all 0.3s;
-            border-left: 2px solid transparent;
+            border-radius: 4px;
         }
         .nav-menu a:hover {
-            color: var(--text-gold);
-            border-left: 2px solid var(--text-gold);
-            background: rgba(223, 186, 115, 0.05);
+            color: var(--text-main);
+            background: var(--bg-premium);
+            padding-left: 1.5rem;
         }
 
-        /* Main Content Container */
+        /* Main Content Panel Shift */
         .main-content {
-            margin-left: 280px;
-            padding: 4rem 5%;
+            padding: 6rem 8% 4rem 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+        body.sidebar-active .main-content {
+            padding-left: 340px; /* Shifts main layout smoothly when desktop sidebar opens */
         }
 
-        /* Immersive Section Layouts */
+        /* Luxury Hero Presentation */
         .page-section {
-            min-height: 90vh;
+            min-height: 80vh;
             padding: 4rem 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-
-        /* Hero Screen */
         #home {
             text-align: center;
             max-width: 800px;
@@ -101,94 +136,123 @@
         #home h1 {
             font-family: var(--font-serif);
             font-size: 3.8rem;
-            color: var(--text-gold);
-            line-height: 1.2;
+            color: var(--text-main);
+            line-height: 1.25;
             margin-bottom: 2rem;
             font-weight: 400;
+            letter-spacing: -0.5px;
         }
         #home p {
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            color: #a3b19b;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-olive);
+            font-weight: 500;
         }
 
-        /* Product Grid */
+        /* Refined Premium Product Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem;
             margin-top: 2rem;
         }
         .product-card {
             background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid var(--border-gold);
+            padding: 2.5rem;
+            border: 1px solid var(--border-subtle);
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
         }
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(43, 41, 39, 0.05);
+            border-color: var(--accent-gold);
         }
         .product-image {
             width: 100%;
-            height: 320px;
+            height: 360px;
             object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(223, 186, 115, 0.1);
+            margin-bottom: 2rem;
+            filter: grayscale(10%);
+            transition: filter 0.3s ease;
+            background-color: #fcfbfa;
+        }
+        .product-card:hover .product-image {
+            filter: grayscale(0%);
         }
         .product-card h3 {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--text-gold);
+            font-size: 1.6rem;
+            color: var(--text-main);
             margin-bottom: 0.5rem;
+            font-weight: 400;
         }
         .soap-benefits {
-            color: #a3b19b;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            font-style: italic;
         }
         .price {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--text-gold);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 1.75rem;
+            color: var(--accent-olive);
+            letter-spacing: 0.5px;
         }
 
-        /* Elegant Button */
+        /* Couture CTA Buttons */
         .order-btn {
             display: inline-block;
-            background-color: var(--text-gold);
-            color: var(--bg-dark);
+            background-color: var(--text-main);
+            color: #ffffff;
             text-decoration: none;
-            padding: 0.9rem 2rem;
+            padding: 1rem 2rem;
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 500;
             border: none;
             width: 100%;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .order-btn:hover {
-            background-color: #fff;
+            background-color: var(--accent-olive);
         }
 
         /* Story Page Styling */
         .story-content {
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
             text-align: center;
         }
         .story-content h2 {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
-            color: var(--text-gold);
-            margin-bottom: 1.5rem;
+            font-size: 2.6rem;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        .story-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
         }
 
-        /* Elegant Checkout Modal */
+        /* Minimal Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 4rem;
+        }
+
+        /* Elegant Checkout Modal Overlay */
         .modal {
             display: none;
             position: fixed;
@@ -196,175 +260,184 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(43, 41, 39, 0.4);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
         .modal-content {
             background: var(--card-bg);
-            border: 1px solid var(--text-gold);
-            padding: 3rem;
-            max-width: 450px;
+            border: 1px solid var(--border-subtle);
+            padding: 3.5rem;
+            max-width: 480px;
             width: 90%;
             position: relative;
-            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
         }
         .close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            color: var(--text-gold);
-            font-size: 1.5rem;
+            top: 1.5rem;
+            right: 2rem;
+            color: var(--text-muted);
+            font-size: 1.8rem;
             cursor: pointer;
+            transition: color 0.2s;
         }
+        .close-btn:hover { color: var(--text-main); }
+        
         .modal h2 {
             font-family: var(--font-serif);
-            color: var(--text-gold);
-            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            font-size: 1.8rem;
         }
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             text-align: left;
         }
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            color: #a3b19b;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-gold);
-            color: white;
+            padding: 0.85rem;
+            background: var(--bg-premium);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
             font-family: inherit;
+            border-radius: 0;
+            transition: border-color 0.3s;
         }
-        .form-group input:focus {
-            outline: 1px solid var(--text-gold);
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
         }
 
-        /* Dynamic Status Messages inside modal */
         #formStatus {
             margin-top: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
         }
-        .success-msg { color: #81b29a; }
-        .error-msg { color: #e07a5f; }
+        .error-msg { color: #b85d43; }
 
-        /* Responsive Mobile Layout */
+        /* Responsive Mobile Ecosystem Override */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 2rem;
+            body.sidebar-active .main-content {
+                padding-left: 8%; /* Prevent desktop shift on tiny screens */
             }
-            .main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
-            #home h1 { font-size: 2.5rem; }
+            #home h1 { font-size: 2.6rem; }
+            .grid { gap: 2rem; }
+            .product-image { height: 300px; }
+            .modal-content { padding: 2.5rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Left Navigation Sidebar -->
-    <aside class="sidebar">
+    <!-- Dynamic Interface Menu Switcher -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">Menu ☰</button>
+
+    <!-- Collapsible Menu Panel -->
+    <aside class="sidebar" id="sidebarContainer">
         <div class="logo">Rudra Organics</div>
         <nav class="nav-menu">
-            <a href="#home">Home</a>
-            <a href="#collection">Shop Soaps</a>
-            <a href="#philosophy">Our Story</a>
+            <a href="#home" onclick="closeSidebarOnNav()">Home</a>
+            <a href="#collection" onclick="closeSidebarOnNav()">Shop Soaps</a>
+            <a href="#philosophy" onclick="closeSidebarOnNav()">Our Story</a>
         </nav>
     </aside>
 
-    <!-- Main Window Content -->
+    <!-- Main Fluid Layout -->
     <main class="main-content">
 
-        <!-- Section 1: Home -->
+        <!-- Home Intro View -->
         <section id="home" class="page-section">
-            <h1>Handcrafted organic soaps for mindful bath rituals.</h1>
-            <p>100% Organic • Chemical Free • Gentle Exfoliation</p>
+            <p>Handcrafted • 100% Organic • Chemical Free</p>
+            <h1 style="margin-top: 1rem;">Pure, cold-processed soaps created for natural skincare.</h1>
         </section>
 
-        <!-- Section 2: Storefront -->
+        <!-- Dynamic Visual Showcase -->
         <section id="collection" class="page-section">
             <div class="grid">
                 
                 <!-- Soap 1 -->
                 <div class="product-card">
-                    <img src="neem.jpeg" alt="Neem Soap" class="product-image">
+                    <img src="neem.jpeg" alt="Pure Neem Organic Soap" class="product-image">
                     <h3>Pure Neem</h3>
                     <p class="soap-benefits">Natural Cleanser & Antibacterial</p>
-                    <p class="price"> can ₹100</p>
+                    <p class="price">鳞 ₹100 / bar</p>
                     <button class="order-btn" onclick="openOrderModal('Pure Neem')">Place Order</button>
                 </div>
 
                 <!-- Soap 2 -->
                 <div class="product-card">
-                    <img src="rose.jpeg" alt="Rose Soap" class="product-image">
+                    <img src="rose.jpeg" alt="Wild Rose Organic Soap" class="product-image">
                     <h3>Wild Rose</h3>
                     <p class="soap-benefits">Hydrating & Gentle Fragrance</p>
-                    <p class="price">₹100</p>
+                    <p class="price">鳞 ₹100 / bar</p>
                     <button class="order-btn" onclick="openOrderModal('Wild Rose')">Place Order</button>
                 </div>
 
                 <!-- Soap 3 -->
                 <div class="product-card">
-                    <img src="dtan.jpeg" alt="D-Tan Soap" class="product-image">
+                    <img src="dtan.jpeg" alt="D-Tan Organic Soap" class="product-image">
                     <h3>D-Tan Cleansing</h3>
-                    <p class="soap-benefits">Brightening & Sun Repair</p>
-                    <p class="price">₹100</p>
+                    <p class="soap-benefits">Brightening & Sun-Damage Repair</p>
+                    <p class="price">鳞 ₹100 / bar</p>
                     <button class="order-btn" onclick="openOrderModal('D-Tan Cleansing')">Place Order</button>
                 </div>
 
                 <!-- Soap 4 -->
                 <div class="product-card">
-                    <img src="multani.jpeg" alt="Multani Mitti Soap" class="product-image">
+                    <img src="multani.jpeg" alt="Multani Mitti Organic Soap" class="product-image">
                     <h3>Multani Mitti</h3>
-                    <p class="soap-benefits">Deep Oil Control & Glow</p>
-                    <p class="price">₹100</p>
+                    <p class="soap-benefits">Deep Oil Control & Glowing Skin</p>
+                    <p class="price">鳞 ₹100 / bar</p>
                     <button class="order-btn" onclick="openOrderModal('Multani Mitti')">Place Order</button>
                 </div>
 
                 <!-- Soap 5 -->
                 <div class="product-card">
-                    <img src="lemon.jpeg" alt="Lemon Soap" class="product-image">
+                    <img src="lemon.jpeg" alt="Lemon Organic Soap" class="product-image">
                     <h3>Refreshing Lemon</h3>
-                    <p class="soap-benefits">Detoxifying & Citrus Glow</p>
-                    <p class="price">₹100</p>
+                    <p class="soap-benefits">Detoxifying & Fresh Citrus Glow</p>
+                    <p class="price">鳞 ₹100 / bar</p>
                     <button class="order-btn" onclick="openOrderModal('Refreshing Lemon')">Place Order</button>
                 </div>
 
             </div>
         </section>
 
-        <!-- Section 3: Philosophy -->
+        <!-- Immersive Story Section -->
         <section id="philosophy" class="page-section">
             <div class="story-content">
                 <h2>Our Philosophy</h2>
-                <p>At Rudra Organics, we believe that true skincare is an ancient, organic experience. Every single bar is carefully mixed, poured, and cold-processed by hand in small batches to preserve natural plant enzymes and earth oils. No synthetic foaming chemicals, artificial toxins, or paraben preservatives. Purely therapeutic.</p>
+                <p>At Rudra Organics, we believe that true skincare is an ancient, organic experience. Every single bar is carefully mixed, poured, and cold-processed by hand in small batches to preserve natural plant enzymes and earth oils. No synthetic foaming chemicals, artificial toxins, or paraben preservatives. Purely therapeutic skin nourishment.</p>
             </div>
         </section>
 
+        <footer>
+            <p>&copy; 2026 Rudra Organics. All rights reserved.</p>
+        </footer>
+
     </main>
 
-    <!-- POPUP CHECKOUT BOX (Seamless Order Screen) -->
+    <!-- INVISIBLE DRAWER OVERLAY FOR CHECKOUT -->
     <div id="orderModal" class="modal">
         <div class="modal-content" id="modalBox">
             <span class="close-btn" onclick="closeOrderModal()">&times;</span>
             
-            <!-- THE CONTAINER INSIDE WHICH THE ENTIRE EXPERIENCE LIVES -->
             <div id="formContainer">
                 <h2>Complete Your Order</h2>
                 
-                <!-- BACKGROUND SCRIPT TARGETS THIS FORM ID -->
                 <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                     <div class="form-group">
                         <label>Selected Product</label>
@@ -379,7 +452,7 @@
                         <input type="tel" name="Contact Number" required placeholder="Enter phone number">
                     </div>
                     <div class="form-group">
-                        <label>Shipping Address</label>
+                        <label>Shipping Delivery Address</label>
                         <input type="text" name="Delivery Address" required placeholder="Complete delivery address">
                     </div>
                     <div class="form-group">
@@ -398,10 +471,25 @@
         </div>
     </div>
 
-    <!-- Scripting Operations for Seamless Interactivity -->
+    <!-- Interface Animation Script Engine -->
     <script>
+        // SIDEBAR VISIBILITY ENGINE
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarContainer');
+            sidebar.classList.toggle('open');
+            document.body.classList.toggle('sidebar-active');
+        }
+
+        function closeSidebarOnNav() {
+            const sidebar = document.getElementById('sidebarContainer');
+            if(sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                document.body.classList.remove('sidebar-active');
+            }
+        }
+
+        // CHECKOUT BOX OPERATIONS
         function openOrderModal(soapName) {
-            // Reset the form structure if it was filled before
             document.getElementById('formContainer').innerHTML = `
                 <h2>Complete Your Order</h2>
                 <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
@@ -418,7 +506,7 @@
                         <input type="tel" name="Contact Number" required placeholder="Enter phone number">
                     </div>
                     <div class="form-group">
-                        <label>Shipping Address</label>
+                        <label>Shipping Delivery Address</label>
                         <input type="text" name="Delivery Address" required placeholder="Complete delivery address">
                     </div>
                     <div class="form-group">
@@ -435,7 +523,6 @@
                 </form>
             `;
             
-            // Set the clicked soap name and attach the background dynamic sender
             document.getElementById('selectedSoap').value = soapName;
             attachFormHandler();
             document.getElementById('orderModal').style.display = 'flex';
@@ -452,14 +539,14 @@
             }
         }
 
-        // BACKGROUND AJAX ENGINE (Stops redirect, captures data invisibly)
+        // SEAMLESS CAPTURE CONTROLLER
         function attachFormHandler() {
             const form = document.getElementById('orderForm');
             const status = document.getElementById('formStatus');
             const btn = document.getElementById('submitBtn');
 
             form.addEventListener('submit', function(ev) {
-                ev.preventDefault(); // STOP THE BROWSER REDIRECT
+                ev.preventDefault();
                 btn.innerText = "PROCESSING...";
                 btn.disabled = true;
 
@@ -471,10 +558,9 @@
                     headers: { 'Accept': 'application/json' }
                 }).then(response => {
                     if (response.ok) {
-                        // Dynamically swap the container text to an elegant Thank You screen without leaving the page!
                         document.getElementById('formContainer').innerHTML = `
-                            <h2 style="color: var(--text-gold); margin-bottom: 1rem;">Order Received</h2>
-                            <p style="color: var(--text-light); font-size: 1.05rem; margin-bottom: 2rem;">Thank you for choosing Rudra Organics. We have received your delivery request and will contact you shortly on WhatsApp to confirm shipping details.</p>
+                            <h2 style="color: var(--accent-olive); margin-bottom: 1rem;">Order Received</h2>
+                            <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.7;">Thank you for choosing Rudra Organics. We have safely captured your request and will contact you shortly on WhatsApp to coordinate your premium package shipping details.</p>
                             <button class="order-btn" onclick="closeOrderModal()">Continue Exploring</button>
                         `;
                     } else {
@@ -485,7 +571,7 @@
                         });
                     }
                 }).catch(error => {
-                    status.innerHTML = `<span class="error-msg">Oops! There was a connection issue. Try again.</span>`;
+                    status.innerHTML = `<span class="error-msg">Oops! There was a network issue. Please try again.</span>`;
                     btn.innerText = "CONFIRM ORDER";
                     btn.disabled = false;
                 });
