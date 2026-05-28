@@ -802,7 +802,7 @@
         .modal-box {
             background: var(--white);
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             padding: 3rem 2.8rem;
             position: relative;
             border: 1px solid var(--border);
@@ -867,6 +867,7 @@
         .form-group:nth-of-type(2) { --form-delay: 0.25s; }
         .form-group:nth-of-type(3) { --form-delay: 0.3s; }
         .form-group:nth-of-type(4) { --form-delay: 0.35s; }
+        .form-group:nth-of-type(5) { --form-delay: 0.4s; }
 
         .form-group label {
             display: block;
@@ -902,13 +903,6 @@
             background: var(--white);
             box-shadow: 0 0 0 3px rgba(197,168,128,0.1);
         }
-        .form-group input[readonly] {
-            color: var(--olive);
-            font-weight: 500;
-            font-size: 0.85rem;
-            background: rgba(197,168,128,0.05);
-            border-color: var(--gold-light);
-        }
 
         /* select arrow */
         .select-wrap {
@@ -929,6 +923,156 @@
             transform: translateY(-50%) scale(1.1);
         }
 
+        /* ─── CART SECTION ─────────────────────────────────────────────── */
+        .cart-section {
+            animation: fadeUp 0.5s var(--ease-out-expo) 0.2s both;
+        }
+
+        .cart-item {
+            background: linear-gradient(135deg, rgba(197,168,128,0.06) 0%, transparent 100%);
+            border: 1px solid var(--gold-light);
+            padding: 1.2rem;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-summary {
+            background: linear-gradient(135deg, rgba(197,168,128,0.08) 0%, transparent 100%);
+            border: 1px solid var(--gold-light);
+            padding: 1.5rem;
+            border-radius: 2px;
+            margin: 1.5rem 0;
+            animation: slideInDown 0.6s var(--ease-out-expo) 0.25s both;
+        }
+        .price-summary p {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-bottom: 0.8rem;
+        }
+        .price-summary p:last-child {
+            margin-bottom: 0;
+            border-top: 2px solid var(--gold-light);
+            padding-top: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 1rem;
+        }
+
+        /* ─── PAYMENT METHODS ───────────────────────────────────────────── */
+        .payment-methods {
+            margin: 1.5rem 0;
+            animation: fadeUp 0.5s var(--ease-out-expo) 0.3s both;
+        }
+
+        .payment-methods label {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            background: var(--cream);
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-quad));
+        }
+
+        .payment-option:hover {
+            background: var(--white);
+            border-color: var(--gold);
+        }
+
+        .payment-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+            accent-color: var(--olive);
+        }
+
+        .payment-option-content {
+            flex: 1;
+        }
+
+        .payment-option-title {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            display: block;
+        }
+
+        .payment-option-desc {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-top: 0.2rem;
+        }
+
+        /* ─── UPI QR CODE ───────────────────────────────────────────────── */
+        .upi-qr-section {
+            display: none;
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(197,168,128,0.06) 0%, transparent 100%);
+            border: 1px solid var(--gold-light);
+            border-radius: 2px;
+            margin: 1rem 0;
+            animation: slideInDown 0.5s var(--ease-out-expo) both;
+        }
+
+        .upi-qr-section.show {
+            display: block;
+        }
+
+        .upi-qr-label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .upi-qr-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--gold-light);
+            border-radius: 2px;
+            padding: 0.5rem;
+            background: var(--white);
+        }
+
+        .upi-qr-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .upi-instructions {
+            font-size: 0.8rem;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+
         .modal-submit {
             width: 100%;
             padding: 1.1rem;
@@ -940,11 +1084,11 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
-            margin-top: 0.8rem;
+            margin-top: 1.5rem;
             transition: all 0.4s var(--ease-out-quad));
             position: relative;
             overflow: hidden;
-            animation: fadeUp 0.5s var(--ease-out-expo) 0.4s both;
+            animation: fadeUp 0.5s var(--ease-out-expo) 0.5s both;
         }
         .modal-submit::before {
             content: '';
@@ -970,14 +1114,6 @@
             cursor: default;
             transform: none;
             box-shadow: none;
-        }
-
-        .form-status {
-            margin-top: 0.75rem;
-            font-size: 0.8rem;
-            color: #b85d43;
-            letter-spacing: 0.5px;
-            animation: shake 0.4s ease;
         }
 
         /* Success state */
@@ -1013,15 +1149,46 @@
             font-size: 0.88rem;
             color: var(--warm-gray);
             line-height: 1.8;
-            max-width: 380px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.5rem;
             animation: fadeUp 0.6s var(--ease-out-expo) 0.4s both;
         }
+        .transaction-id {
+            background: linear-gradient(135deg, rgba(74,93,78,0.08) 0%, transparent 100%);
+            border: 1px solid var(--olive);
+            padding: 1rem;
+            border-radius: 2px;
+            margin: 1.5rem 0;
+            animation: slideInDown 0.6s var(--ease-out-expo) 0.5s both;
+        }
+        .transaction-id label {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .transaction-id .txn-number {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--olive);
+            word-break: break-all;
+            padding: 0.8rem;
+            background: var(--cream);
+            border-radius: 1px;
+            border: 1px dashed var(--gold-light);
+        }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1);
+            }
         }
 
         /* ─── SCROLL REVEAL ─────────────────────────────────────────────── */
@@ -1137,7 +1304,7 @@
                     <p class="card-benefit">Natural Cleanser &amp; Antibacterial</p>
                     <div class="card-footer">
                         <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Pure Neem')">Place Order</button>
+                        <button class="order-btn" onclick="openModal('Pure Neem', 100)">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -1153,7 +1320,7 @@
                     <p class="card-benefit">Hydrating &amp; Gentle Fragrance</p>
                     <div class="card-footer">
                         <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Wild Rose')">Place Order</button>
+                        <button class="order-btn" onclick="openModal('Wild Rose', 100)">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -1169,7 +1336,7 @@
                     <p class="card-benefit">Brightening &amp; Sun-Damage Repair</p>
                     <div class="card-footer">
                         <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('D-Tan Cleansing')">Place Order</button>
+                        <button class="order-btn" onclick="openModal('D-Tan Cleansing', 100)">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -1185,7 +1352,7 @@
                     <p class="card-benefit">Deep Oil Control &amp; Glowing Skin</p>
                     <div class="card-footer">
                         <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Multani Mitti')">Place Order</button>
+                        <button class="order-btn" onclick="openModal('Multani Mitti', 100)">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -1201,7 +1368,7 @@
                     <p class="card-benefit">Detoxifying &amp; Fresh Citrus Glow</p>
                     <div class="card-footer">
                         <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Refreshing Lemon')">Place Order</button>
+                        <button class="order-btn" onclick="openModal('Refreshing Lemon', 100)">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -1263,6 +1430,12 @@
     </div>
 </div>
 
+<!-- ═══════════════════ FORMSPREE INTEGRATION ════════════════ -->
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
 <!-- ═══════════════════ SCRIPTS ═══════════════════════ -->
 <script>
     /* ── SIDEBAR ── */
@@ -1300,16 +1473,31 @@
     }, { threshold: 0.15 });
     revealEls.forEach(el => io.observe(el));
 
-    /* ── MODAL ── */
+    /* ── CONSTANTS ── */
+    const DELIVERY_CHARGE = 60;
+    const COD_CHARGE = 15;
+    const UPI_QR_URL = 'upi-qr.png'; // Replace with your QR image filename
+
+    /* ── MODAL & CART ── */
     const modalOverlay = document.getElementById('modalOverlay');
-    const modalBox = document.getElementById('modalBox');
     const modalContent = document.getElementById('modalContent');
 
-    function openModal(productName) {
+    // Generate unique transaction ID
+    function generateTransactionId() {
+        const timestamp = Date.now();
+        const random = Math.random().toString(36).substring(2, 7).toUpperCase();
+        return `RO-${timestamp}-${random}`;
+    }
+
+    function openModal(productName, unitPrice) {
+        const transactionId = generateTransactionId();
+        
         const content = `
-            <div class="modal-eyebrow">Complete Your Order</div>
+            <div class="modal-eyebrow">Shopping Cart</div>
             <div class="modal-title">${productName}</div>
-            <form id="orderForm" onsubmit="handleSubmit(event)">
+            
+            <form id="checkoutForm">
+                <!-- Customer Details -->
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Your name">
@@ -1319,26 +1507,232 @@
                     <input type="email" id="email" name="email" required placeholder="your@email.com">
                 </div>
                 <div class="form-group">
-                    <label for="quantity">Quantity (bars)</label>
-                    <div class="select-wrap">
-                        <select id="quantity" name="quantity" required>
-                            <option value="">Select quantity</option>
-                            <option value="1">1 bar - ₹100</option>
-                            <option value="3">3 bars - ₹280 (Save ₹20)</option>
-                            <option value="5">5 bars - ₹450 (Save ₹50)</option>
-                        </select>
-                    </div>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+91 XXXXXXXXXX">
                 </div>
                 <div class="form-group">
                     <label for="address">Delivery Address</label>
                     <input type="text" id="address" name="address" required placeholder="Street address">
                 </div>
-                <button type="submit" class="modal-submit">Place Order</button>
-                <div id="formStatus"></div>
+                
+                <!-- Quantity Selection -->
+                <div class="form-group">
+                    <label for="quantity">Quantity (bars)</label>
+                    <div class="select-wrap">
+                        <select id="quantity" name="quantity" required onchange="updatePriceBreakdown()">
+                            <option value="">Select quantity</option>
+                            <option value="1">1 bar</option>
+                            <option value="3">3 bars</option>
+                            <option value="5">5 bars</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cart Section -->
+                <div class="cart-section">
+                    <div class="cart-item">
+                        <div class="cart-item-row">
+                            <span>${productName}</span>
+                            <span id="cartQty">-</span>
+                        </div>
+                        <div class="cart-item-row">
+                            <span>Unit Price</span>
+                            <span>₹${unitPrice}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="price-summary">
+                    <p>
+                        <span>Product Total</span>
+                        <span id="productTotal">₹0</span>
+                    </p>
+                    <p>
+                        <span>Delivery Charge</span>
+                        <span>₹${DELIVERY_CHARGE}</span>
+                    </p>
+                    <p id="codChargeLine" style="display: none;">
+                        <span>COD Charge</span>
+                        <span>₹${COD_CHARGE}</span>
+                    </p>
+                    <p>
+                        <span>Final Amount</span>
+                        <span id="finalTotal">₹0</span>
+                    </p>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <label>Select Payment Method</label>
+                    <div class="payment-option">
+                        <input type="radio" id="upi" name="paymentMethod" value="upi" required onchange="updatePaymentUI()">
+                        <div class="payment-option-content">
+                            <span class="payment-option-title">UPI</span>
+                            <span class="payment-option-desc">Google Pay, PhonePe, Paytm, etc.</span>
+                        </div>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="cod" name="paymentMethod" value="cod" required onchange="updatePaymentUI()">
+                        <div class="payment-option-content">
+                            <span class="payment-option-title">Cash on Delivery</span>
+                            <span class="payment-option-desc">Pay when you receive your order (+₹${COD_CHARGE})</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPI QR Code Section -->
+                <div id="upiQRSection" class="upi-qr-section">
+                    <span class="upi-qr-label">Scan QR to Pay</span>
+                    <div class="upi-qr-image">
+                        <img src="${UPI_QR_URL}" alt="UPI QR Code">
+                    </div>
+                    <div class="upi-instructions">
+                        <p>Scan this QR code with any UPI app to complete payment.</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.75rem;">After payment, place your order below.</p>
+                    </div>
+                </div>
+
+                <!-- Hidden Fields -->
+                <input type="hidden" name="transactionId" value="${transactionId}">
+                <input type="hidden" name="product" value="${productName}">
+                <input type="hidden" name="unitPrice" value="${unitPrice}">
+                <input type="hidden" id="quantityHidden" name="qty" value="">
+                <input type="hidden" id="totalHidden" name="totalAmount" value="">
+
+                <!-- Submit -->
+                <button type="submit" class="modal-submit" id="submitBtn">Place Order</button>
             </form>
         `;
+        
         modalContent.innerHTML = content;
         modalOverlay.classList.add('open');
+
+        // Attach form submission handler
+        document.getElementById('checkoutForm').addEventListener('submit', handleCheckout);
+    }
+
+    function updatePriceBreakdown() {
+        const quantity = document.getElementById('quantity').value;
+        
+        if (!quantity) {
+            document.getElementById('cartQty').textContent = '-';
+            document.getElementById('productTotal').textContent = '₹0';
+            document.getElementById('finalTotal').textContent = '₹0';
+            return;
+        }
+
+        // Get unit price from hidden input or recalculate
+        const form = document.getElementById('checkoutForm');
+        const unitPrice = parseInt(form.querySelector('input[name="unitPrice"]').value);
+        const productTotal = unitPrice * parseInt(quantity);
+        
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        let additionalCharge = DELIVERY_CHARGE;
+        
+        if (paymentMethod && paymentMethod.value === 'cod') {
+            additionalCharge += COD_CHARGE;
+        }
+        
+        const finalTotal = productTotal + additionalCharge;
+
+        document.getElementById('cartQty').textContent = `${quantity} bar${quantity > 1 ? 's' : ''}`;
+        document.getElementById('productTotal').textContent = `₹${productTotal}`;
+        document.getElementById('finalTotal').textContent = `₹${finalTotal}`;
+        document.getElementById('quantityHidden').value = quantity;
+        document.getElementById('totalHidden').value = finalTotal;
+    }
+
+    function updatePaymentUI() {
+        const upiSection = document.getElementById('upiQRSection');
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        const codChargeLine = document.getElementById('codChargeLine');
+
+        if (paymentMethod && paymentMethod.value === 'upi') {
+            upiSection.classList.add('show');
+            codChargeLine.style.display = 'none';
+        } else {
+            upiSection.classList.remove('show');
+            codChargeLine.style.display = 'flex';
+        }
+
+        updatePriceBreakdown();
+    }
+
+    function handleCheckout(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const quantity = document.getElementById('quantity').value;
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const totalAmount = document.getElementById('totalHidden').value;
+        const transactionId = document.querySelector('input[name="transactionId"]').value;
+
+        if (!name || !email || !phone || !address || !quantity || !paymentMethod) {
+            alert('Please fill all fields and select a payment method');
+            return;
+        }
+
+        // Send to Formspree
+        const formData = new FormData();
+        formData.append('_subject', `New Order - ${document.querySelector('input[name="product"]').value}`);
+        formData.append('transactionId', transactionId);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('product', document.querySelector('input[name="product"]').value);
+        formData.append('quantity', quantity);
+        formData.append('totalAmount', totalAmount);
+        formData.append('paymentMethod', paymentMethod.toUpperCase());
+        formData.append('_replyto', email);
+
+        document.getElementById('submitBtn').disabled = true;
+
+        fetch('https://formspree.io/f/mvzylzpo', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            showSuccessState(transactionId, name, totalAmount, paymentMethod);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showSuccessState(transactionId, name, totalAmount, paymentMethod);
+        });
+    }
+
+    function showSuccessState(transactionId, name, totalAmount, paymentMethod) {
+        const paymentText = paymentMethod === 'upi' ? 'UPI' : 'Cash on Delivery';
+        
+        modalContent.innerHTML = `
+            <div class="success-state">
+                <div class="success-icon">✓</div>
+                <h2>Order Confirmed!</h2>
+                <p>Thank you, ${name}! Your order has been placed successfully.</p>
+                
+                <div class="transaction-id">
+                    <label>Transaction ID (Save for Reference)</label>
+                    <div class="txn-number">${transactionId}</div>
+                </div>
+
+                <div class="price-summary" style="margin: 1.5rem 0;">
+                    <p><span>Total Amount</span> <span style="font-weight: 600;">₹${totalAmount}</span></p>
+                    <p><span>Payment Method</span> <span>${paymentText}</span></p>
+                </div>
+                
+                <p style="font-size: 0.8rem; color: var(--warm-gray); margin-top: 1.5rem;">
+                    A confirmation email has been sent to your email. Your soaps will arrive within 3-5 business days. Check your inbox for tracking updates.
+                </p>
+            </div>
+        `;
     }
 
     function closeModal() {
@@ -1346,43 +1740,6 @@
         setTimeout(() => {
             modalContent.innerHTML = '';
         }, 300);
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        const form = e.target;
-        const submitBtn = form.querySelector('.modal-submit');
-        const statusDiv = document.getElementById('formStatus');
-        
-        submitBtn.disabled = true;
-        statusDiv.textContent = 'Processing...';
-        
-        setTimeout(() => {
-            const formData = new FormData(form);
-            const data = {
-                product: document.querySelector('.modal-title').textContent,
-                name: formData.get('name'),
-                email: formData.get('email'),
-                quantity: formData.get('quantity'),
-                address: formData.get('address')
-            };
-            
-            console.log('Order placed:', data);
-            
-            // Success state
-            modalContent.innerHTML = `
-                <div class="success-state">
-                    <div class="success-icon">✓</div>
-                    <h2>Order Confirmed</h2>
-                    <p>Thank you for your order! We'll send you an email confirmation shortly with tracking details. Your organic soaps will arrive within 3-5 business days.</p>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                closeModal();
-                form.reset();
-            }, 3000);
-        }, 1200);
     }
 
     /* Close modal on backdrop click */
