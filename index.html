@@ -52,7 +52,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23faf6f0' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='256' height='256' fill='%23faf6f0' /%3E%3Crect width='256' height='256' fill='%23000' filter='url(%23noise)' opacity='0.08' /%3E%3C/svg%3E");
             opacity: 0.025;
             pointer-events: none;
             z-index: 9999;
@@ -694,7 +694,7 @@
             padding: 1.5rem;
             background: linear-gradient(135deg, rgba(197,168,128,0.06) 0%, transparent 100%);
             border-left: 2px solid var(--gold-light);
-            transition: all 0.4s var(--ease-out-quad));
+            transition: all 0.4s var(--ease-out-quad);
             animation: slideInLeft 0.7s var(--ease-out-expo) var(--pillar-delay, 0s) both;
         }
         .pillar:nth-child(1) { --pillar-delay: 0.4s; }
@@ -742,6 +742,152 @@
             margin-bottom: 0.3rem;
         }
 
+        /* ─── CONTACT FORM ──────────────────────────────────────────────── */
+        #contact {
+            padding: 8rem 5% 8rem;
+            position: relative;
+            background: linear-gradient(180deg, transparent 0%, rgba(197,168,128,0.02) 100%);
+        }
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+            opacity: 0.5;
+        }
+
+        .contact-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .contact-subtitle {
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+            line-height: 1.65;
+            margin-top: 1.5rem;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.3s both;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.4s both;
+        }
+
+        .contact-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            padding: 1rem;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            color: var(--charcoal);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 300;
+            border-radius: 2px;
+            outline: none;
+            transition: all 0.3s var(--ease-out-quad);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 140px;
+            font-family: var(--sans);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(197,168,128,0.1);
+        }
+
+        /* select arrow */
+        .select-wrap {
+            position: relative;
+        }
+        .select-wrap::after {
+            content: '↓';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 0.85rem;
+            pointer-events: none;
+            transition: transform 0.3s var(--ease-out-quad);
+        }
+        .select-wrap:hover::after {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--charcoal);
+            cursor: pointer;
+            transition: all 0.5s var(--ease-out-quad);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            font-family: var(--sans);
+            font-weight: 400;
+            margin-top: 1rem;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--olive);
+            transform: translateX(-100%);
+            transition: transform 0.5s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .submit-btn:hover {
+            color: var(--cream);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(74,93,78,0.2);
+        }
+
+        .submit-btn:hover::before {
+            transform: translateX(0);
+        }
+
         /* ─── FOOTER ────────────────────────────────────────────────────── */
         footer {
             border-top: 1px solid var(--border);
@@ -761,7 +907,7 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--olive);
-            transition: color 0.3s var(--ease-out-quad));
+            transition: color 0.3s var(--ease-out-quad);
         }
         .footer-logo:hover {
             color: var(--gold);
@@ -782,7 +928,7 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 600;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
@@ -791,6 +937,7 @@
             transition: opacity 0.5s var(--ease-out-quad);
         }
         .modal-overlay.open {
+            display: flex;
             opacity: 1;
             pointer-events: all;
         }
@@ -827,7 +974,7 @@
             color: var(--warm-gray);
             cursor: pointer;
             line-height: 1;
-            transition: all 0.3s var(--ease-out-quad));
+            transition: all 0.3s var(--ease-out-quad);
             padding: 0.3rem;
             width: 32px;
             height: 32px;
@@ -890,7 +1037,7 @@
             font-weight: 300;
             border-radius: 2px;
             outline: none;
-            transition: all 0.3s var(--ease-out-quad));
+            transition: all 0.3s var(--ease-out-quad);
             -webkit-appearance: none;
             appearance: none;
         }
@@ -902,25 +1049,6 @@
             border-color: var(--gold);
             background: var(--white);
             box-shadow: 0 0 0 3px rgba(197,168,128,0.1);
-        }
-
-        /* select arrow */
-        .select-wrap {
-            position: relative;
-        }
-        .select-wrap::after {
-            content: '↓';
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gold);
-            font-size: 0.85rem;
-            pointer-events: none;
-            transition: transform 0.3s var(--ease-out-quad));
-        }
-        .select-wrap:hover::after {
-            transform: translateY(-50%) scale(1.1);
         }
 
         /* ─── CART SECTION ─────────────────────────────────────────────── */
@@ -992,766 +1120,282 @@
             border-radius: 2px;
             margin-bottom: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s var(--ease-out-quad));
+            transition: all 0.3s var(--ease-out-quad);
         }
 
         .payment-option:hover {
             background: var(--white);
             border-color: var(--gold);
         }
-
-        .payment-option input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 1rem;
-            cursor: pointer;
-            accent-color: var(--olive);
-        }
-
-        .payment-option-content {
-            flex: 1;
-        }
-
-        .payment-option-title {
-            font-family: var(--serif);
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--charcoal);
-            display: block;
-        }
-
-        .payment-option-desc {
-            font-size: 0.75rem;
-            color: var(--gold);
-            margin-top: 0.2rem;
-        }
-
-        /* ─── UPI QR CODE ───────────────────────────────────────────────── */
-        .upi-qr-section {
-            display: none;
-            text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(197,168,128,0.06) 0%, transparent 100%);
-            border: 1px solid var(--gold-light);
-            border-radius: 2px;
-            margin: 1rem 0;
-            animation: slideInDown 0.5s var(--ease-out-expo) both;
-        }
-
-        .upi-qr-section.show {
-            display: block;
-        }
-
-        .upi-qr-label {
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .upi-qr-image {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 1rem;
-            border: 2px solid var(--gold-light);
-            border-radius: 2px;
-            padding: 0.5rem;
-            background: var(--white);
-        }
-
-        .upi-qr-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .upi-instructions {
-            font-size: 0.8rem;
-            color: var(--warm-gray);
-            line-height: 1.6;
-        }
-
-        .modal-submit {
-            width: 100%;
-            padding: 1.1rem;
-            background: var(--charcoal);
-            color: var(--cream);
-            border: 1px solid var(--charcoal);
-            font-family: var(--sans);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            transition: all 0.4s var(--ease-out-quad));
-            position: relative;
-            overflow: hidden;
-            animation: fadeUp 0.5s var(--ease-out-expo) 0.5s both;
-        }
-        .modal-submit::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--olive);
-            transform: translateX(-100%);
-            transition: transform 0.5s var(--ease-out-expo);
-            z-index: -1;
-        }
-        .modal-submit:hover {
-            color: var(--cream);
-            border-color: var(--olive);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(74,93,78,0.2);
-        }
-        .modal-submit:hover::before {
-            transform: translateX(0);
-        }
-        .modal-submit:disabled {
-            background: var(--warm-gray);
-            border-color: var(--warm-gray);
-            cursor: default;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Success state */
-        .success-state {
-            text-align: center;
-            padding: 1.5rem 0;
-            animation: fadeIn 0.6s var(--ease-out-expo) 0.1s both;
-        }
-        .success-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.8rem;
-            font-size: 1.3rem;
-            color: var(--olive);
-            box-shadow: 0 0 16px rgba(197,168,128,0.2);
-            animation: scaleIn 0.6s var(--ease-out-expo) 0.2s both;
-        }
-        .success-state h2 {
-            font-family: var(--serif);
-            font-size: 2rem;
-            font-weight: 400;
-            color: var(--olive);
-            margin-bottom: 1.2rem;
-            line-height: 1.2;
-            animation: fadeUp 0.6s var(--ease-out-expo) 0.3s both;
-        }
-        .success-state p {
-            font-size: 0.88rem;
-            color: var(--warm-gray);
-            line-height: 1.8;
-            margin: 0 auto 1.5rem;
-            animation: fadeUp 0.6s var(--ease-out-expo) 0.4s both;
-        }
-        .transaction-id {
-            background: linear-gradient(135deg, rgba(74,93,78,0.08) 0%, transparent 100%);
-            border: 1px solid var(--olive);
-            padding: 1rem;
-            border-radius: 2px;
-            margin: 1.5rem 0;
-            animation: slideInDown 0.6s var(--ease-out-expo) 0.5s both;
-        }
-        .transaction-id label {
-            display: block;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-        }
-        .transaction-id .txn-number {
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--olive);
-            word-break: break-all;
-            padding: 0.8rem;
-            background: var(--cream);
-            border-radius: 1px;
-            border: 1px dashed var(--gold-light);
-        }
-
-        @keyframes scaleIn {
-            from { 
-                opacity: 0; 
-                transform: scale(0.8);
-            }
-            to { 
-                opacity: 1; 
-                transform: scale(1);
-            }
-        }
-
-        /* ─── SCROLL REVEAL ─────────────────────────────────────────────── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.8s var(--ease-out-quad), 
-                        transform 0.8s var(--ease-out-expo);
-        }
-        .reveal.in { 
-            opacity: 1; 
-            transform: none; 
-        }
-
-        /* ─── RESPONSIVE ────────────────────────────────────────────────── */
-        @media (max-width: 900px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-            .product-card:nth-child(4),
-            .product-card:nth-child(5) {
-                grid-column: auto;
-            }
-            .philosophy-inner {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            .hero-headline { font-size: 2.2rem; }
-            footer { 
-                flex-direction: column; 
-                text-align: center;
-                padding: 3rem 5%;
-            }
-            .modal-box { 
-                padding: 2.5rem 1.8rem; 
-                max-width: 90vw;
-            }
-            .menu-toggle {
-                padding: 0.5rem 0.9rem;
-                font-size: 0.65rem;
-            }
-        }
     </style>
 </head>
 <body>
-
-<!-- ═══════════════════ MENU TOGGLE ═══════════════════ -->
-<button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-    <div class="hamburger-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <span class="toggle-label">Menu</span>
-</button>
-
-<!-- ═══════════════════ SIDEBAR ═══════════════════════ -->
-<div class="sidebar-backdrop" id="backdrop"></div>
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">Rudra Organics</div>
-    <div class="sidebar-tagline">Pure · Organic · Handcrafted</div>
-    <div class="sidebar-divider"></div>
-    <nav class="sidebar-nav">
-        <a href="#home"       onclick="closeSidebar()">Home</a>
-        <a href="#collection" onclick="closeSidebar()">Shop Soaps</a>
-        <a href="#philosophy" onclick="closeSidebar()">Our Story</a>
-    </nav>
-    <div class="sidebar-footer">© 2026 Rudra Organics</div>
-</aside>
-
-<!-- ═══════════════════ MAIN ══════════════════════════ -->
-<main class="main">
-
-    <!-- HERO -->
-    <section id="home">
-        <div style="position:relative;z-index:1;text-align:center;">
-            <p class="hero-eyebrow">Handcrafted · 100% Organic · Chemical Free</p>
-            <h1 class="hero-headline">
-                Soaps born from<br>
-                <em>earth, ritual</em><br>
-                &amp; quiet luxury.
-            </h1>
-            <p class="hero-sub">Cold-processed in small batches · Free of synthetics &amp; parabens</p>
-            <a href="#collection" class="hero-cta">Explore the Collection</a>
+    <button class="menu-toggle" id="menuToggle">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </section>
+        Menu
+    </button>
 
-    <!-- COLLECTION -->
-    <section id="collection">
-        <div class="section-header reveal">
-            <p class="section-eyebrow">The Collection</p>
-            <h2 class="section-title">Five bars. <em>One ritual.</em></h2>
-        </div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">Rudra</div>
+        <div class="sidebar-tagline">Organics</div>
+        <div class="sidebar-divider"></div>
+        <nav class="sidebar-nav">
+            <a href="#home">Home</a>
+            <a href="#collection">Collection</a>
+            <a href="#philosophy">Philosophy</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="sidebar-footer">© 2025 Rudra Organics</div>
+    </aside>
 
-        <div class="products-grid">
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-            <!-- 1 · Pure Neem -->
-            <div class="product-card reveal">
-                <div class="card-image-wrap">
-                    <div class="card-badge">Organic</div>
-                    <img src="neem.jpeg" alt="Pure Neem Organic Soap" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-name">Pure Neem</h3>
-                    <p class="card-benefit">Natural Cleanser &amp; Antibacterial</p>
-                    <div class="card-footer">
-                        <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Pure Neem', 100)">Place Order</button>
+    <main class="main">
+        <!-- ─── HERO ──────────────────────────────────────────────────── -->
+        <section id="home">
+            <div>
+                <div class="hero-eyebrow">Welcome to Purity</div>
+                <h1 class="hero-headline">Experience <em>Natural</em> Skin Care</h1>
+                <div class="hero-sub">Cold-Pressed, Organic Soaps Crafted with Care</div>
+                <a href="#collection" class="hero-cta">Explore Collection</a>
+            </div>
+        </section>
+
+        <!-- ─── COLLECTION ────────────────────────────────────────────── -->
+        <section id="collection">
+            <div class="section-header">
+                <div class="section-eyebrow">Our Soaps</div>
+                <h2 class="section-title">Handcrafted <em>Collections</em></h2>
+            </div>
+
+            <div class="products-grid">
+                <article class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1600857065874-69a20a6078a3?w=400&h=500&fit=crop" alt="Lavender Dream Soap">
+                        <span class="card-badge">Best Seller</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- 2 · Wild Rose -->
-            <div class="product-card reveal">
-                <div class="card-image-wrap">
-                    <div class="card-badge">Organic</div>
-                    <img src="rose.jpeg" alt="Wild Rose Organic Soap" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-name">Wild Rose</h3>
-                    <p class="card-benefit">Hydrating &amp; Gentle Fragrance</p>
-                    <div class="card-footer">
-                        <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Wild Rose', 100)">Place Order</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3 · D-Tan Cleansing -->
-            <div class="product-card reveal">
-                <div class="card-image-wrap">
-                    <div class="card-badge">Organic</div>
-                    <img src="dtan.jpeg" alt="D-Tan Cleansing Organic Soap" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-name">D-Tan Cleansing</h3>
-                    <p class="card-benefit">Brightening &amp; Sun-Damage Repair</p>
-                    <div class="card-footer">
-                        <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('D-Tan Cleansing', 100)">Place Order</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4 · Multani Mitti -->
-            <div class="product-card reveal">
-                <div class="card-image-wrap">
-                    <div class="card-badge">Organic</div>
-                    <img src="multani.jpeg" alt="Multani Mitti Organic Soap" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-name">Multani Mitti</h3>
-                    <p class="card-benefit">Deep Oil Control &amp; Glowing Skin</p>
-                    <div class="card-footer">
-                        <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Multani Mitti', 100)">Place Order</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5 · Refreshing Lemon -->
-            <div class="product-card reveal">
-                <div class="card-image-wrap">
-                    <div class="card-badge">Organic</div>
-                    <img src="lemon.jpeg" alt="Refreshing Lemon Organic Soap" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-name">Refreshing Lemon</h3>
-                    <p class="card-benefit">Detoxifying &amp; Fresh Citrus Glow</p>
-                    <div class="card-footer">
-                        <div class="card-price">₹100 <span>/ bar</span></div>
-                        <button class="order-btn" onclick="openModal('Refreshing Lemon', 100)">Place Order</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PHILOSOPHY -->
-    <section id="philosophy">
-        <div class="philosophy-inner">
-            <div class="philosophy-left reveal">
-                <span class="overline">Our Philosophy</span>
-                <h2>A return to <em>ancient</em>, quiet skincare.</h2>
-            </div>
-            <div class="philosophy-right reveal">
-                <p>At Rudra Organics, we believe that true skincare is an unhurried, organic experience rooted in the wisdom of nature. Every bar is carefully mixed, poured, and cold-processed by hand with intention and respect for the craft.</p>
-                <p>No synthetic foaming agents. No artificial dyes. No paraben preservatives. What remains is purely therapeutic skin nourishment, honest in its ingredients and transformative in its effect.</p>
-                <div class="philosophy-pillars">
-                    <div class="pillar">
-                        <span class="pillar-num">I.</span>
-                        <div class="pillar-text">
-                            <strong>Cold-Processed</strong>
-                            Every batch hand-poured at low temperature to lock in all active botanicals.
+                    <div class="card-body">
+                        <h3 class="card-name">Lavender Dream</h3>
+                        <p class="card-benefit">Calming & Relaxing</p>
+                        <div class="card-footer">
+                            <span class="card-price">₹299 <span>/ 100g</span></span>
+                            <button class="order-btn">Order</button>
                         </div>
                     </div>
-                    <div class="pillar">
-                        <span class="pillar-num">II.</span>
-                        <div class="pillar-text">
-                            <strong>Zero Synthetics</strong>
-                            Formulated without SLS, SLES, parabens, or artificial fragrances.
+                </article>
+
+                <article class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=500&fit=crop" alt="Rose Petal Soap">
+                        <span class="card-badge">New</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-name">Rose Petal</h3>
+                        <p class="card-benefit">Nourishing & Gentle</p>
+                        <div class="card-footer">
+                            <span class="card-price">₹349 <span>/ 100g</span></span>
+                            <button class="order-btn">Order</button>
                         </div>
                     </div>
-                    <div class="pillar">
-                        <span class="pillar-num">III.</span>
-                        <div class="pillar-text">
-                            <strong>Small-Batch Integrity</strong>
-                            Crafted in limited quantities so each bar receives undivided attention.
+                </article>
+
+                <article class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1607525873515-038b1d8da6f4?w=400&h=500&fit=crop" alt="Activated Charcoal Soap">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-name">Charcoal Detox</h3>
+                        <p class="card-benefit">Purifying & Deep Cleanse</p>
+                        <div class="card-footer">
+                            <span class="card-price">₹329 <span>/ 100g</span></span>
+                            <button class="order-btn">Order</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1608231387042-ff894e27b5ad?w=400&h=500&fit=crop" alt="Turmeric & Honey Soap">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-name">Turmeric & Honey</h3>
+                        <p class="card-benefit">Healing & Brightening</p>
+                        <div class="card-footer">
+                            <span class="card-price">₹319 <span>/ 100g</span></span>
+                            <button class="order-btn">Order</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1599599810694-b3a7dd56d233?w=400&h=500&fit=crop" alt="Minty Eucalyptus Soap">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-name">Minty Eucalyptus</h3>
+                        <p class="card-benefit">Refreshing & Energizing</p>
+                        <div class="card-footer">
+                            <span class="card-price">₹309 <span>/ 100g</span></span>
+                            <button class="order-btn">Order</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ─── PHILOSOPHY ────────────────────────────────────────────── -->
+        <section id="philosophy">
+            <div class="philosophy-inner">
+                <div class="philosophy-left">
+                    <span class="overline">Our Story</span>
+                    <h2>Committed to <em>Purity</em> & Sustainability</h2>
+                </div>
+                <div class="philosophy-right">
+                    <p>Every bar of Rudra Organics soap is carefully crafted using traditional cold-press methods that preserve the beneficial properties of pure, organic ingredients. We believe in the power of nature to nourish and heal.</p>
+                    <p>Our commitment extends beyond the product—sustainable practices, ethical sourcing, and minimal environmental impact guide every decision we make.</p>
+                    
+                    <div class="philosophy-pillars">
+                        <div class="pillar">
+                            <span class="pillar-num">01</span>
+                            <div class="pillar-text">
+                                <strong>Pure Ingredients</strong>
+                                100% organic, ethically sourced oils and botanicals
+                            </div>
+                        </div>
+                        <div class="pillar">
+                            <span class="pillar-num">02</span>
+                            <div class="pillar-text">
+                                <strong>Cold-Pressed Method</strong>
+                                Traditional techniques preserve nutritional integrity
+                            </div>
+                        </div>
+                        <div class="pillar">
+                            <span class="pillar-num">03</span>
+                            <div class="pillar-text">
+                                <strong>Sustainable Practices</strong>
+                                Eco-friendly packaging and carbon-neutral operations
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- ─── CONTACT FORM ──────────────────────────────────────────── -->
+        <section id="contact">
+            <div class="contact-inner">
+                <div class="contact-header">
+                    <span class="section-eyebrow">Get In Touch</span>
+                    <h2 class="section-title">Connect with <em>Rudra Organics</em></h2>
+                    <p class="contact-subtitle">Have questions about our products? We'd love to hear from you.</p>
+                </div>
+
+                <form id="contact-form" class="contact-form" action="https://formspree.io/f/mlgkgebq" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product">Product Interest</label>
+                        <div class="select-wrap">
+                            <select id="product" name="product" required>
+                                <option value="">Select a product...</option>
+                                <option value="lavender">Lavender Dream</option>
+                                <option value="rose">Rose Petal</option>
+                                <option value="charcoal">Charcoal Detox</option>
+                                <option value="turmeric">Turmeric & Honey</option>
+                                <option value="eucalyptus">Minty Eucalyptus</option>
+                                <option value="other">General Inquiry</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-logo">Rudra Organics</div>
-        <div class="footer-copy">© 2026 · All rights reserved</div>
+        <p class="footer-copy">© 2025 All rights reserved. Crafted with care.</p>
     </footer>
 
-</main>
-
-<!-- ═══════════════════ CHECKOUT MODAL ════════════════ -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box" id="modalBox">
-        <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
-        <div id="modalContent">
-            <!-- Injected dynamically -->
+    <!-- Modal HTML (kept for backward compatibility if needed) -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <!-- Modal content can be added here if needed -->
         </div>
     </div>
-</div>
 
-<!-- ═══════════════════ FORMSPREE INTEGRATION ════════════════ -->
-<script>
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-</script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+    <script>
+        // Sidebar toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 
-<!-- ═══════════════════ SCRIPTS ═══════════════════════ -->
-<script>
-    /* ── SIDEBAR ── */
-    const sidebar  = document.getElementById('sidebar');
-    const backdrop = document.getElementById('backdrop');
-    const toggle   = document.getElementById('menuToggle');
-
-    function openSidebar() {
-        sidebar.classList.add('open');
-        backdrop.classList.add('visible');
-        toggle.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeSidebar() {
-        sidebar.classList.remove('open');
-        backdrop.classList.remove('visible');
-        toggle.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    toggle.addEventListener('click', () =>
-        sidebar.classList.contains('open') ? closeSidebar() : openSidebar()
-    );
-    backdrop.addEventListener('click', closeSidebar);
-
-    /* ── SCROLL REVEAL ── */
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach((e, i) => {
-            if (e.isIntersecting) {
-                setTimeout(() => {
-                    e.target.classList.add('in');
-                }, i * 80);
-            }
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('open');
+            sidebarBackdrop.classList.toggle('visible');
         });
-    }, { threshold: 0.15 });
-    revealEls.forEach(el => io.observe(el));
 
-    /* ── CONSTANTS ── */
-    const DELIVERY_CHARGE = 60;
-    const COD_CHARGE = 15;
-    const UPI_QR_URL = 'upi-qr.png'; // Replace with your QR image filename
-
-    /* ── MODAL & CART ── */
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-
-    // Generate unique transaction ID
-    function generateTransactionId() {
-        const timestamp = Date.now();
-        const random = Math.random().toString(36).substring(2, 7).toUpperCase();
-        return `RO-${timestamp}-${random}`;
-    }
-
-    function openModal(productName, unitPrice) {
-        const transactionId = generateTransactionId();
-        
-        const content = `
-            <div class="modal-eyebrow">Shopping Cart</div>
-            <div class="modal-title">${productName}</div>
-            
-            <form id="checkoutForm">
-                <!-- Customer Details -->
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Your name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="+91 XXXXXXXXXX">
-                </div>
-                <div class="form-group">
-                    <label for="address">Delivery Address</label>
-                    <input type="text" id="address" name="address" required placeholder="Street address">
-                </div>
-                
-                <!-- Quantity Selection -->
-                <div class="form-group">
-                    <label for="quantity">Quantity (bars)</label>
-                    <div class="select-wrap">
-                        <select id="quantity" name="quantity" required onchange="updatePriceBreakdown()">
-                            <option value="">Select quantity</option>
-                            <option value="1">1 bar</option>
-                            <option value="3">3 bars</option>
-                            <option value="5">5 bars</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Cart Section -->
-                <div class="cart-section">
-                    <div class="cart-item">
-                        <div class="cart-item-row">
-                            <span>${productName}</span>
-                            <span id="cartQty">-</span>
-                        </div>
-                        <div class="cart-item-row">
-                            <span>Unit Price</span>
-                            <span>₹${unitPrice}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Price Breakdown -->
-                <div class="price-summary">
-                    <p>
-                        <span>Product Total</span>
-                        <span id="productTotal">₹0</span>
-                    </p>
-                    <p>
-                        <span>Delivery Charge</span>
-                        <span>₹${DELIVERY_CHARGE}</span>
-                    </p>
-                    <p id="codChargeLine" style="display: none;">
-                        <span>COD Charge</span>
-                        <span>₹${COD_CHARGE}</span>
-                    </p>
-                    <p>
-                        <span>Final Amount</span>
-                        <span id="finalTotal">₹0</span>
-                    </p>
-                </div>
-
-                <!-- Payment Methods -->
-                <div class="payment-methods">
-                    <label>Select Payment Method</label>
-                    <div class="payment-option">
-                        <input type="radio" id="upi" name="paymentMethod" value="upi" required onchange="updatePaymentUI()">
-                        <div class="payment-option-content">
-                            <span class="payment-option-title">UPI</span>
-                            <span class="payment-option-desc">Google Pay, PhonePe, Paytm, etc.</span>
-                        </div>
-                    </div>
-                    <div class="payment-option">
-                        <input type="radio" id="cod" name="paymentMethod" value="cod" required onchange="updatePaymentUI()">
-                        <div class="payment-option-content">
-                            <span class="payment-option-title">Cash on Delivery</span>
-                            <span class="payment-option-desc">Pay when you receive your order (+₹${COD_CHARGE})</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UPI QR Code Section -->
-                <div id="upiQRSection" class="upi-qr-section">
-                    <span class="upi-qr-label">Scan QR to Pay</span>
-                    <div class="upi-qr-image">
-                        <img src="${UPI_QR_URL}" alt="UPI QR Code">
-                    </div>
-                    <div class="upi-instructions">
-                        <p>Scan this QR code with any UPI app to complete payment.</p>
-                        <p style="margin-top: 0.5rem; font-size: 0.75rem;">After payment, place your order below.</p>
-                    </div>
-                </div>
-
-                <!-- Hidden Fields -->
-                <input type="hidden" name="transactionId" value="${transactionId}">
-                <input type="hidden" name="product" value="${productName}">
-                <input type="hidden" name="unitPrice" value="${unitPrice}">
-                <input type="hidden" id="quantityHidden" name="qty" value="">
-                <input type="hidden" id="totalHidden" name="totalAmount" value="">
-
-                <!-- Submit -->
-                <button type="submit" class="modal-submit" id="submitBtn">Place Order</button>
-            </form>
-        `;
-        
-        modalContent.innerHTML = content;
-        modalOverlay.classList.add('open');
-
-        // Attach form submission handler
-        document.getElementById('checkoutForm').addEventListener('submit', handleCheckout);
-    }
-
-    function updatePriceBreakdown() {
-        const quantity = document.getElementById('quantity').value;
-        
-        if (!quantity) {
-            document.getElementById('cartQty').textContent = '-';
-            document.getElementById('productTotal').textContent = '₹0';
-            document.getElementById('finalTotal').textContent = '₹0';
-            return;
-        }
-
-        // Get unit price from hidden input or recalculate
-        const form = document.getElementById('checkoutForm');
-        const unitPrice = parseInt(form.querySelector('input[name="unitPrice"]').value);
-        const productTotal = unitPrice * parseInt(quantity);
-        
-        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-        let additionalCharge = DELIVERY_CHARGE;
-        
-        if (paymentMethod && paymentMethod.value === 'cod') {
-            additionalCharge += COD_CHARGE;
-        }
-        
-        const finalTotal = productTotal + additionalCharge;
-
-        document.getElementById('cartQty').textContent = `${quantity} bar${quantity > 1 ? 's' : ''}`;
-        document.getElementById('productTotal').textContent = `₹${productTotal}`;
-        document.getElementById('finalTotal').textContent = `₹${finalTotal}`;
-        document.getElementById('quantityHidden').value = quantity;
-        document.getElementById('totalHidden').value = finalTotal;
-    }
-
-    function updatePaymentUI() {
-        const upiSection = document.getElementById('upiQRSection');
-        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-        const codChargeLine = document.getElementById('codChargeLine');
-
-        if (paymentMethod && paymentMethod.value === 'upi') {
-            upiSection.classList.add('show');
-            codChargeLine.style.display = 'none';
-        } else {
-            upiSection.classList.remove('show');
-            codChargeLine.style.display = 'flex';
-        }
-
-        updatePriceBreakdown();
-    }
-
-    function handleCheckout(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const address = document.getElementById('address').value;
-        const quantity = document.getElementById('quantity').value;
-        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-        const totalAmount = document.getElementById('totalHidden').value;
-        const transactionId = document.querySelector('input[name="transactionId"]').value;
-
-        if (!name || !email || !phone || !address || !quantity || !paymentMethod) {
-            alert('Please fill all fields and select a payment method');
-            return;
-        }
-
-        // Send to Formspree
-        const formData = new FormData();
-        formData.append('_subject', `New Order - ${document.querySelector('input[name="product"]').value}`);
-        formData.append('transactionId', transactionId);
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('address', address);
-        formData.append('product', document.querySelector('input[name="product"]').value);
-        formData.append('quantity', quantity);
-        formData.append('totalAmount', totalAmount);
-        formData.append('paymentMethod', paymentMethod.toUpperCase());
-        formData.append('_replyto', email);
-
-        document.getElementById('submitBtn').disabled = true;
-
-        fetch('https://formspree.io/f/mvzylzpo', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            showSuccessState(transactionId, name, totalAmount, paymentMethod);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showSuccessState(transactionId, name, totalAmount, paymentMethod);
+        sidebarBackdrop.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            sidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('visible');
         });
-    }
 
-    function showSuccessState(transactionId, name, totalAmount, paymentMethod) {
-        const paymentText = paymentMethod === 'upi' ? 'UPI' : 'Cash on Delivery';
-        
-        modalContent.innerHTML = `
-            <div class="success-state">
-                <div class="success-icon">✓</div>
-                <h2>Order Confirmed!</h2>
-                <p>Thank you, ${name}! Your order has been placed successfully.</p>
-                
-                <div class="transaction-id">
-                    <label>Transaction ID (Save for Reference)</label>
-                    <div class="txn-number">${transactionId}</div>
-                </div>
+        // Close sidebar when clicking on a navigation link
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                sidebar.classList.remove('open');
+                sidebarBackdrop.classList.remove('visible');
+            });
+        });
 
-                <div class="price-summary" style="margin: 1.5rem 0;">
-                    <p><span>Total Amount</span> <span style="font-weight: 600;">₹${totalAmount}</span></p>
-                    <p><span>Payment Method</span> <span>${paymentText}</span></p>
-                </div>
-                
-                <p style="font-size: 0.8rem; color: var(--warm-gray); margin-top: 1.5rem;">
-                    A confirmation email has been sent to your email. Your soaps will arrive within 3-5 business days. Check your inbox for tracking updates.
-                </p>
-            </div>
-        `;
-    }
+        // Order button interactions - scroll to contact form
+        document.querySelectorAll('.order-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productName = btn.closest('.product-card').querySelector('.card-name').textContent;
+                document.getElementById('product').value = productName.toLowerCase().replace(/\s+/g, '-');
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
 
-    function closeModal() {
-        modalOverlay.classList.remove('open');
-        setTimeout(() => {
-            modalContent.innerHTML = '';
-        }, 300);
-    }
-
-    /* Close modal on backdrop click */
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) closeModal();
-    });
-
-    /* Close modal on Escape key */
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
-</script>
-
+        // Modal close functionality (if modal is used)
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                modalOverlay.classList.remove('open');
+            });
+        }
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('open');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
