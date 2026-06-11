@@ -1,518 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Rudra Organics | Handcrafted Organic Soaps</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          forest: '#1b4332', moss: '#2d6a4f', sage: '#74c69d',
-          mint: '#d8f3dc', cream: '#fdf8ef', earth: '#b08968', clay: '#e8d5b7'
-        },
-        fontFamily: {
-          display: ['"Playfair Display"', 'serif'],
-          body: ['Poppins', 'sans-serif']
-        }
-      }
-    }
-  }
+tailwind.config={theme:{extend:{colors:{forest:'#1b4332',moss:'#2d6a4f',sage:'#74c69d',mint:'#d8f3dc',cream:'#fdf8ef',earth:'#b08968',clay:'#e8d5b7'},fontFamily:{display:['"Playfair Display"','serif'],body:['Poppins','sans-serif']}}}}
 </script>
 <style>
-  body { font-family: 'Poppins', sans-serif; background: #fdf8ef; }
-  .font-display { font-family: 'Playfair Display', serif; }
-
-  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(-18px) rotate(6deg);} }
-  @keyframes floaty2 { 0%,100% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(14px) rotate(-8deg);} }
-  @keyframes blob { 0%,100%{border-radius:60% 40% 55% 45%/55% 45% 60% 40%;} 50%{border-radius:45% 55% 40% 60%/40% 60% 45% 55%;} }
-  @keyframes fadeUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
-  @keyframes shimmer { 0%{background-position:-400px 0;} 100%{background-position:400px 0;} }
-  @keyframes pop { 0%{transform:scale(0.6);opacity:0;} 80%{transform:scale(1.08);} 100%{transform:scale(1);opacity:1;} }
-
-  .leaf-float { animation: floaty 7s ease-in-out infinite; }
-  .leaf-float2 { animation: floaty2 9s ease-in-out infinite; }
-  .blob { animation: blob 10s ease-in-out infinite; }
-  .fade-up { animation: fadeUp .8s ease both; }
-  .pop-in { animation: pop .4s ease both; }
-
-  .card-tilt { transition: transform .4s ease, box-shadow .4s ease; }
-  .card-tilt:hover { transform: translateY(-10px) rotate(-1deg) scale(1.02); box-shadow: 0 30px 60px -20px rgba(27,67,50,.35); }
-
-  .btn-organic { transition: all .3s ease; }
-  .btn-organic:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(45,106,79,.5); }
-  .btn-organic:active { transform: scale(.96); }
-
-  .texture {
-    background-image: radial-gradient(rgba(45,106,79,.07) 1.5px, transparent 1.5px);
-    background-size: 26px 26px;
-  }
-  .hero-grad { background: linear-gradient(135deg, #d8f3dc 0%, #fdf8ef 45%, #e8d5b7 100%); }
-
-  .marquee { display:flex; gap:3rem; white-space:nowrap; animation: scrollx 22s linear infinite; }
-  @keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-50%);} }
-
-  input, textarea, select { outline: none; }
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-thumb { background: #74c69d; border-radius: 8px; }
+body{font-family:'Poppins',sans-serif;background:#fdf8ef;}
+.font-display{font-family:'Playfair Display',serif;}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(6deg)}}
+@keyframes floaty2{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(14px) rotate(-8deg)}}
+@keyframes blob{0%,100%{border-radius:60% 40% 55% 45%/55% 45% 60% 40%}50%{border-radius:45% 55% 40% 60%/40% 60% 45% 55%}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}80%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.leaf-float{animation:floaty 7s ease-in-out infinite}
+.leaf-float2{animation:floaty2 9s ease-in-out infinite}
+.blob{animation:blob 10s ease-in-out infinite}
+.pop-in{animation:pop .4s ease both}
+.draw path{stroke-dasharray:700;stroke-dashoffset:700;animation:draw 3.5s ease forwards}
+.marquee{display:flex;gap:3rem;white-space:nowrap;animation:scrollx 22s linear infinite}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+.reveal-show{opacity:1;transform:none}
+.card-tilt{transition:transform .4s ease,box-shadow .4s ease}
+.card-tilt:hover{transform:translateY(-10px) rotate(-1deg) scale(1.02);box-shadow:0 30px 60px -20px rgba(27,67,50,.35)}
+.btn-organic{transition:all .3s ease}
+.btn-organic:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(45,106,79,.5)}
+.btn-organic:active{transform:scale(.96)}
+.texture{background-image:radial-gradient(rgba(45,106,79,.07) 1.5px,transparent 1.5px);background-size:26px 26px}
+.hero-grad{background:linear-gradient(135deg,#d8f3dc 0%,#fdf8ef 45%,#e8d5b7 100%)}
+.chat-ring::after{content:'';position:absolute;inset:0;border-radius:9999px;background:#2d6a4f;animation:pulse-ring 2s ease-out infinite;z-index:-1}
+.dot{animation:typing 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+input,textarea{outline:none}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:#74c69d;border-radius:8px}
+.honeypot{position:absolute;left:-9999px;opacity:0;height:0;width:0}
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script type="text/babel">
-const { useState, useMemo } = React;
+const {useState,useEffect,useRef,useMemo}=React;
 
-/* ====== CONFIG ====== */
-const FORMSPREE = "https://formspree.io/f/mlgkgebq";
-const INSTAGRAM_LINK = "#"; /* <-- paste your Instagram URL here later */
-const SOAP_PRICE = 130;
-const DELIVERY_FEE = 50;   /* per order, all payment modes */
-const COD_FEE = 50;        /* extra, only for COD */
+/* ================= CONFIG ================= */
+const FORMSPREE="https://formspree.io/f/mlgkgebq";
+const INSTAGRAM_LINK="https://www.instagram.com/rudraorganicsbydrshruti?igsh=MWNwbWdpeWEzejdtcw==";
+const SOAP_PRICE=130, DELIVERY_FEE=50, COD_FEE=50;
 
-const SOAPS = [
-  { id: "rose",    name: "Rose Bliss",      img: "rose.jpeg",    tag: "Glow & Hydrate",  desc: "Hand-poured with real rose petals for soft, romantic, glowing skin.", emoji: "🌹" },
-  { id: "neem",    name: "Neem Pure",       img: "neem.jpeg",    tag: "Anti-Bacterial",  desc: "Nature's antiseptic. Fights acne and keeps skin clean and calm.", emoji: "🍃" },
-  { id: "lemon",   name: "Lemon Fresh",     img: "lemon.jpeg",   tag: "Brighten & Zest", desc: "Zesty citrus burst that brightens dull skin and energises your day.", emoji: "🍋" },
-  { id: "multani", name: "Multani Earth",   img: "multani.jpeg", tag: "Deep Cleanse",    desc: "Classic multani mitti pulls out impurities for a fresh matte feel.", emoji: "🪨" },
-  { id: "dtan",    name: "D-Tan Detox",     img: "dtan.jpeg",    tag: "Tan Removal",     desc: "Gently lifts sun tan and revives your skin's natural radiance.", emoji: "☀️" },
+const SOAPS=[
+ {id:"rose",name:"Rose Bliss",img:"rose.jpeg",tag:"Glow & Hydrate",emoji:"🌹",skin:"dry & dull skin",desc:"Hand-poured with real rose petals for soft, romantic, glowing skin.",ing:"Rose petals, rose essential oil, shea butter, coconut oil"},
+ {id:"neem",name:"Neem Pure",img:"neem.jpeg",tag:"Anti-Bacterial",emoji:"🍃",skin:"oily & acne-prone skin",desc:"Nature's antiseptic. Fights acne and keeps skin clean and calm.",ing:"Neem leaf extract, tea tree oil, olive oil"},
+ {id:"lemon",name:"Lemon Fresh",img:"lemon.jpeg",tag:"Brighten & Zest",emoji:"🍋",skin:"dull, tired skin",desc:"Zesty citrus burst that brightens dull skin and energises your day.",ing:"Lemon essential oil, vitamin C, glycerine"},
+ {id:"multani",name:"Multani Earth",img:"multani.jpeg",tag:"Deep Cleanse",emoji:"🪨",skin:"oily skin & clogged pores",desc:"Classic multani mitti pulls out impurities for a fresh matte feel.",ing:"Multani mitti (fuller's earth), sandalwood, almond oil"},
+ {id:"dtan",name:"D-Tan Detox",img:"dtan.jpeg",tag:"Tan Removal",emoji:"☀️",skin:"sun-tanned skin",desc:"Gently lifts sun tan and revives your skin's natural radiance.",ing:"Coffee, cocoa, turmeric, kokum butter"},
 ];
 
-/* ====== SMALL COMPONENTS ====== */
-function Leaf({ className }) {
-  return <div className={"pointer-events-none select-none absolute text-4xl md:text-6xl opacity-30 " + className}>🌿</div>;
+const validPhone=p=>/^[6-9]\d{9}$/.test(p);
+const newOrderId=()=> "RO-"+Date.now().toString().slice(-6);
+const throttleOk=key=>{const last=+localStorage.getItem("rudra_t_"+key)||0;if(Date.now()-last<30000)return false;localStorage.setItem("rudra_t_"+key,Date.now());return true;};
+
+/* ================= HELPERS ================= */
+function useRoute(){
+  const [r,setR]=useState(location.hash.replace("#","")||"/");
+  useEffect(()=>{const f=()=>{setR(location.hash.replace("#","")||"/");window.scrollTo({top:0,behavior:"smooth"});};
+    window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f);},[]);
+  return r;
+}
+function Reveal({children,delay=0,className=""}){
+  const ref=useRef();const [v,setV]=useState(false);
+  useEffect(()=>{const ob=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);ob.disconnect();}},{threshold:.12});
+    ob.observe(ref.current);return()=>ob.disconnect();},[]);
+  return <div ref={ref} className={className+" reveal"+(v?" reveal-show":"")} style={{transitionDelay:delay+"s"}}>{children}</div>;
+}
+const Wave=({fill="#fdf8ef",flip})=>(
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className={"w-full block "+(flip?"rotate-180":"")} style={{height:"70px"}}>
+    <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" fill={fill}/>
+  </svg>);
+const LeafLine=()=>(
+  <svg className="draw mx-auto" width="120" height="60" viewBox="0 0 120 60" fill="none">
+    <path d="M5 55 Q40 5 115 8 Q70 12 50 30 Q35 45 5 55 Z M50 30 L70 18 M40 40 L62 30" stroke="#2d6a4f" strokeWidth="2" strokeLinecap="round"/>
+  </svg>);
+const Leaf=({className})=><div className={"pointer-events-none select-none absolute text-4xl md:text-6xl opacity-30 "+className}>🌿</div>;
+function SectionTitle({kicker,title}){
+  return (<Reveal className="text-center mb-12">
+    <p className="uppercase tracking-[0.3em] text-moss font-semibold text-sm mb-2">{kicker}</p>
+    <h2 className="font-display text-4xl md:text-5xl text-forest">{title}</h2>
+    <LeafLine/>
+  </Reveal>);
 }
 
-function SectionTitle({ kicker, title }) {
-  return (
-    <div className="text-center mb-12 fade-up">
-      <p className="uppercase tracking-[0.3em] text-moss font-semibold text-sm mb-2">{kicker}</p>
-      <h2 className="font-display text-4xl md:text-5xl text-forest">{title}</h2>
-      <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-sage to-earth"></div>
-    </div>
-  );
+/* ================= APP ================= */
+function App(){
+  const route=useRoute();
+  const [cart,setCart]=useState({});
+  const [cartOpen,setCartOpen]=useState(false);
+  const [checkoutOpen,setCheckoutOpen]=useState(false);
+  const [botOpen,setBotOpen]=useState(false);
+
+  const addToCart=id=>{setCart(c=>({...c,[id]:(c[id]||0)+1}));setCartOpen(true);};
+  const setQty=(id,q)=>setCart(c=>{const n={...c};if(q<=0)delete n[id];else n[id]=q;return n;});
+  const totalItems=Object.values(cart).reduce((a,b)=>a+b,0);
+  const subtotal=totalItems*SOAP_PRICE;
+
+  return (<div className="texture min-h-screen overflow-x-hidden">
+    <Navbar count={totalItems} onCart={()=>setCartOpen(true)} route={route}/>
+    {route==="/shop"?<ShopPage onAdd={addToCart}/>
+     :route==="/about"?<AboutPage/>
+     :route==="/contact"?<ContactPage/>
+     :<HomePage onAdd={addToCart}/>}
+    <Footer/>
+    {cartOpen&&<CartDrawer cart={cart} setQty={setQty} subtotal={subtotal} onClose={()=>setCartOpen(false)} onCheckout={()=>{setCartOpen(false);setCheckoutOpen(true);}}/>}
+    {checkoutOpen&&<Checkout cart={cart} subtotal={subtotal} totalItems={totalItems} onClose={()=>setCheckoutOpen(false)} onDone={()=>setCart({})}/>}
+    <ChatBot open={botOpen} setOpen={setBotOpen} addToCart={addToCart}/>
+  </div>);
 }
 
-/* ====== APP ====== */
-function App() {
-  const [cart, setCart] = useState({});           // { soapId: qty }
-  const [cartOpen, setCartOpen] = useState(false);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-
-  const addToCart = (id) => { setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 })); setCartOpen(true); };
-  const setQty = (id, qty) => setCart(c => {
-    const n = { ...c };
-    if (qty <= 0) delete n[id]; else n[id] = qty;
-    return n;
-  });
-
-  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
-  const subtotal = totalItems * SOAP_PRICE;
-
-  return (
-    <div className="texture min-h-screen overflow-x-hidden">
-      <Navbar count={totalItems} onCart={() => setCartOpen(true)} />
-      <Hero />
-      <Marquee />
-      <Products onAdd={addToCart} />
-      <Why />
-      <Contact />
-      <Footer />
-
-      {cartOpen && (
-        <CartDrawer cart={cart} setQty={setQty} subtotal={subtotal}
-          onClose={() => setCartOpen(false)}
-          onCheckout={() => { setCartOpen(false); setCheckoutOpen(true); }} />
-      )}
-      {checkoutOpen && (
-        <Checkout cart={cart} subtotal={subtotal} totalItems={totalItems}
-          onClose={() => setCheckoutOpen(false)}
-          onDone={() => setCart({})} />
-      )}
-    </div>
-  );
-}
-
-/* ====== NAVBAR ====== */
-function Navbar({ count, onCart }) {
-  return (
-    <nav className="sticky top-0 z-40 backdrop-blur-lg bg-cream/80 border-b border-sage/30">
-      <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
-          <span className="text-3xl">🧼</span>
-          <span className="font-display text-2xl text-forest font-bold">Rudra <span className="text-moss">Organics</span></span>
-        </a>
-        <div className="hidden md:flex gap-8 font-medium text-forest/80">
-          <a href="#shop" className="hover:text-moss transition">Shop</a>
-          <a href="#why" className="hover:text-moss transition">Why Us</a>
-          <a href="#contact" className="hover:text-moss transition">Contact</a>
-        </div>
-        <button onClick={onCart} className="btn-organic relative bg-moss text-white px-5 py-2.5 rounded-full font-medium flex items-center gap-2">
-          🛒 Cart
-          {count > 0 && <span className="pop-in absolute -top-2 -right-2 bg-earth text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">{count}</span>}
+/* ================= NAVBAR ================= */
+function Navbar({count,onCart,route}){
+  const [menu,setMenu]=useState(false);
+  const links=[["/","Home"],["/shop","Shop"],["/about","Our Story"],["/contact","Contact"]];
+  return (<nav className="sticky top-0 z-40 backdrop-blur-lg bg-cream/80 border-b border-sage/30">
+    <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+      <a href="#/" className="flex items-center gap-2">
+        <span className="text-3xl">🧼</span>
+        <span className="font-display text-2xl text-forest font-bold">Rudra <span className="text-moss">Organics</span></span>
+      </a>
+      <div className="hidden md:flex gap-8 font-medium">
+        {links.map(([p,l])=><a key={p} href={"#"+p} className={(route===p?"text-moss font-semibold":"text-forest/70")+" hover:text-moss transition"}>{l}</a>)}
+      </div>
+      <div className="flex items-center gap-3">
+        <button onClick={onCart} className="btn-organic relative bg-moss text-white px-5 py-2.5 rounded-full font-medium flex items-center gap-2">🛒<span className="hidden sm:inline">Cart</span>
+          {count>0&&<span className="pop-in absolute -top-2 -right-2 bg-earth text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">{count}</span>}
         </button>
-      </div>
-    </nav>
-  );
-}
-
-/* ====== HERO ====== */
-function Hero() {
-  return (
-    <header className="hero-grad relative overflow-hidden">
-      <Leaf className="leaf-float top-16 left-8" />
-      <Leaf className="leaf-float2 top-40 right-12" />
-      <Leaf className="leaf-float bottom-10 left-1/3 text-3xl" />
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-sage/30 blob"></div>
-      <div className="absolute -bottom-32 -left-20 w-80 h-80 bg-earth/20 blob"></div>
-
-      <div className="max-w-6xl mx-auto px-5 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center relative">
-        <div className="fade-up">
-          <span className="inline-block bg-white/70 backdrop-blur px-4 py-1.5 rounded-full text-moss font-semibold text-sm mb-6 shadow">
-            🌱 100% Handmade • Chemical Free
-          </span>
-          <h1 className="font-display text-5xl md:text-7xl text-forest leading-tight mb-6">
-            Nature's Touch,<br /><span className="text-moss italic">Bottled in a Bar.</span>
-          </h1>
-          <p className="text-forest/70 text-lg mb-8 max-w-md">
-            Five handcrafted organic soaps made with love, herbs and zero nasties. Your skin deserves the real thing.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a href="#shop" className="btn-organic bg-forest text-white px-8 py-4 rounded-full font-semibold text-lg">Shop Soaps → ₹130 each</a>
-            <a href="#why" className="btn-organic bg-white/80 backdrop-blur text-forest px-8 py-4 rounded-full font-semibold text-lg border border-sage">Why Organic?</a>
-          </div>
-        </div>
-        <div className="relative fade-up" style={{animationDelay:'.2s'}}>
-          <div className="bg-white/60 backdrop-blur rounded-[3rem] p-4 shadow-2xl rotate-2 card-tilt">
-            <img src="rose.jpeg" alt="Rudra Organics handcrafted soap" className="rounded-[2.5rem] w-full h-80 md:h-96 object-cover" />
-          </div>
-          <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 pop-in">
-            <span className="text-3xl">⭐</span>
-            <div><p className="font-bold text-forest">Loved by skin,</p><p className="text-sm text-forest/60">trusted by nature</p></div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-/* ====== MARQUEE ====== */
-function Marquee() {
-  const items = ["🌿 No Parabens", "🐰 Cruelty Free", "🧴 No Sulphates", "🌸 Real Botanicals", "🤲 Handmade in Small Batches", "♻️ Eco Packaging"];
-  const row = [...items, ...items];
-  return (
-    <div className="bg-forest text-mint py-3 overflow-hidden">
-      <div className="marquee font-medium tracking-wide">
-        {row.map((t, i) => <span key={i}>{t}</span>)}
+        <button className="md:hidden text-2xl text-forest" onClick={()=>setMenu(m=>!m)}>☰</button>
       </div>
     </div>
-  );
+    {menu&&<div className="md:hidden bg-cream border-t border-sage/30 px-5 py-3 flex flex-col gap-3 pop-in">
+      {links.map(([p,l])=><a key={p} href={"#"+p} onClick={()=>setMenu(false)} className="text-forest font-medium">{l}</a>)}
+    </div>}
+  </nav>);
 }
 
-/* ====== PRODUCTS ====== */
-function Products({ onAdd }) {
-  return (
-    <section id="shop" className="max-w-6xl mx-auto px-5 py-24">
-      <SectionTitle kicker="Our Collection" title="Five Bars of Pure Goodness" />
+/* ================= HOME PAGE ================= */
+function HomePage({onAdd}){
+  return (<React.Fragment>
+    <Hero/>
+    <Marquee/>
+    <section className="max-w-6xl mx-auto px-5 py-20">
+      <SectionTitle kicker="Bestsellers" title="Customer Favourites"/>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {SOAPS.map((s, i) => (
-          <div key={s.id} className="card-tilt bg-white rounded-3xl overflow-hidden shadow-lg fade-up" style={{animationDelay: (i * .1) + 's'}}>
-            <div className="relative">
-              <img src={s.img} alt={s.name + " organic soap"} className="w-full h-56 object-cover" />
-              <span className="absolute top-4 left-4 bg-cream/90 backdrop-blur text-moss text-xs font-bold px-3 py-1.5 rounded-full">{s.tag}</span>
-              <span className="absolute -bottom-5 right-5 text-4xl bg-white rounded-full p-2 shadow-lg">{s.emoji}</span>
-            </div>
-            <div className="p-6 pt-8">
-              <h3 className="font-display text-2xl text-forest mb-2">{s.name}</h3>
-              <p className="text-forest/60 text-sm mb-5">{s.desc}</p>
-              <div className="flex items-center justify-between">
-                <p className="text-2xl font-bold text-moss">₹{SOAP_PRICE}</p>
-                <button onClick={() => onAdd(s.id)} className="btn-organic bg-moss text-white px-5 py-2.5 rounded-full font-semibold">Add to Cart +</button>
-              </div>
-            </div>
-          </div>
-        ))}
+        {SOAPS.slice(0,3).map((s,i)=><ProductCard key={s.id} s={s} i={i} onAdd={onAdd}/>)}
       </div>
+      <Reveal className="text-center mt-12">
+        <a href="#/shop" className="btn-organic inline-block bg-forest text-white px-10 py-4 rounded-full font-bold text-lg">Explore All 5 Soaps →</a>
+      </Reveal>
     </section>
-  );
+    <Wave fill="#d8f3dc" flip/>
+    <Why/>
+    <Wave fill="#d8f3dc"/>
+    <Testimonials/>
+  </React.Fragment>);
 }
 
-/* ====== WHY ====== */
-function Why() {
-  const points = [
-    { icon: "🌱", t: "Truly Organic", d: "Cold-processed with herbs, clays and essential oils. Nothing artificial, ever." },
-    { icon: "🤲", t: "Handmade Batches", d: "Every bar is hand-poured and cured slowly for a rich, creamy lather." },
-    { icon: "🚚", t: "Delivered to You", d: "Flat ₹50 delivery anywhere, pay online via UPI or Cash on Delivery." },
-    { icon: "💚", t: "Skin First", d: "Gentle on all skin types. Free from parabens, sulphates and cruelty." },
-  ];
-  return (
-    <section id="why" className="bg-mint/50 py-24 relative overflow-hidden">
-      <Leaf className="leaf-float2 top-10 right-10" />
+function Hero(){
+  const ref=useRef();
+  const onMove=e=>{const r=ref.current.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    ref.current.querySelectorAll("[data-px]").forEach(el=>{const d=+el.dataset.px;
+      el.style.transform=`translate(${x*d}px,${y*d}px)`;});};
+  return (<header ref={ref} onMouseMove={onMove} className="hero-grad relative overflow-hidden">
+    <Leaf className="leaf-float top-16 left-8"/><Leaf className="leaf-float2 top-40 right-12"/>
+    <div data-px="40" className="absolute -top-24 -right-24 w-96 h-96 bg-sage/30 blob transition-transform duration-300"></div>
+    <div data-px="-30" className="absolute -bottom-32 -left-20 w-80 h-80 bg-earth/20 blob transition-transform duration-300"></div>
+    <div className="max-w-6xl mx-auto px-5 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center relative">
+      <Reveal>
+        <span className="inline-block bg-white/70 backdrop-blur px-4 py-1.5 rounded-full text-moss font-semibold text-sm mb-6 shadow">🌱 100% Handmade • Chemical Free</span>
+        <h1 className="font-display text-5xl md:text-7xl text-forest leading-tight mb-6">Nature's Touch,<br/><span className="text-moss italic">Bottled in a Bar.</span></h1>
+        <p className="text-forest/70 text-lg mb-8 max-w-md">Five handcrafted organic soaps made with love, herbs and zero nasties. Your skin deserves the real thing.</p>
+        <div className="flex flex-wrap gap-4">
+          <a href="#/shop" className="btn-organic bg-forest text-white px-8 py-4 rounded-full font-semibold text-lg">Shop Soaps → ₹130 each</a>
+          <a href="#/about" className="btn-organic bg-white/80 backdrop-blur text-forest px-8 py-4 rounded-full font-semibold text-lg border border-sage">Our Story</a>
+        </div>
+      </Reveal>
+      <Reveal delay={.2} className="relative">
+        <div data-px="20" className="bg-white/60 backdrop-blur rounded-[3rem] p-4 shadow-2xl rotate-2 card-tilt transition-transform duration-300">
+          <img src="rose.jpeg" alt="Rudra Organics soap" className="rounded-[2.5rem] w-full h-80 md:h-96 object-cover"/>
+        </div>
+        <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 pop-in">
+          <span className="text-3xl">⭐</span><div><p className="font-bold text-forest">Loved by skin,</p><p className="text-sm text-forest/60">trusted by nature</p></div>
+        </div>
+      </Reveal>
+    </div>
+  </header>);
+}
+
+function Marquee(){
+  const items=["🌿 No Parabens","🐰 Cruelty Free","🧴 No Sulphates","🌸 Real Botanicals","🤲 Handmade in Small Batches","♻️ Eco Packaging"];
+  return (<div className="bg-forest text-mint py-3 overflow-hidden"><div className="marquee font-medium tracking-wide">{[...items,...items].map((t,i)=><span key={i}>{t}</span>)}</div></div>);
+}
+
+function ProductCard({s,i,onAdd}){
+  return (<Reveal delay={i*.1}>
+    <div className="card-tilt bg-white rounded-3xl overflow-hidden shadow-lg h-full">
+      <div className="relative">
+        <img src={s.img} alt={s.name} className="w-full h-56 object-cover"/>
+        <span className="absolute top-4 left-4 bg-cream/90 backdrop-blur text-moss text-xs font-bold px-3 py-1.5 rounded-full">{s.tag}</span>
+        <span className="absolute -bottom-5 right-5 text-4xl bg-white rounded-full p-2 shadow-lg">{s.emoji}</span>
+      </div>
+      <div className="p-6 pt-8">
+        <h3 className="font-display text-2xl text-forest mb-1">{s.name}</h3>
+        <p className="text-xs text-earth font-semibold mb-2">Best for {s.skin}</p>
+        <p className="text-forest/60 text-sm mb-4">{s.desc}</p>
+        <p className="text-xs text-forest/50 mb-4">🌿 {s.ing}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-2xl font-bold text-moss">₹{SOAP_PRICE}</p>
+          <button onClick={()=>onAdd(s.id)} className="btn-organic bg-moss text-white px-5 py-2.5 rounded-full font-semibold">Add to Cart +</button>
+        </div>
+      </div>
+    </div>
+  </Reveal>);
+}
+
+function Why(){
+  const pts=[["🌱","Truly Organic","Cold-processed with herbs, clays and essential oils. Nothing artificial, ever."],
+  ["🤲","Handmade Batches","Every bar is hand-poured and cured slowly for a rich, creamy lather."],
+  ["🚚","Delivered to You","Flat ₹50 delivery anywhere. Pay via UPI or Cash on Delivery."],
+  ["💚","Skin First","Gentle on all skin types. Free from parabens, sulphates and cruelty."]];
+  return (<section className="bg-mint/50 py-20 relative overflow-hidden">
+    <Leaf className="leaf-float2 top-10 right-10"/>
+    <div className="max-w-6xl mx-auto px-5">
+      <SectionTitle kicker="The Rudra Promise" title="Why Choose Rudra Organics?"/>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {pts.map((p,i)=><Reveal key={i} delay={i*.1}><div className="bg-white/80 backdrop-blur rounded-3xl p-7 text-center shadow card-tilt h-full">
+          <div className="text-5xl mb-4">{p[0]}</div><h3 className="font-display text-xl text-forest mb-2">{p[1]}</h3><p className="text-forest/60 text-sm">{p[2]}</p>
+        </div></Reveal>)}
+      </div>
+    </div>
+  </section>);
+}
+
+function Testimonials(){
+  const data=[["Priya S.","The Neem Pure soap cleared my acne in 3 weeks. Genuinely organic, you can smell the difference!","🍃"],
+  ["Aarav M.","Rose Bliss is my wife's favourite. The packaging and fragrance feel premium for ₹130.","🌹"],
+  ["Kavya R.","D-Tan actually works! My tan from a Goa trip faded within days. Ordering again.","☀️"]];
+  const [i,setI]=useState(0);
+  useEffect(()=>{const t=setInterval(()=>setI(x=>(x+1)%data.length),4500);return()=>clearInterval(t);},[]);
+  return (<section className="py-20 max-w-3xl mx-auto px-5 text-center">
+    <SectionTitle kicker="Happy Skin" title="What Customers Say"/>
+    <Reveal><div className="bg-white rounded-3xl shadow-xl p-10 relative">
+      <span className="text-5xl absolute -top-6 left-1/2 -translate-x-1/2 bg-cream rounded-full p-2 shadow">{data[i][2]}</span>
+      <p className="text-forest/80 text-lg italic mb-4 pt-4">"{data[i][1]}"</p>
+      <p className="font-bold text-moss">— {data[i][0]}</p>
+      <div className="flex justify-center gap-2 mt-6">
+        {data.map((_,x)=><button key={x} onClick={()=>setI(x)} className={"w-3 h-3 rounded-full transition "+(x===i?"bg-moss scale-125":"bg-sage/40")}></button>)}
+      </div>
+    </div></Reveal>
+  </section>);
+}
+
+/* ================= SHOP PAGE ================= */
+function ShopPage({onAdd}){
+  return (<React.Fragment>
+    <div className="hero-grad py-16 text-center relative overflow-hidden">
+      <Leaf className="leaf-float top-6 left-10"/><Leaf className="leaf-float2 bottom-4 right-10"/>
+      <Reveal><h1 className="font-display text-5xl text-forest mb-3">The Soap Shop 🧼</h1>
+      <p className="text-forest/70">All bars ₹{SOAP_PRICE} • Flat ₹{DELIVERY_FEE} delivery per order</p></Reveal>
+    </div>
+    <Wave fill="#d8f3dc" flip/><div className="bg-mint/40"><Wave fill="#fdf8ef"/></div>
+    <section className="max-w-6xl mx-auto px-5 py-16">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {SOAPS.map((s,i)=><ProductCard key={s.id} s={s} i={i} onAdd={onAdd}/>)}
+      </div>
+    </section>
+  </React.Fragment>);
+}
+
+/* ================= ABOUT PAGE ================= */
+function AboutPage(){
+  const steps=[["🌾","Source","We hand-pick organic herbs, clays and cold-pressed oils from trusted local farms."],
+  ["🫕","Blend","Small batches are blended slowly using the cold-process method to keep nutrients alive."],
+  ["⏳","Cure","Each bar cures for 4-6 weeks, developing a rich, gentle, long-lasting lather."],
+  ["📦","Deliver","Wrapped in eco packaging and shipped straight to your doorstep."]];
+  const faqs=[["Are your soaps really 100% organic?","Yes! Every bar is made with certified organic oils, real botanicals and zero synthetic fragrance, parabens or sulphates."],
+  ["How long does one bar last?","With daily use, a single 100g bar typically lasts 3-4 weeks."],
+  ["Are they safe for sensitive skin?","Our soaps are gentle and cold-processed. We always recommend a small patch test first."],
+  ["How long does delivery take?","Orders are usually delivered within 4-7 working days across India."]];
+  const [open,setOpen]=useState(0);
+  return (<React.Fragment>
+    <div className="hero-grad py-16 text-center relative overflow-hidden">
+      <Leaf className="leaf-float top-6 right-10"/>
+      <Reveal><h1 className="font-display text-5xl text-forest mb-3">Our Story 🌿</h1>
+      <p className="text-forest/70 max-w-xl mx-auto px-5">Rudra Organics was born from a simple belief: what touches your skin should be as pure as what you eat.</p></Reveal>
+    </div>
+    <section className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-12 items-center">
+      <Reveal><div className="bg-white/60 backdrop-blur rounded-[3rem] p-4 shadow-2xl -rotate-2 card-tilt">
+        <img src="multani.jpeg" alt="Handmade soap process" className="rounded-[2.5rem] w-full h-80 object-cover"/>
+      </div></Reveal>
+      <Reveal delay={.15}>
+        <h2 className="font-display text-4xl text-forest mb-4">Crafted by Hand,<br/><span className="text-moss italic">Rooted in Nature.</span></h2>
+        <p className="text-forest/70 mb-4">Founded by <b>Dr. Shruti</b>, Rudra Organics blends traditional Indian skincare wisdom (neem, multani mitti, rose) with modern cold-process soap making.</p>
+        <p className="text-forest/70">No factories. No shortcuts. Just five honest bars, poured in small batches, with ingredients you can pronounce.</p>
+        <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="btn-organic inline-block mt-6 bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-full font-semibold">📸 See behind the scenes</a>
+      </Reveal>
+    </section>
+    <Wave fill="#d8f3dc" flip/>
+    <section className="bg-mint/50 py-16">
       <div className="max-w-6xl mx-auto px-5">
-        <SectionTitle kicker="The Rudra Promise" title="Why Choose Rudra Organics?" />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {points.map((p, i) => (
-            <div key={i} className="bg-white/80 backdrop-blur rounded-3xl p-7 text-center shadow card-tilt fade-up" style={{animationDelay:(i*.1)+'s'}}>
-              <div className="text-5xl mb-4">{p.icon}</div>
-              <h3 className="font-display text-xl text-forest mb-2">{p.t}</h3>
-              <p className="text-forest/60 text-sm">{p.d}</p>
-            </div>
-          ))}
+        <SectionTitle kicker="From Farm to Foam" title="How a Rudra Bar is Born"/>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          <svg className="hidden lg:block absolute top-10 left-0 w-full draw" height="4" viewBox="0 0 1000 4" preserveAspectRatio="none"><path d="M0 2 H1000" stroke="#74c69d" strokeWidth="3" strokeDasharray="10 8"/></svg>
+          {steps.map((s,i)=><Reveal key={i} delay={i*.12}><div className="bg-white rounded-3xl p-7 text-center shadow card-tilt relative h-full">
+            <span className="absolute -top-3 -left-1 bg-moss text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">{i+1}</span>
+            <div className="text-5xl mb-3">{s[0]}</div><h3 className="font-display text-xl text-forest mb-2">{s[1]}</h3><p className="text-forest/60 text-sm">{s[2]}</p>
+          </div></Reveal>)}
         </div>
       </div>
     </section>
-  );
+    <Wave fill="#d8f3dc"/>
+    <section className="max-w-3xl mx-auto px-5 py-16">
+      <SectionTitle kicker="Questions?" title="FAQs"/>
+      {faqs.map((f,i)=><Reveal key={i} delay={i*.05}><div className="bg-white rounded-2xl shadow mb-3 overflow-hidden">
+        <button onClick={()=>setOpen(open===i?-1:i)} className="w-full flex justify-between items-center px-6 py-4 font-semibold text-forest text-left">
+          {f[0]}<span className={"text-moss text-2xl transition-transform "+(open===i?"rotate-45":"")}>+</span>
+        </button>
+        {open===i&&<p className="px-6 pb-5 text-forest/70 text-sm pop-in">{f[1]}</p>}
+      </div></Reveal>)}
+    </section>
+  </React.Fragment>);
 }
 
-/* ====== CART DRAWER ====== */
-function CartDrawer({ cart, setQty, subtotal, onClose, onCheckout }) {
-  const ids = Object.keys(cart);
-  return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <div className="absolute inset-0 bg-forest/40 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative w-full max-w-md bg-cream h-full shadow-2xl p-6 overflow-y-auto pop-in">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="font-display text-3xl text-forest">Your Cart 🛒</h3>
-          <button onClick={onClose} className="text-2xl text-forest/60 hover:text-forest">✕</button>
+/* ================= CONTACT PAGE ================= */
+function ContactPage(){
+  const [form,setForm]=useState({name:"",phone:""});
+  const [status,setStatus]=useState("idle");
+  const [err,setErr]=useState("");
+  const lastOrder=JSON.parse(localStorage.getItem("rudra_last_order")||"null");
+
+  const submit=async e=>{
+    e.preventDefault();setErr("");
+    if(form.name.trim().length<3)return setErr("Please enter your full name.");
+    if(!validPhone(form.phone))return setErr("Enter a valid 10-digit Indian mobile number.");
+    if(e.target._gotcha.value)return; /* honeypot — bots fill it, humans never see it */
+    if(!throttleOk("contact"))return setErr("Please wait a moment before submitting again.");
+    setStatus("sending");
+    try{const res=await fetch(FORMSPREE,{method:"POST",headers:{Accept:"application/json","Content-Type":"application/json"},
+      body:JSON.stringify({formType:"CONTACT",name:form.name,phone:form.phone})});
+      setStatus(res.ok?"success":"error");}catch{setStatus("error");}
+  };
+  return (<React.Fragment>
+    <div className="hero-grad py-16 text-center relative overflow-hidden">
+      <Leaf className="leaf-float top-6 left-10"/>
+      <Reveal><h1 className="font-display text-5xl text-forest mb-3">Get in Touch 💌</h1>
+      <p className="text-forest/70">We'd love to hear from you.</p></Reveal>
+    </div>
+    <section className="max-w-5xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-8">
+      <Reveal><div className="bg-white rounded-3xl shadow-xl p-8 h-full">
+        {status==="success"?(
+          <div className="text-center py-10 pop-in"><p className="text-6xl mb-4">🙏</p>
+          <h3 className="font-display text-2xl text-forest mb-2">Thank You!</h3>
+          <p className="text-forest/70">We will be contacting you shortly. 💚</p></div>
+        ):(<form onSubmit={submit} className="space-y-4">
+          <h3 className="font-display text-2xl text-forest">Request a Callback</h3>
+          <p className="text-forest/60 text-sm">Drop your details and we'll call you back.</p>
+          <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" className="honeypot"/>
+          <input required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} placeholder="Your Name" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"/>
+          <input required type="tel" maxLength="10" value={form.phone} onChange={e=>setForm(f=>({...f,phone:e.target.value.replace(/\D/g,"")}))} placeholder="Mobile Number (10 digits)" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"/>
+          {err&&<p className="text-red-600 text-sm">{err}</p>}
+          <button type="submit" disabled={status==="sending"} className="btn-organic w-full bg-moss text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">{status==="sending"?"Sending...":"Request a Callback 📞"}</button>
+          {status==="error"&&<p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
+        </form>)}
+      </div></Reveal>
+      <Reveal delay={.15}><div className="bg-forest text-mint rounded-3xl shadow-xl p-8 h-full flex flex-col justify-between">
+        <div>
+          <h3 className="font-display text-2xl mb-4">Track Your Order 📦</h3>
+          {lastOrder?(<div className="bg-white/10 rounded-2xl p-5 space-y-2 text-sm">
+            <p><b>Order ID:</b> {lastOrder.id}</p>
+            <p><b>Items:</b> {lastOrder.items}</p>
+            <p><b>Total:</b> ₹{lastOrder.total} ({lastOrder.payment})</p>
+            <p><b>Placed:</b> {lastOrder.date}</p>
+            <p className="text-sage font-semibold pt-1">Status: 🟢 {lastOrder.status} — we'll contact you with shipping updates!</p>
+          </div>):(<p className="text-mint/70 text-sm">No recent order found on this device. Once you place an order, your Order ID and status will appear here. You can also ask <b>Rudra Buddy</b> (chat bubble, bottom right)! 🤖</p>)}
         </div>
-        {ids.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-6xl mb-4">🧺</p>
-            <p className="text-forest/60">Your basket is empty. Add some goodness!</p>
-          </div>
-        ) : (
-          <React.Fragment>
-            {ids.map(id => {
-              const s = SOAPS.find(x => x.id === id);
-              return (
-                <div key={id} className="flex items-center gap-4 bg-white rounded-2xl p-3 mb-3 shadow">
-                  <img src={s.img} alt={s.name} className="w-16 h-16 rounded-xl object-cover" />
-                  <div className="flex-1">
-                    <p className="font-semibold text-forest">{s.name}</p>
-                    <p className="text-sm text-moss font-bold">₹{SOAP_PRICE} × {cart[id]} = ₹{SOAP_PRICE * cart[id]}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => setQty(id, cart[id] - 1)} className="w-8 h-8 rounded-full bg-mint text-forest font-bold">−</button>
-                    <span className="w-6 text-center font-bold text-forest">{cart[id]}</span>
-                    <button onClick={() => setQty(id, cart[id] + 1)} className="w-8 h-8 rounded-full bg-moss text-white font-bold">+</button>
-                  </div>
-                </div>
-              );
-            })}
-            <div className="bg-white rounded-2xl p-5 mt-6 shadow space-y-2 text-forest">
-              <div className="flex justify-between"><span>Subtotal</span><b>₹{subtotal}</b></div>
-              <div className="flex justify-between"><span>Delivery</span><b>₹{DELIVERY_FEE}</b></div>
-              <div className="flex justify-between text-sm text-forest/50"><span>COD fee (if chosen)</span><span>+₹{COD_FEE}</span></div>
-              <div className="border-t border-sage/40 pt-2 flex justify-between text-lg"><span>Payable (UPI)</span><b className="text-moss">₹{subtotal + DELIVERY_FEE}</b></div>
-            </div>
-            <button onClick={onCheckout} className="btn-organic w-full mt-6 bg-forest text-white py-4 rounded-full font-bold text-lg">Proceed to Checkout →</button>
-          </React.Fragment>
-        )}
-      </div>
-    </div>
-  );
+        <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="btn-organic mt-6 text-center bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-full font-semibold">📸 DM us on Instagram</a>
+      </div></Reveal>
+    </section>
+  </React.Fragment>);
 }
 
-/* ====== CHECKOUT ====== */
-function Checkout({ cart, subtotal, totalItems, onClose, onDone }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", payment: "UPI" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
-
-  const codFee = form.payment === "COD" ? COD_FEE : 0;
-  const total = subtotal + DELIVERY_FEE + codFee;
-
-  const itemsSummary = Object.keys(cart).map(id => {
-    const s = SOAPS.find(x => x.id === id);
-    return `${s.name} x${cart[id]} (₹${SOAP_PRICE * cart[id]})`;
-  }).join(", ");
-
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
-
-  const submit = async (e) => {
-    e.preventDefault();
-    if (totalItems === 0) return;
-    setStatus("sending");
-    try {
-      const res = await fetch(FORMSPREE, {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          formType: "ORDER",
-          name: form.name, email: form.email, phone: form.phone, address: form.address,
-          paymentMode: form.payment,
-          items: itemsSummary,
-          totalQty: totalItems,
-          subtotal: "₹" + subtotal,
-          deliveryFee: "₹" + DELIVERY_FEE,
-          codFee: "₹" + codFee,
-          finalAmount: "₹" + total,
-        })
-      });
-      if (res.ok) { setStatus("success"); onDone(); }
-      else setStatus("error");
-    } catch { setStatus("error"); }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-forest/50 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-cream rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto p-7 pop-in">
-        <button onClick={onClose} className="absolute top-5 right-5 text-2xl text-forest/60 hover:text-forest">✕</button>
-
-        {status === "success" ? (
-          <div className="text-center py-16 fade-up">
-            <p className="text-7xl mb-6">🎉</p>
-            <h3 className="font-display text-3xl text-forest mb-3">Order Placed!</h3>
-            <p className="text-forest/70 max-w-sm mx-auto">
-              Thank you for choosing <b>Rudra Organics</b>. We will be contacting you shortly to confirm your order. 💚
-            </p>
-            <button onClick={onClose} className="btn-organic mt-8 bg-moss text-white px-8 py-3 rounded-full font-semibold">Continue Shopping</button>
-          </div>
-        ) : (
-          <React.Fragment>
-            <h3 className="font-display text-3xl text-forest mb-1">Checkout 🌿</h3>
-            <p className="text-forest/60 mb-6 text-sm">Fill your details and we'll get your soaps on the way.</p>
-
-            <form onSubmit={submit} className="grid md:grid-cols-2 gap-6">
-              {/* details */}
-              <div className="space-y-4">
-                <input required value={form.name} onChange={set("name")} placeholder="Full Name" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
-                <input required type="email" value={form.email} onChange={set("email")} placeholder="Email Address" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
-                <input required type="tel" pattern="[0-9]{10}" value={form.phone} onChange={set("phone")} placeholder="Mobile Number (10 digits)" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
-                <textarea required value={form.address} onChange={set("address")} placeholder="Full Delivery Address with Pincode" rows="4" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"></textarea>
-
-                <div>
-                  <p className="font-semibold text-forest mb-2">Payment Mode</p>
-                  <div className="flex gap-3">
-                    {["UPI", "COD"].map(m => (
-                      <label key={m} className={"flex-1 cursor-pointer rounded-xl border-2 px-4 py-3 text-center font-semibold transition " +
-                        (form.payment === m ? "border-moss bg-mint text-forest" : "border-sage/40 bg-white text-forest/60")}>
-                        <input type="radio" name="payment" value={m} checked={form.payment === m} onChange={set("payment")} className="hidden" />
-                        {m === "UPI" ? "📱 UPI" : "💵 COD (+₹" + COD_FEE + ")"}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {form.payment === "UPI" && (
-                  <div className="bg-white rounded-2xl p-4 text-center border border-sage/40 pop-in">
-                    <p className="font-semibold text-forest mb-2">Scan & Pay ₹{total}</p>
-                    <img src="upi-qr.jpeg" alt="UPI QR Code" className="w-44 h-44 object-contain mx-auto rounded-xl" />
-                    <p className="text-xs text-forest/50 mt-2">Pay the final amount, then place your order. We'll verify and confirm.</p>
-                  </div>
-                )}
-              </div>
-
-              {/* summary */}
-              <div>
-                <div className="bg-white rounded-2xl p-5 shadow space-y-3 sticky top-0">
-                  <h4 className="font-display text-xl text-forest">Order Summary</h4>
-                  {Object.keys(cart).map(id => {
-                    const s = SOAPS.find(x => x.id === id);
-                    return (
-                      <div key={id} className="flex justify-between text-sm text-forest/80">
-                        <span>{s.emoji} {s.name} × {cart[id]}</span><b>₹{SOAP_PRICE * cart[id]}</b>
-                      </div>
-                    );
-                  })}
-                  <div className="border-t border-sage/40 pt-3 space-y-2 text-forest">
-                    <div className="flex justify-between"><span>Subtotal ({totalItems} items)</span><b>₹{subtotal}</b></div>
-                    <div className="flex justify-between"><span>Delivery Charges</span><b>₹{DELIVERY_FEE}</b></div>
-                    {codFee > 0 && <div className="flex justify-between text-earth"><span>COD Charges</span><b>+₹{codFee}</b></div>}
-                    <div className="flex justify-between text-xl border-t border-sage/40 pt-3">
-                      <span className="font-display">Final Amount</span><b className="text-moss">₹{total}</b>
-                    </div>
-                  </div>
-                  <button type="submit" disabled={status === "sending" || totalItems === 0}
-                    className="btn-organic w-full bg-forest text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">
-                    {status === "sending" ? "Placing Order..." : "Place Order • ₹" + total}
-                  </button>
-                  {status === "error" && <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
-                  {totalItems === 0 && <p className="text-forest/50 text-sm text-center">Your cart is empty.</p>}
-                </div>
-              </div>
-            </form>
-          </React.Fragment>
-        )}
+/* ================= CART ================= */
+function CartDrawer({cart,setQty,subtotal,onClose,onCheckout}){
+  const ids=Object.keys(cart);
+  return (<div className="fixed inset-0 z-50 flex justify-end">
+    <div className="absolute inset-0 bg-forest/40 backdrop-blur-sm" onClick={onClose}></div>
+    <div className="relative w-full max-w-md bg-cream h-full shadow-2xl p-6 overflow-y-auto pop-in">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="font-display text-3xl text-forest">Your Cart 🛒</h3>
+        <button onClick={onClose} className="text-2xl text-forest/60 hover:text-forest">✕</button>
       </div>
+      {ids.length===0?(<div className="text-center py-20"><p className="text-6xl mb-4">🧺</p><p className="text-forest/60">Your basket is empty. Add some goodness!</p></div>):(
+      <React.Fragment>
+        {ids.map(id=>{const s=SOAPS.find(x=>x.id===id);return(
+          <div key={id} className="flex items-center gap-4 bg-white rounded-2xl p-3 mb-3 shadow">
+            <img src={s.img} alt={s.name} className="w-16 h-16 rounded-xl object-cover"/>
+            <div className="flex-1"><p className="font-semibold text-forest">{s.name}</p>
+            <p className="text-sm text-moss font-bold">₹{SOAP_PRICE} × {cart[id]} = ₹{SOAP_PRICE*cart[id]}</p></div>
+            <div className="flex items-center gap-2">
+              <button onClick={()=>setQty(id,cart[id]-1)} className="w-8 h-8 rounded-full bg-mint text-forest font-bold">−</button>
+              <span className="w-6 text-center font-bold text-forest">{cart[id]}</span>
+              <button onClick={()=>setQty(id,cart[id]+1)} className="w-8 h-8 rounded-full bg-moss text-white font-bold">+</button>
+            </div>
+          </div>);})}
+        <div className="bg-white rounded-2xl p-5 mt-6 shadow space-y-2 text-forest">
+          <div className="flex justify-between"><span>Subtotal</span><b>₹{subtotal}</b></div>
+          <div className="flex justify-between"><span>Delivery</span><b>₹{DELIVERY_FEE}</b></div>
+          <div className="flex justify-between text-sm text-forest/50"><span>COD fee (if chosen)</span><span>+₹{COD_FEE}</span></div>
+          <div className="border-t border-sage/40 pt-2 flex justify-between text-lg"><span>Payable (UPI)</span><b className="text-moss">₹{subtotal+DELIVERY_FEE}</b></div>
+        </div>
+        <button onClick={onCheckout} className="btn-organic w-full mt-6 bg-forest text-white py-4 rounded-full font-bold text-lg">Proceed to Checkout →</button>
+      </React.Fragment>)}
     </div>
-  );
+  </div>);
 }
 
-/* ====== CONTACT ====== */
-function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "" });
-  const [status, setStatus] = useState("idle");
+/* ================= CHECKOUT ================= */
+function Checkout({cart,subtotal,totalItems,onClose,onDone}){
+  const [form,setForm]=useState({name:"",email:"",phone:"",address:"",payment:"UPI"});
+  const [status,setStatus]=useState("idle");
+  const [err,setErr]=useState("");
+  const [orderId,setOrderId]=useState("");
+  const codFee=form.payment==="COD"?COD_FEE:0;
+  const total=subtotal+DELIVERY_FEE+codFee;
+  const itemsSummary=Object.keys(cart).map(id=>{const s=SOAPS.find(x=>x.id===id);return `${s.name} x${cart[id]} (₹${SOAP_PRICE*cart[id]})`;}).join(", ");
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit=async e=>{
+    e.preventDefault();setErr("");
+    if(totalItems===0)return;
+    if(form.name.trim().length<3)return setErr("Please enter your full name.");
+    if(!validPhone(form.phone))return setErr("Enter a valid 10-digit Indian mobile number.");
+    if(!/\b\d{6}\b/.test(form.address))return setErr("Please include a 6-digit pincode in your address.");
+    if(e.target._gotcha.value)return;
+    if(!throttleOk("order"))return setErr("Please wait a moment before submitting again.");
     setStatus("sending");
-    try {
-      const res = await fetch(FORMSPREE, {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ formType: "CONTACT", name: form.name, phone: form.phone })
-      });
-      setStatus(res.ok ? "success" : "error");
-    } catch { setStatus("error"); }
+    const id=newOrderId();
+    try{const res=await fetch(FORMSPREE,{method:"POST",headers:{Accept:"application/json","Content-Type":"application/json"},
+      body:JSON.stringify({formType:"ORDER",orderId:id,name:form.name,email:form.email,phone:form.phone,address:form.address,
+        paymentMode:form.payment,items:itemsSummary,totalQty:totalItems,
+        subtotal:"₹"+subtotal,deliveryFee:"₹"+DELIVERY_FEE,codFee:"₹"+codFee,finalAmount:"₹"+total})});
+      if(res.ok){
+        localStorage.setItem("rudra_last_order",JSON.stringify({id,items:itemsSummary,total,payment:form.payment,date:new Date().toLocaleDateString("en-IN"),status:"Processing"}));
+        setOrderId(id);setStatus("success");onDone();
+      }else setStatus("error");
+    }catch{setStatus("error");}
   };
 
-  return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      <Leaf className="leaf-float bottom-8 left-8" />
-      <div className="max-w-3xl mx-auto px-5">
-        <SectionTitle kicker="Say Hello" title="Contact Us" />
-        <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
-          {status === "success" ? (
-            <div className="text-center py-10 pop-in">
-              <p className="text-6xl mb-4">🙏</p>
-              <h3 className="font-display text-2xl text-forest mb-2">Thank You!</h3>
-              <p className="text-forest/70">We will be contacting you shortly. 💚</p>
+  return (<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="absolute inset-0 bg-forest/50 backdrop-blur-sm" onClick={onClose}></div>
+    <div className="relative bg-cream rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto p-7 pop-in">
+      <button onClick={onClose} className="absolute top-5 right-5 text-2xl text-forest/60 hover:text-forest">✕</button>
+      {status==="success"?(
+        <div className="text-center py-16 pop-in">
+          <p className="text-7xl mb-6">🎉</p>
+          <h3 className="font-display text-3xl text-forest mb-3">Order Placed!</h3>
+          <p className="bg-mint inline-block px-5 py-2 rounded-full font-bold text-forest mb-4">Order ID: {orderId}</p>
+          <p className="text-forest/70 max-w-sm mx-auto">Thank you for choosing <b>Rudra Organics</b>. We will be contacting you shortly to confirm your order. Track it anytime on the Contact page or ask Rudra Buddy! 💚</p>
+          <button onClick={onClose} className="btn-organic mt-8 bg-moss text-white px-8 py-3 rounded-full font-semibold">Continue Shopping</button>
+        </div>
+      ):(<React.Fragment>
+        <h3 className="font-display text-3xl text-forest mb-1">Checkout 🌿</h3>
+        <p className="text-forest/60 mb-6 text-sm">Fill your details and we'll get your soaps on the way.</p>
+        <form onSubmit={submit} className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" className="honeypot"/>
+            <input required value={form.name} onChange={set("name")} placeholder="Full Name" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"/>
+            <input required type="email" value={form.email} onChange={set("email")} placeholder="Email Address" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"/>
+            <input required type="tel" maxLength="10" value={form.phone} onChange={e=>setForm(f=>({...f,phone:e.target.value.replace(/\D/g,"")}))} placeholder="Mobile Number (10 digits)" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"/>
+            <textarea required value={form.address} onChange={set("address")} placeholder="Full Delivery Address with 6-digit Pincode" rows="4" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"></textarea>
+            <div>
+              <p className="font-semibold text-forest mb-2">Payment Mode</p>
+              <div className="flex gap-3">
+                {["UPI","COD"].map(m=>(
+                  <label key={m} className={"flex-1 cursor-pointer rounded-xl border-2 px-4 py-3 text-center font-semibold transition "+(form.payment===m?"border-moss bg-mint text-forest":"border-sage/40 bg-white text-forest/60")}>
+                    <input type="radio" name="payment" value={m} checked={form.payment===m} onChange={set("payment")} className="hidden"/>
+                    {m==="UPI"?"📱 UPI":"💵 COD (+₹"+COD_FEE+")"}
+                  </label>))}
+              </div>
             </div>
-          ) : (
-            <form onSubmit={submit} className="space-y-4">
-              <p className="text-forest/70 text-center mb-2">Questions about our soaps? Drop your details and we'll call you back.</p>
-              <input required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Your Name" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
-              <input required type="tel" pattern="[0-9]{10}" value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="Mobile Number (10 digits)" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
-              <button type="submit" disabled={status === "sending"} className="btn-organic w-full bg-moss text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">
-                {status === "sending" ? "Sending..." : "Request a Callback 📞"}
+            {form.payment==="UPI"&&(
+              <div className="bg-white rounded-2xl p-4 text-center border border-sage/40 pop-in">
+                <p className="font-semibold text-forest mb-2">Scan & Pay ₹{total}</p>
+                <img src="upi-qr.jpeg" alt="UPI QR Code" className="w-44 h-44 object-contain mx-auto rounded-xl"/>
+                <p className="text-xs text-forest/50 mt-2">Pay the final amount, then place your order. We'll verify and confirm.</p>
+              </div>)}
+          </div>
+          <div>
+            <div className="bg-white rounded-2xl p-5 shadow space-y-3 sticky top-0">
+              <h4 className="font-display text-xl text-forest">Order Summary</h4>
+              {Object.keys(cart).map(id=>{const s=SOAPS.find(x=>x.id===id);return(
+                <div key={id} className="flex justify-between text-sm text-forest/80"><span>{s.emoji} {s.name} × {cart[id]}</span><b>₹{SOAP_PRICE*cart[id]}</b></div>);})}
+              <div className="border-t border-sage/40 pt-3 space-y-2 text-forest">
+                <div className="flex justify-between"><span>Subtotal ({totalItems} items)</span><b>₹{subtotal}</b></div>
+                <div className="flex justify-between"><span>Delivery Charges</span><b>₹{DELIVERY_FEE}</b></div>
+                {codFee>0&&<div className="flex justify-between text-earth"><span>COD Charges</span><b>+₹{codFee}</b></div>}
+                <div className="flex justify-between text-xl border-t border-sage/40 pt-3"><span className="font-display">Final Amount</span><b className="text-moss">₹{total}</b></div>
+              </div>
+              {err&&<p className="text-red-600 text-sm">{err}</p>}
+              <button type="submit" disabled={status==="sending"||totalItems===0} className="btn-organic w-full bg-forest text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">
+                {status==="sending"?"Placing Order...":"Place Order • ₹"+total}
               </button>
-              {status === "error" && <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
-            </form>
-          )}
+              {status==="error"&&<p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
+              {totalItems===0&&<p className="text-forest/50 text-sm text-center">Your cart is empty.</p>}
+            </div>
+          </div>
+        </form>
+      </React.Fragment>)}
+    </div>
+  </div>);
+}
+
+/* ================= RUDRA BUDDY CHATBOT ================= */
+function botReply(text){
+  const t=text.toLowerCase();
+  const order=JSON.parse(localStorage.getItem("rudra_last_order")||"null");
+  if(/track|status|where.*order|my order/.test(t)){
+    return order
+      ?`📦 Found it! Order **${order.id}** placed on ${order.date}.\nItems: ${order.items}\nTotal: ₹${order.total} (${order.payment})\nStatus: 🟢 ${order.status} — our team will contact you with shipping updates soon!`
+      :"I couldn't find a recent order on this device 🧐. If you ordered from another device, please use the Contact page and we'll call you back with an update!";}
+  if(/price|cost|rate|how much|₹/.test(t))
+    return `Every Rudra Organics soap is just ₹${SOAP_PRICE}! 🧼 Delivery is a flat ₹${DELIVERY_FEE} per order, and COD adds ₹${COD_FEE}. Pro tip: order multiple soaps in one go — delivery stays ₹${DELIVERY_FEE}! 😉`;
+  if(/deliver|ship|how long|days|reach/.test(t))
+    return `🚚 We deliver across India in 4-7 working days. Delivery is a flat ₹${DELIVERY_FEE} per order, no matter how many soaps you add!`;
+  if(/pay|upi|cod|cash/.test(t))
+    return `💳 We accept **UPI** (scan our QR at checkout) and **Cash on Delivery** (+₹${COD_FEE}). UPI saves you ₹${COD_FEE} — just saying! 😄`;
+  if(/oily|acne|pimple|breakout/.test(t))
+    return "For oily or acne-prone skin, I'd recommend 🍃 **Neem Pure** (nature's antiseptic) or 🪨 **Multani Earth** (deep-cleans pores). Both ₹130 — head to the Shop page!";
+  if(/dry|moistur|soft|rough/.test(t))
+    return "For dry skin, 🌹 **Rose Bliss** is your best friend — shea butter + real rose petals = deep hydration and glow. ₹130 in the Shop!";
+  if(/tan|sun|dark/.test(t))
+    return "☀️ **D-Tan Detox** is made exactly for this! Coffee, cocoa and turmeric gently lift sun tan. Customers love it after beach trips! 🏖️";
+  if(/glow|bright|dull|fresh/.test(t))
+    return "🍋 **Lemon Fresh** brightens dull skin with vitamin C and zesty citrus oils. Also try 🌹 Rose Bliss for an extra glow combo!";
+  if(/ingredient|inside|made of|chemical|organic|natural/.test(t))
+    return "🌿 All 5 soaps are 100% handmade & cold-processed with organic oils, real herbs and clays. ZERO parabens, sulphates or synthetic fragrance. Each product card in the Shop lists full ingredients!";
+  if(/recommend|suggest|which|best|help me (choose|pick)/.test(t))
+    return "Happy to help! 😊 Tell me your skin type:\n• Oily/acne → Neem Pure 🍃\n• Dry → Rose Bliss 🌹\n• Tanned → D-Tan Detox ☀️\n• Dull → Lemon Fresh 🍋\n• Clogged pores → Multani Earth 🪨";
+  if(/contact|call|phone|talk|human/.test(t))
+    return "You can request a callback on our Contact page 📞 or DM us on Instagram @rudraorganicsbydrshruti — we reply fast! 💚";
+  if(/insta|social|follow/.test(t))
+    return "Follow our journey! 📸 We're @rudraorganicsbydrshruti on Instagram — behind-the-scenes soap making, offers and skin tips!";
+  if(/hi|hello|hey|namaste/.test(t))
+    return "Namaste! 🙏 I'm Rudra Buddy, your organic skincare assistant. Ask me about our soaps, prices, delivery, or say 'track my order'!";
+  if(/thank|great|nice|love/.test(t))
+    return "Aww, thank you! 💚 Your skin is going to love us back. Anything else I can help with?";
+  return "Hmm, I'm still learning! 🌱 Try asking me:\n• 'Which soap for oily skin?'\n• 'What are the prices?'\n• 'Track my order'\n• 'Payment options'";
+}
+
+function ChatBot({open,setOpen,addToCart}){
+  const [msgs,setMsgs]=useState([{from:"bot",text:"Namaste! 🙏 I'm Rudra Buddy 🤖🌿 — ask me anything about our organic soaps, delivery, or your order status!"}]);
+  const [input,setInput]=useState("");
+  const [typing,setTyping]=useState(false);
+  const endRef=useRef();
+  useEffect(()=>{endRef.current&&endRef.current.scrollIntoView({behavior:"smooth"});},[msgs,typing,open]);
+  const chips=["Recommend a soap 🧼","Delivery charges 🚚","Track my order 📦","Payment options 💳"];
+  const send=text=>{
+    const msg=(text||input).trim();if(!msg)return;
+    setMsgs(m=>[...m,{from:"user",text:msg}]);setInput("");setTyping(true);
+    setTimeout(()=>{setTyping(false);setMsgs(m=>[...m,{from:"bot",text:botReply(msg)}]);},900);
+  };
+  const fmt=t=>t.split("\n").map((l,i)=><p key={i} dangerouslySetInnerHTML={{__html:l.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}}/>);
+  return (<React.Fragment>
+    {!open&&<button onClick={()=>setOpen(true)} className="chat-ring fixed bottom-6 right-6 z-50 bg-moss text-white w-16 h-16 rounded-full shadow-2xl text-3xl flex items-center justify-center btn-organic">🤖</button>}
+    {open&&(<div className="fixed bottom-6 right-4 sm:right-6 z-50 w-[92vw] max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden pop-in flex flex-col" style={{height:"540px"}}>
+      <div className="bg-forest text-mint px-5 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl bg-moss rounded-full p-1.5">🤖</span>
+          <div><p className="font-bold">Rudra Buddy</p><p className="text-xs text-sage">🟢 Online • Organic soap expert</p></div>
+        </div>
+        <button onClick={()=>setOpen(false)} className="text-xl hover:text-white">✕</button>
+      </div>
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-cream/60">
+        {msgs.map((m,i)=>(
+          <div key={i} className={"max-w-[85%] px-4 py-2.5 rounded-2xl text-sm pop-in "+(m.from==="bot"?"bg-white text-forest shadow rounded-bl-sm":"bg-moss text-white ml-auto rounded-br-sm")}>{fmt(m.text)}</div>))}
+        {typing&&<div className="bg-white shadow rounded-2xl rounded-bl-sm px-4 py-3 w-16 flex gap-1.5">
+          <span className="dot w-2 h-2 bg-sage rounded-full"></span><span className="dot w-2 h-2 bg-sage rounded-full"></span><span className="dot w-2 h-2 bg-sage rounded-full"></span></div>}
+        <div ref={endRef}></div>
+      </div>
+      <div className="px-3 pt-2 flex gap-2 flex-wrap bg-cream/60">
+        {chips.map(c=><button key={c} onClick={()=>send(c)} className="text-xs bg-mint text-forest px-3 py-1.5 rounded-full font-medium hover:bg-sage/50 transition">{c}</button>)}
+      </div>
+      <div className="p-3 bg-cream/60 flex gap-2">
+        <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} placeholder="Ask about soaps, orders..." className="flex-1 bg-white rounded-full px-4 py-2.5 text-sm border border-sage/40 focus:border-moss"/>
+        <button onClick={()=>send()} className="bg-moss text-white w-11 h-11 rounded-full btn-organic">➤</button>
+      </div>
+    </div>)}
+  </React.Fragment>);
+}
+
+/* ================= FOOTER ================= */
+function Footer(){
+  return (<footer className="bg-forest text-mint mt-10">
+    <Wave fill="#fdf8ef" flip/>
+    <div className="max-w-6xl mx-auto px-5 py-12 grid md:grid-cols-3 gap-8">
+      <div>
+        <p className="font-display text-3xl mb-3">🧼 Rudra Organics</p>
+        <p className="text-mint/70 text-sm">Handcrafted organic soaps made with love, herbs and honesty. By Dr. Shruti.</p>
+      </div>
+      <div>
+        <p className="font-bold mb-3">Quick Links</p>
+        <div className="flex flex-col gap-2 text-mint/70 text-sm">
+          <a href="#/" className="hover:text-white">Home</a><a href="#/shop" className="hover:text-white">Shop</a>
+          <a href="#/about" className="hover:text-white">Our Story</a><a href="#/contact" className="hover:text-white">Contact & Track Order</a>
         </div>
       </div>
-    </section>
-  );
-}
-
-/* ====== FOOTER ====== */
-function Footer() {
-  return (
-    <footer className="bg-forest text-mint py-12">
-      <div className="max-w-6xl mx-auto px-5 text-center space-y-5">
-        <p className="font-display text-3xl">🧼 Rudra Organics</p>
-        <p className="text-mint/70 max-w-md mx-auto text-sm">Handcrafted organic soaps made with love, herbs and honesty.</p>
-        <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer"
-          className="btn-organic inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-full font-semibold">
-          📸 Follow us on Instagram
-        </a>
-        <p className="text-mint/50 text-sm pt-4 border-t border-mint/20">
-          © {new Date().getFullYear()} Rudra Organics. All Rights Reserved.
-        </p>
+      <div>
+        <p className="font-bold mb-3">Stay Connected</p>
+        <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="btn-organic inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-full font-semibold text-sm">📸 @rudraorganicsbydrshruti</a>
       </div>
-    </footer>
-  );
+    </div>
+    <p className="text-center text-mint/50 text-sm py-5 border-t border-mint/20">© {new Date().getFullYear()} Rudra Organics. All Rights Reserved.</p>
+  </footer>);
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
 </html>
