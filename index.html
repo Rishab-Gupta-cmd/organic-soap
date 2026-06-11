@@ -1,536 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Handcrafted, small-batch soap bars made with pure botanicals. ₹100 per bar.">
-  <title>Sāra Botanicals — Handcrafted Soap Bars</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- Design Tokens ---------- */
-    :root {
-      --color-cream: #faf6f0;
-      --color-sand: #efe7da;
-      --color-clay: #c9a87c;
-      --color-moss: #6b7d6a;
-      --color-bark: #3e352c;
-      --color-ink: #26211b;
-      --color-white: #ffffff;
-      --color-error: #b3554d;
-      --color-success: #5e7d5a;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rudra Organics | Handcrafted Organic Soaps</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          forest: '#1b4332', moss: '#2d6a4f', sage: '#74c69d',
+          mint: '#d8f3dc', cream: '#fdf8ef', earth: '#b08968', clay: '#e8d5b7'
+        },
+        fontFamily: {
+          display: ['"Playfair Display"', 'serif'],
+          body: ['Poppins', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Poppins', sans-serif; background: #fdf8ef; }
+  .font-display { font-family: 'Playfair Display', serif; }
 
-      --font-display: 'Cormorant', serif;
-      --font-body: 'Jost', sans-serif;
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(-18px) rotate(6deg);} }
+  @keyframes floaty2 { 0%,100% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(14px) rotate(-8deg);} }
+  @keyframes blob { 0%,100%{border-radius:60% 40% 55% 45%/55% 45% 60% 40%;} 50%{border-radius:45% 55% 40% 60%/40% 60% 45% 55%;} }
+  @keyframes fadeUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes shimmer { 0%{background-position:-400px 0;} 100%{background-position:400px 0;} }
+  @keyframes pop { 0%{transform:scale(0.6);opacity:0;} 80%{transform:scale(1.08);} 100%{transform:scale(1);opacity:1;} }
 
-      --fs-hero: clamp(2.6rem, 6vw, 4.5rem);
-      --fs-h2: clamp(1.8rem, 4vw, 2.6rem);
-      --fs-body: 1.05rem;
-      --fs-small: 0.85rem;
+  .leaf-float { animation: floaty 7s ease-in-out infinite; }
+  .leaf-float2 { animation: floaty2 9s ease-in-out infinite; }
+  .blob { animation: blob 10s ease-in-out infinite; }
+  .fade-up { animation: fadeUp .8s ease both; }
+  .pop-in { animation: pop .4s ease both; }
 
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --sidebar-w: 300px;
-    }
+  .card-tilt { transition: transform .4s ease, box-shadow .4s ease; }
+  .card-tilt:hover { transform: translateY(-10px) rotate(-1deg) scale(1.02); box-shadow: 0 30px 60px -20px rgba(27,67,50,.35); }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+  .btn-organic { transition: all .3s ease; }
+  .btn-organic:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(45,106,79,.5); }
+  .btn-organic:active { transform: scale(.96); }
 
-    body {
-      font-family: var(--font-body);
-      font-weight: 300;
-      font-size: var(--fs-body);
-      color: var(--color-ink);
-      background: var(--color-cream);
-      line-height: 1.7;
-    }
+  .texture {
+    background-image: radial-gradient(rgba(45,106,79,.07) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+  }
+  .hero-grad { background: linear-gradient(135deg, #d8f3dc 0%, #fdf8ef 45%, #e8d5b7 100%); }
 
-    h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; }
+  .marquee { display:flex; gap:3rem; white-space:nowrap; animation: scrollx 22s linear infinite; }
+  @keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
-    img { max-width: 100%; display: block; }
-    button { font-family: inherit; cursor: pointer; }
-
-    :focus-visible { outline: 2px solid var(--color-moss); outline-offset: 3px; }
-
-    /* ---------- Hamburger ---------- */
-    .hamburger {
-      position: fixed; top: 1.5rem; right: 1.5rem; z-index: 60;
-      width: 48px; height: 48px;
-      background: var(--color-white);
-      border: 1px solid var(--color-sand);
-      border-radius: 50%;
-      display: grid; place-items: center;
-      box-shadow: 0 4px 16px rgba(62, 53, 44, 0.08);
-      transition: transform 0.3s var(--ease);
-    }
-    .hamburger:hover { transform: scale(1.08); }
-    .hamburger span {
-      display: block; width: 18px; height: 1.5px;
-      background: var(--color-ink);
-      position: relative;
-      transition: background 0.2s;
-    }
-    .hamburger span::before, .hamburger span::after {
-      content: ""; position: absolute; left: 0;
-      width: 18px; height: 1.5px; background: var(--color-ink);
-      transition: transform 0.35s var(--ease), top 0.35s var(--ease);
-    }
-    .hamburger span::before { top: -6px; }
-    .hamburger span::after { top: 6px; }
-    .hamburger[aria-expanded="true"] span { background: transparent; }
-    .hamburger[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
-    .hamburger[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
-
-    /* ---------- Sidebar ---------- */
-    .sidebar {
-      position: fixed; top: 0; right: 0; z-index: 50;
-      width: min(var(--sidebar-w), 85vw); height: 100dvh;
-      background: var(--color-bark); color: var(--color-cream);
-      padding: 6rem 2.5rem 2.5rem;
-      transform: translateX(100%);
-      transition: transform 0.5s var(--ease);
-      display: flex; flex-direction: column;
-    }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar nav { display: flex; flex-direction: column; gap: 1.25rem; }
-    .sidebar a {
-      color: var(--color-cream); text-decoration: none;
-      font-family: var(--font-display); font-size: 1.6rem;
-      opacity: 0; transform: translateX(20px);
-      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), color 0.2s;
-    }
-    .sidebar.open a { opacity: 1; transform: translateX(0); }
-    .sidebar.open a:nth-child(1) { transition-delay: 0.10s; }
-    .sidebar.open a:nth-child(2) { transition-delay: 0.18s; }
-    .sidebar.open a:nth-child(3) { transition-delay: 0.26s; }
-    .sidebar.open a:nth-child(4) { transition-delay: 0.34s; }
-    .sidebar a:hover { color: var(--color-clay); }
-    .sidebar .sidebar-foot { margin-top: auto; font-size: var(--fs-small); opacity: 0.6; }
-
-    .overlay {
-      position: fixed; inset: 0; z-index: 40;
-      background: rgba(38, 33, 27, 0.45);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.4s var(--ease);
-    }
-    .overlay.show { opacity: 1; pointer-events: auto; }
-
-    /* ---------- Hero ---------- */
-    .hero {
-      min-height: 100dvh;
-      display: grid; place-items: center; text-align: center;
-      padding: 2rem; position: relative; overflow: hidden;
-    }
-    .breathing-circle {
-      position: absolute; width: min(58vw, 520px); aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--color-sand) 0%, transparent 70%);
-      animation: breathe 7s ease-in-out infinite;
-      z-index: 0;
-    }
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.15); opacity: 1; }
-    }
-    .hero-inner { position: relative; z-index: 1; max-width: 720px; }
-    .hero .eyebrow {
-      text-transform: uppercase; letter-spacing: 0.35em;
-      font-size: var(--fs-small); color: var(--color-moss); font-weight: 400;
-    }
-    .hero h1 { font-size: var(--fs-hero); margin: 1rem 0 1.25rem; }
-    .hero p { max-width: 46ch; margin: 0 auto 2.25rem; color: var(--color-bark); }
-
-    .btn {
-      display: inline-block;
-      background: var(--color-ink); color: var(--color-cream);
-      border: 1px solid var(--color-ink);
-      padding: 0.9rem 2.4rem; border-radius: 999px;
-      font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.3s, color 0.3s, transform 0.3s var(--ease);
-    }
-    .btn:hover { background: transparent; color: var(--color-ink); transform: translateY(-2px); }
-    .btn-light { background: var(--color-clay); border-color: var(--color-clay); color: var(--color-ink); }
-    .btn-light:hover { background: transparent; color: var(--color-ink); }
-
-    /* ---------- Sections ---------- */
-    section { padding: 6rem 1.5rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-title { font-size: var(--fs-h2); text-align: center; margin-bottom: 0.75rem; }
-    .section-sub { text-align: center; color: var(--color-moss); max-width: 55ch; margin: 0 auto 3.5rem; }
-
-    /* Philosophy */
-    .philosophy { background: var(--color-sand); }
-    .philosophy blockquote {
-      font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem);
-      max-width: 38ch; margin: 0 auto; text-align: center; font-style: italic;
-    }
-    .philosophy cite {
-      display: block; margin-top: 1.5rem;
-      font-family: var(--font-body); font-style: normal;
-      font-size: var(--fs-small); letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--color-moss);
-    }
-
-    /* ---------- Bento Product Grid: 3 top, 2 centered ---------- */
-    .grid {
-      display: grid; gap: 1.5rem;
-      grid-template-columns: repeat(6, 1fr);
-    }
-    .card { grid-column: span 2; }
-    .card:nth-child(4) { grid-column: 2 / span 2; }
-    .card:nth-child(5) { grid-column: 4 / span 2; }
-
-    .card {
-      background: var(--color-white);
-      border: 1px solid var(--color-sand);
-      border-radius: 20px; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(62, 53, 44, 0.12); }
-    .card-img {
-      aspect-ratio: 4 / 3;
-      display: grid; place-items: center;
-      font-family: var(--font-display); font-size: 1.1rem; font-style: italic;
-      color: var(--color-bark);
-    }
-    .card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
-    .card h3 { font-size: 1.5rem; }
-    .card .benefit { font-size: 0.95rem; color: var(--color-moss); flex: 1; }
-    .card .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; }
-    .card .price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; }
-    .card .add-btn {
-      background: none; border: 1px solid var(--color-ink); border-radius: 999px;
-      padding: 0.5rem 1.3rem; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
-      transition: background 0.3s, color 0.3s;
-    }
-    .card .add-btn:hover { background: var(--color-ink); color: var(--color-cream); }
-
-    /* ---------- Scroll Reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    /* ---------- Modal ---------- */
-    .modal {
-      position: fixed; inset: 0; z-index: 70;
-      display: grid; place-items: center; padding: 1rem;
-      background: rgba(38, 33, 27, 0.55);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.35s var(--ease);
-    }
-    .modal.show { opacity: 1; pointer-events: auto; }
-    .modal-box {
-      background: var(--color-cream); border-radius: 20px;
-      width: 100%; max-width: 440px; max-height: 90dvh; overflow-y: auto;
-      padding: 2.25rem;
-      transform: translateY(24px) scale(0.97);
-      transition: transform 0.35s var(--ease);
-    }
-    .modal.show .modal-box { transform: none; }
-    .modal-box h2 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    .modal-box .modal-sub { font-size: var(--fs-small); color: var(--color-moss); margin-bottom: 1.5rem; }
-    .modal-close {
-      position: absolute; top: 1rem; right: 1rem;
-      background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--color-cream);
-    }
-    form label { display: block; font-size: var(--fs-small); letter-spacing: 0.06em; text-transform: uppercase; margin: 1rem 0 0.3rem; }
-    form input, form select, form textarea {
-      width: 100%; padding: 0.75rem 1rem;
-      border: 1px solid var(--color-sand); border-radius: 10px;
-      background: var(--color-white); font-family: inherit; font-size: 1rem; color: var(--color-ink);
-    }
-    form input:focus, form select:focus, form textarea:focus { outline: 2px solid var(--color-moss); border-color: transparent; }
-    .form-total { margin: 1.25rem 0; font-family: var(--font-display); font-size: 1.3rem; }
-    .form-msg { margin-top: 1rem; font-size: 0.95rem; display: none; }
-    .form-msg.success { display: block; color: var(--color-success); }
-    .form-msg.error { display: block; color: var(--color-error); }
-    .submit-btn { width: 100%; margin-top: 1.25rem; }
-    .submit-btn[disabled] { opacity: 0.6; cursor: wait; }
-
-    /* ---------- Footer ---------- */
-    footer {
-      background: var(--color-bark); color: var(--color-cream);
-      text-align: center; padding: 3.5rem 1.5rem;
-    }
-    footer .foot-brand { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 0.5rem; }
-    footer p { font-size: var(--fs-small); opacity: 0.65; }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 860px) {
-      .card, .card:nth-child(4), .card:nth-child(5) { grid-column: span 3; }
-      .card:nth-child(5) { grid-column: 2 / span 3; }
-    }
-    @media (max-width: 560px) {
-      .card, .card:nth-child(4), .card:nth-child(5) { grid-column: 1 / -1; }
-      section { padding: 4rem 1.25rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; }
-    }
-  </style>
+  input, textarea, select { outline: none; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #74c69d; border-radius: 8px; }
+</style>
 </head>
 <body>
+<div id="root"></div>
 
-  <!-- Navigation -->
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
-    <span></span>
-  </button>
+<script type="text/babel">
+const { useState, useMemo } = React;
 
-  <div class="overlay" id="overlay" hidden></div>
+/* ====== CONFIG ====== */
+const FORMSPREE = "https://formspree.io/f/mlgkgebq";
+const INSTAGRAM_LINK = "#"; /* <-- paste your Instagram URL here later */
+const SOAP_PRICE = 130;
+const DELIVERY_FEE = 50;   /* per order, all payment modes */
+const COD_FEE = 50;        /* extra, only for COD */
 
-  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#philosophy">Philosophy</a>
-      <a href="#products">The Bars</a>
-      <a href="#products" data-open-checkout>Order Now</a>
-    </nav>
-    <p class="sidebar-foot">Handmade in small batches · India</p>
-  </aside>
+const SOAPS = [
+  { id: "rose",    name: "Rose Bliss",      img: "rose.jpeg",    tag: "Glow & Hydrate",  desc: "Hand-poured with real rose petals for soft, romantic, glowing skin.", emoji: "🌹" },
+  { id: "neem",    name: "Neem Pure",       img: "neem.jpeg",    tag: "Anti-Bacterial",  desc: "Nature's antiseptic. Fights acne and keeps skin clean and calm.", emoji: "🍃" },
+  { id: "lemon",   name: "Lemon Fresh",     img: "lemon.jpeg",   tag: "Brighten & Zest", desc: "Zesty citrus burst that brightens dull skin and energises your day.", emoji: "🍋" },
+  { id: "multani", name: "Multani Earth",   img: "multani.jpeg", tag: "Deep Cleanse",    desc: "Classic multani mitti pulls out impurities for a fresh matte feel.", emoji: "🪨" },
+  { id: "dtan",    name: "D-Tan Detox",     img: "dtan.jpeg",    tag: "Tan Removal",     desc: "Gently lifts sun tan and revives your skin's natural radiance.", emoji: "☀️" },
+];
 
-  <!-- Hero -->
-  <header class="hero" id="home">
-    <div class="breathing-circle" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <p class="eyebrow">Handcrafted · Small Batch · Pure</p>
-      <h1>Skin care, the way nature wrote it.</h1>
-      <p>Five botanical soap bars, cold-pressed and cured by hand. No sulfates, no parabens, no shortcuts. Just ₹100 a bar.</p>
-      <a href="#products" class="btn">Explore the Bars</a>
+/* ====== SMALL COMPONENTS ====== */
+function Leaf({ className }) {
+  return <div className={"pointer-events-none select-none absolute text-4xl md:text-6xl opacity-30 " + className}>🌿</div>;
+}
+
+function SectionTitle({ kicker, title }) {
+  return (
+    <div className="text-center mb-12 fade-up">
+      <p className="uppercase tracking-[0.3em] text-moss font-semibold text-sm mb-2">{kicker}</p>
+      <h2 className="font-display text-4xl md:text-5xl text-forest">{title}</h2>
+      <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-sage to-earth"></div>
     </div>
-  </header>
+  );
+}
 
-  <main>
-    <!-- Philosophy -->
-    <section class="philosophy reveal" id="philosophy">
-      <div class="section-inner">
-        <blockquote>
-          "We believe a soap bar should carry nothing your skin doesn't need, and everything it does."
-          <cite>Our Philosophy</cite>
-        </blockquote>
+/* ====== APP ====== */
+function App() {
+  const [cart, setCart] = useState({});           // { soapId: qty }
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  const addToCart = (id) => { setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 })); setCartOpen(true); };
+  const setQty = (id, qty) => setCart(c => {
+    const n = { ...c };
+    if (qty <= 0) delete n[id]; else n[id] = qty;
+    return n;
+  });
+
+  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
+  const subtotal = totalItems * SOAP_PRICE;
+
+  return (
+    <div className="texture min-h-screen overflow-x-hidden">
+      <Navbar count={totalItems} onCart={() => setCartOpen(true)} />
+      <Hero />
+      <Marquee />
+      <Products onAdd={addToCart} />
+      <Why />
+      <Contact />
+      <Footer />
+
+      {cartOpen && (
+        <CartDrawer cart={cart} setQty={setQty} subtotal={subtotal}
+          onClose={() => setCartOpen(false)}
+          onCheckout={() => { setCartOpen(false); setCheckoutOpen(true); }} />
+      )}
+      {checkoutOpen && (
+        <Checkout cart={cart} subtotal={subtotal} totalItems={totalItems}
+          onClose={() => setCheckoutOpen(false)}
+          onDone={() => setCart({})} />
+      )}
+    </div>
+  );
+}
+
+/* ====== NAVBAR ====== */
+function Navbar({ count, onCart }) {
+  return (
+    <nav className="sticky top-0 z-40 backdrop-blur-lg bg-cream/80 border-b border-sage/30">
+      <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+        <a href="#" className="flex items-center gap-2">
+          <span className="text-3xl">🧼</span>
+          <span className="font-display text-2xl text-forest font-bold">Rudra <span className="text-moss">Organics</span></span>
+        </a>
+        <div className="hidden md:flex gap-8 font-medium text-forest/80">
+          <a href="#shop" className="hover:text-moss transition">Shop</a>
+          <a href="#why" className="hover:text-moss transition">Why Us</a>
+          <a href="#contact" className="hover:text-moss transition">Contact</a>
+        </div>
+        <button onClick={onCart} className="btn-organic relative bg-moss text-white px-5 py-2.5 rounded-full font-medium flex items-center gap-2">
+          🛒 Cart
+          {count > 0 && <span className="pop-in absolute -top-2 -right-2 bg-earth text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">{count}</span>}
+        </button>
+      </div>
+    </nav>
+  );
+}
+
+/* ====== HERO ====== */
+function Hero() {
+  return (
+    <header className="hero-grad relative overflow-hidden">
+      <Leaf className="leaf-float top-16 left-8" />
+      <Leaf className="leaf-float2 top-40 right-12" />
+      <Leaf className="leaf-float bottom-10 left-1/3 text-3xl" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-sage/30 blob"></div>
+      <div className="absolute -bottom-32 -left-20 w-80 h-80 bg-earth/20 blob"></div>
+
+      <div className="max-w-6xl mx-auto px-5 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center relative">
+        <div className="fade-up">
+          <span className="inline-block bg-white/70 backdrop-blur px-4 py-1.5 rounded-full text-moss font-semibold text-sm mb-6 shadow">
+            🌱 100% Handmade • Chemical Free
+          </span>
+          <h1 className="font-display text-5xl md:text-7xl text-forest leading-tight mb-6">
+            Nature's Touch,<br /><span className="text-moss italic">Bottled in a Bar.</span>
+          </h1>
+          <p className="text-forest/70 text-lg mb-8 max-w-md">
+            Five handcrafted organic soaps made with love, herbs and zero nasties. Your skin deserves the real thing.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a href="#shop" className="btn-organic bg-forest text-white px-8 py-4 rounded-full font-semibold text-lg">Shop Soaps → ₹130 each</a>
+            <a href="#why" className="btn-organic bg-white/80 backdrop-blur text-forest px-8 py-4 rounded-full font-semibold text-lg border border-sage">Why Organic?</a>
+          </div>
+        </div>
+        <div className="relative fade-up" style={{animationDelay:'.2s'}}>
+          <div className="bg-white/60 backdrop-blur rounded-[3rem] p-4 shadow-2xl rotate-2 card-tilt">
+            <img src="rose.jpeg" alt="Rudra Organics handcrafted soap" className="rounded-[2.5rem] w-full h-80 md:h-96 object-cover" />
+          </div>
+          <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 pop-in">
+            <span className="text-3xl">⭐</span>
+            <div><p className="font-bold text-forest">Loved by skin,</p><p className="text-sm text-forest/60">trusted by nature</p></div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ====== MARQUEE ====== */
+function Marquee() {
+  const items = ["🌿 No Parabens", "🐰 Cruelty Free", "🧴 No Sulphates", "🌸 Real Botanicals", "🤲 Handmade in Small Batches", "♻️ Eco Packaging"];
+  const row = [...items, ...items];
+  return (
+    <div className="bg-forest text-mint py-3 overflow-hidden">
+      <div className="marquee font-medium tracking-wide">
+        {row.map((t, i) => <span key={i}>{t}</span>)}
+      </div>
+    </div>
+  );
+}
+
+/* ====== PRODUCTS ====== */
+function Products({ onAdd }) {
+  return (
+    <section id="shop" className="max-w-6xl mx-auto px-5 py-24">
+      <SectionTitle kicker="Our Collection" title="Five Bars of Pure Goodness" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {SOAPS.map((s, i) => (
+          <div key={s.id} className="card-tilt bg-white rounded-3xl overflow-hidden shadow-lg fade-up" style={{animationDelay: (i * .1) + 's'}}>
+            <div className="relative">
+              <img src={s.img} alt={s.name + " organic soap"} className="w-full h-56 object-cover" />
+              <span className="absolute top-4 left-4 bg-cream/90 backdrop-blur text-moss text-xs font-bold px-3 py-1.5 rounded-full">{s.tag}</span>
+              <span className="absolute -bottom-5 right-5 text-4xl bg-white rounded-full p-2 shadow-lg">{s.emoji}</span>
+            </div>
+            <div className="p-6 pt-8">
+              <h3 className="font-display text-2xl text-forest mb-2">{s.name}</h3>
+              <p className="text-forest/60 text-sm mb-5">{s.desc}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-2xl font-bold text-moss">₹{SOAP_PRICE}</p>
+                <button onClick={() => onAdd(s.id)} className="btn-organic bg-moss text-white px-5 py-2.5 rounded-full font-semibold">Add to Cart +</button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
+  );
+}
 
-    <!-- Products -->
-    <section id="products">
-      <div class="section-inner">
-        <h2 class="section-title reveal">The Bars</h2>
-        <p class="section-sub reveal">Each bar is hand-poured, cured for six weeks, and wrapped in recycled paper. ₹100 per bar.</p>
-
-        <div class="grid">
-          <article class="card reveal">
-            <div class="card-img" style="background:#3a3a3a; color:#efe7da;" role="img" aria-label="Charcoal Detox soap bar">Charcoal Detox</div>
-            <div class="card-body">
-              <h3>Charcoal Detox</h3>
-              <p class="benefit">Activated charcoal draws out impurities and balances oily skin.</p>
-              <div class="price-row">
-                <span class="price">₹100</span>
-                <button class="add-btn" data-product="Charcoal Detox">Order</button>
-              </div>
+/* ====== WHY ====== */
+function Why() {
+  const points = [
+    { icon: "🌱", t: "Truly Organic", d: "Cold-processed with herbs, clays and essential oils. Nothing artificial, ever." },
+    { icon: "🤲", t: "Handmade Batches", d: "Every bar is hand-poured and cured slowly for a rich, creamy lather." },
+    { icon: "🚚", t: "Delivered to You", d: "Flat ₹50 delivery anywhere, pay online via UPI or Cash on Delivery." },
+    { icon: "💚", t: "Skin First", d: "Gentle on all skin types. Free from parabens, sulphates and cruelty." },
+  ];
+  return (
+    <section id="why" className="bg-mint/50 py-24 relative overflow-hidden">
+      <Leaf className="leaf-float2 top-10 right-10" />
+      <div className="max-w-6xl mx-auto px-5">
+        <SectionTitle kicker="The Rudra Promise" title="Why Choose Rudra Organics?" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {points.map((p, i) => (
+            <div key={i} className="bg-white/80 backdrop-blur rounded-3xl p-7 text-center shadow card-tilt fade-up" style={{animationDelay:(i*.1)+'s'}}>
+              <div className="text-5xl mb-4">{p.icon}</div>
+              <h3 className="font-display text-xl text-forest mb-2">{p.t}</h3>
+              <p className="text-forest/60 text-sm">{p.d}</p>
             </div>
-          </article>
-
-          <article class="card reveal">
-            <div class="card-img" style="background:#e8b84b;" role="img" aria-label="Turmeric Glow soap bar">Turmeric Glow</div>
-            <div class="card-body">
-              <h3>Turmeric Glow</h3>
-              <p class="benefit">Wild turmeric brightens dull skin and evens tone, gently.</p>
-              <div class="price-row">
-                <span class="price">₹100</span>
-                <button class="add-btn" data-product="Turmeric Glow">Order</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <div class="card-img" style="background:#e9c4c4;" role="img" aria-label="Rose Petal soap bar">Rose Petal</div>
-            <div class="card-body">
-              <h3>Rose Petal</h3>
-              <p class="benefit">Crushed rose petals and rose water soothe and hydrate dry skin.</p>
-              <div class="price-row">
-                <span class="price">₹100</span>
-                <button class="add-btn" data-product="Rose Petal">Order</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <div class="card-img" style="background:#7d9268; color:#faf6f0;" role="img" aria-label="Neem and Tulsi soap bar">Neem &amp; Tulsi</div>
-            <div class="card-body">
-              <h3>Neem &amp; Tulsi</h3>
-              <p class="benefit">A purifying classic for acne-prone skin, antibacterial by nature.</p>
-              <div class="price-row">
-                <span class="price">₹100</span>
-                <button class="add-btn" data-product="Neem & Tulsi">Order</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <div class="card-img" style="background:#dcc9a3;" role="img" aria-label="Oatmeal and Honey soap bar">Oatmeal &amp; Honey</div>
-            <div class="card-body">
-              <h3>Oatmeal &amp; Honey</h3>
-              <p class="benefit">Gentle exfoliation with raw honey's deep moisture, perfect for sensitive skin.</p>
-              <div class="price-row">
-                <span class="price">₹100</span>
-                <button class="add-btn" data-product="Oatmeal & Honey">Order</button>
-              </div>
-            </div>
-          </article>
+          ))}
         </div>
       </div>
     </section>
-  </main>
+  );
+}
 
-  <!-- Checkout Modal -->
-  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Close checkout">&times;</button>
-    <div class="modal-box">
-      <h2 id="modalTitle">Place Your Order</h2>
-      <p class="modal-sub">We'll confirm your order by email within 24 hours.</p>
-
-      <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-        <label for="f-name">Full Name</label>
-        <input id="f-name" name="name" type="text" required autocomplete="name">
-
-        <label for="f-email">Email</label>
-        <input id="f-email" name="email" type="email" required autocomplete="email">
-
-        <label for="f-phone">Phone</label>
-        <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
-
-        <label for="f-product">Soap Bar</label>
-        <select id="f-product" name="product" required>
-          <option value="Charcoal Detox">Charcoal Detox — ₹100</option>
-          <option value="Turmeric Glow">Turmeric Glow — ₹100</option>
-          <option value="Rose Petal">Rose Petal — ₹100</option>
-          <option value="Neem & Tulsi">Neem &amp; Tulsi — ₹100</option>
-          <option value="Oatmeal & Honey">Oatmeal &amp; Honey — ₹100</option>
-        </select>
-
-        <label for="f-qty">Quantity</label>
-        <input id="f-qty" name="quantity" type="number" min="1" max="20" value="1" required>
-
-        <label for="f-address">Delivery Address</label>
-        <textarea id="f-address" name="address" rows="3" required autocomplete="street-address"></textarea>
-
-        <p class="form-total">Total: <span id="orderTotal">₹100</span></p>
-
-        <button type="submit" class="btn btn-light submit-btn" id="submitBtn">Confirm Order</button>
-        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
-      </form>
+/* ====== CART DRAWER ====== */
+function CartDrawer({ cart, setQty, subtotal, onClose, onCheckout }) {
+  const ids = Object.keys(cart);
+  return (
+    <div className="fixed inset-0 z-50 flex justify-end">
+      <div className="absolute inset-0 bg-forest/40 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative w-full max-w-md bg-cream h-full shadow-2xl p-6 overflow-y-auto pop-in">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="font-display text-3xl text-forest">Your Cart 🛒</h3>
+          <button onClick={onClose} className="text-2xl text-forest/60 hover:text-forest">✕</button>
+        </div>
+        {ids.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-6xl mb-4">🧺</p>
+            <p className="text-forest/60">Your basket is empty. Add some goodness!</p>
+          </div>
+        ) : (
+          <React.Fragment>
+            {ids.map(id => {
+              const s = SOAPS.find(x => x.id === id);
+              return (
+                <div key={id} className="flex items-center gap-4 bg-white rounded-2xl p-3 mb-3 shadow">
+                  <img src={s.img} alt={s.name} className="w-16 h-16 rounded-xl object-cover" />
+                  <div className="flex-1">
+                    <p className="font-semibold text-forest">{s.name}</p>
+                    <p className="text-sm text-moss font-bold">₹{SOAP_PRICE} × {cart[id]} = ₹{SOAP_PRICE * cart[id]}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setQty(id, cart[id] - 1)} className="w-8 h-8 rounded-full bg-mint text-forest font-bold">−</button>
+                    <span className="w-6 text-center font-bold text-forest">{cart[id]}</span>
+                    <button onClick={() => setQty(id, cart[id] + 1)} className="w-8 h-8 rounded-full bg-moss text-white font-bold">+</button>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="bg-white rounded-2xl p-5 mt-6 shadow space-y-2 text-forest">
+              <div className="flex justify-between"><span>Subtotal</span><b>₹{subtotal}</b></div>
+              <div className="flex justify-between"><span>Delivery</span><b>₹{DELIVERY_FEE}</b></div>
+              <div className="flex justify-between text-sm text-forest/50"><span>COD fee (if chosen)</span><span>+₹{COD_FEE}</span></div>
+              <div className="border-t border-sage/40 pt-2 flex justify-between text-lg"><span>Payable (UPI)</span><b className="text-moss">₹{subtotal + DELIVERY_FEE}</b></div>
+            </div>
+            <button onClick={onCheckout} className="btn-organic w-full mt-6 bg-forest text-white py-4 rounded-full font-bold text-lg">Proceed to Checkout →</button>
+          </React.Fragment>
+        )}
+      </div>
     </div>
-  </div>
+  );
+}
 
-  <footer>
-    <p class="foot-brand">Sāra Botanicals</p>
-    <p>© 2026 Sāra Botanicals · Handmade with care · hello@sarabotanicals.in</p>
-  </footer>
+/* ====== CHECKOUT ====== */
+function Checkout({ cart, subtotal, totalItems, onClose, onDone }) {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", payment: "UPI" });
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
-  <script>
-    // ---------- Sidebar ----------
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
+  const codFee = form.payment === "COD" ? COD_FEE : 0;
+  const total = subtotal + DELIVERY_FEE + codFee;
 
-    function toggleSidebar(open) {
-      sidebar.classList.toggle('open', open);
-      overlay.classList.toggle('show', open);
-      overlay.hidden = !open;
-      hamburger.setAttribute('aria-expanded', String(open));
-      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    }
-    hamburger.addEventListener('click', () => toggleSidebar(!sidebar.classList.contains('open')));
-    overlay.addEventListener('click', () => toggleSidebar(false));
-    sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleSidebar(false)));
+  const itemsSummary = Object.keys(cart).map(id => {
+    const s = SOAPS.find(x => x.id === id);
+    return `${s.name} x${cart[id]} (₹${SOAP_PRICE * cart[id]})`;
+  }).join(", ");
 
-    // ---------- Scroll Reveal ----------
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (totalItems === 0) return;
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "ORDER",
+          name: form.name, email: form.email, phone: form.phone, address: form.address,
+          paymentMode: form.payment,
+          items: itemsSummary,
+          totalQty: totalItems,
+          subtotal: "₹" + subtotal,
+          deliveryFee: "₹" + DELIVERY_FEE,
+          codFee: "₹" + codFee,
+          finalAmount: "₹" + total,
+        })
       });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      if (res.ok) { setStatus("success"); onDone(); }
+      else setStatus("error");
+    } catch { setStatus("error"); }
+  };
 
-    // ---------- Checkout Modal ----------
-    const modal = document.getElementById('checkoutModal');
-    const modalClose = document.getElementById('modalClose');
-    const productSelect = document.getElementById('f-product');
-    const qtyInput = document.getElementById('f-qty');
-    const totalEl = document.getElementById('orderTotal');
-    const PRICE = 100;
-    let lastFocused = null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-forest/50 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative bg-cream rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto p-7 pop-in">
+        <button onClick={onClose} className="absolute top-5 right-5 text-2xl text-forest/60 hover:text-forest">✕</button>
 
-    function openModal(product) {
-      lastFocused = document.activeElement;
-      if (product) productSelect.value = product;
-      updateTotal();
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('f-name').focus();
-    }
-    function closeModal() {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-      if (lastFocused) lastFocused.focus();
-    }
+        {status === "success" ? (
+          <div className="text-center py-16 fade-up">
+            <p className="text-7xl mb-6">🎉</p>
+            <h3 className="font-display text-3xl text-forest mb-3">Order Placed!</h3>
+            <p className="text-forest/70 max-w-sm mx-auto">
+              Thank you for choosing <b>Rudra Organics</b>. We will be contacting you shortly to confirm your order. 💚
+            </p>
+            <button onClick={onClose} className="btn-organic mt-8 bg-moss text-white px-8 py-3 rounded-full font-semibold">Continue Shopping</button>
+          </div>
+        ) : (
+          <React.Fragment>
+            <h3 className="font-display text-3xl text-forest mb-1">Checkout 🌿</h3>
+            <p className="text-forest/60 mb-6 text-sm">Fill your details and we'll get your soaps on the way.</p>
 
-    document.querySelectorAll('.add-btn').forEach(btn =>
-      btn.addEventListener('click', () => openModal(btn.dataset.product)));
-    document.querySelectorAll('[data-open-checkout]').forEach(el =>
-      el.addEventListener('click', e => { e.preventDefault(); toggleSidebar(false); openModal(); }));
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        if (modal.classList.contains('show')) closeModal();
-        else if (sidebar.classList.contains('open')) toggleSidebar(false);
-      }
-    });
+            <form onSubmit={submit} className="grid md:grid-cols-2 gap-6">
+              {/* details */}
+              <div className="space-y-4">
+                <input required value={form.name} onChange={set("name")} placeholder="Full Name" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
+                <input required type="email" value={form.email} onChange={set("email")} placeholder="Email Address" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
+                <input required type="tel" pattern="[0-9]{10}" value={form.phone} onChange={set("phone")} placeholder="Mobile Number (10 digits)" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
+                <textarea required value={form.address} onChange={set("address")} placeholder="Full Delivery Address with Pincode" rows="4" className="w-full bg-white rounded-xl px-4 py-3 border border-sage/40 focus:border-moss"></textarea>
 
-    function updateTotal() {
-      const qty = Math.max(1, Math.min(20, parseInt(qtyInput.value || '1', 10)));
-      totalEl.textContent = '₹' + (qty * PRICE);
-    }
-    qtyInput.addEventListener('input', updateTotal);
+                <div>
+                  <p className="font-semibold text-forest mb-2">Payment Mode</p>
+                  <div className="flex gap-3">
+                    {["UPI", "COD"].map(m => (
+                      <label key={m} className={"flex-1 cursor-pointer rounded-xl border-2 px-4 py-3 text-center font-semibold transition " +
+                        (form.payment === m ? "border-moss bg-mint text-forest" : "border-sage/40 bg-white text-forest/60")}>
+                        <input type="radio" name="payment" value={m} checked={form.payment === m} onChange={set("payment")} className="hidden" />
+                        {m === "UPI" ? "📱 UPI" : "💵 COD (+₹" + COD_FEE + ")"}
+                      </label>
+                    ))}
+                  </div>
+                </div>
 
-    // ---------- AJAX Formspree Submission ----------
-    const form = document.getElementById('orderForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formMsg = document.getElementById('formMsg');
+                {form.payment === "UPI" && (
+                  <div className="bg-white rounded-2xl p-4 text-center border border-sage/40 pop-in">
+                    <p className="font-semibold text-forest mb-2">Scan & Pay ₹{total}</p>
+                    <img src="upi-qr.jpeg" alt="UPI QR Code" className="w-44 h-44 object-contain mx-auto rounded-xl" />
+                    <p className="text-xs text-forest/50 mt-2">Pay the final amount, then place your order. We'll verify and confirm.</p>
+                  </div>
+                )}
+              </div>
 
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+              {/* summary */}
+              <div>
+                <div className="bg-white rounded-2xl p-5 shadow space-y-3 sticky top-0">
+                  <h4 className="font-display text-xl text-forest">Order Summary</h4>
+                  {Object.keys(cart).map(id => {
+                    const s = SOAPS.find(x => x.id === id);
+                    return (
+                      <div key={id} className="flex justify-between text-sm text-forest/80">
+                        <span>{s.emoji} {s.name} × {cart[id]}</span><b>₹{SOAP_PRICE * cart[id]}</b>
+                      </div>
+                    );
+                  })}
+                  <div className="border-t border-sage/40 pt-3 space-y-2 text-forest">
+                    <div className="flex justify-between"><span>Subtotal ({totalItems} items)</span><b>₹{subtotal}</b></div>
+                    <div className="flex justify-between"><span>Delivery Charges</span><b>₹{DELIVERY_FEE}</b></div>
+                    {codFee > 0 && <div className="flex justify-between text-earth"><span>COD Charges</span><b>+₹{codFee}</b></div>}
+                    <div className="flex justify-between text-xl border-t border-sage/40 pt-3">
+                      <span className="font-display">Final Amount</span><b className="text-moss">₹{total}</b>
+                    </div>
+                  </div>
+                  <button type="submit" disabled={status === "sending" || totalItems === 0}
+                    className="btn-organic w-full bg-forest text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">
+                    {status === "sending" ? "Placing Order..." : "Place Order • ₹" + total}
+                  </button>
+                  {status === "error" && <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
+                  {totalItems === 0 && <p className="text-forest/50 text-sm text-center">Your cart is empty.</p>}
+                </div>
+              </div>
+            </form>
+          </React.Fragment>
+        )}
+      </div>
+    </div>
+  );
+}
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-      formMsg.className = 'form-msg';
+/* ====== CONTACT ====== */
+function Contact() {
+  const [form, setForm] = useState({ name: "", phone: "" });
+  const [status, setStatus] = useState("idle");
 
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          formMsg.textContent = 'Order received! We\'ll confirm by email within 24 hours.';
-          formMsg.classList.add('success');
-          form.reset();
-          updateTotal();
-        } else {
-          throw new Error('Submission failed');
-        }
-      } catch {
-        formMsg.textContent = 'Something went wrong. Please try again or email us directly.';
-        formMsg.classList.add('error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Confirm Order';
-      }
-    });
-  </script>
+  const submit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ formType: "CONTACT", name: form.name, phone: form.phone })
+      });
+      setStatus(res.ok ? "success" : "error");
+    } catch { setStatus("error"); }
+  };
+
+  return (
+    <section id="contact" className="py-24 relative overflow-hidden">
+      <Leaf className="leaf-float bottom-8 left-8" />
+      <div className="max-w-3xl mx-auto px-5">
+        <SectionTitle kicker="Say Hello" title="Contact Us" />
+        <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
+          {status === "success" ? (
+            <div className="text-center py-10 pop-in">
+              <p className="text-6xl mb-4">🙏</p>
+              <h3 className="font-display text-2xl text-forest mb-2">Thank You!</h3>
+              <p className="text-forest/70">We will be contacting you shortly. 💚</p>
+            </div>
+          ) : (
+            <form onSubmit={submit} className="space-y-4">
+              <p className="text-forest/70 text-center mb-2">Questions about our soaps? Drop your details and we'll call you back.</p>
+              <input required value={form.name} onChange={e => setForm(f => ({...f, name: e.target.value}))} placeholder="Your Name" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
+              <input required type="tel" pattern="[0-9]{10}" value={form.phone} onChange={e => setForm(f => ({...f, phone: e.target.value}))} placeholder="Mobile Number (10 digits)" className="w-full bg-cream rounded-xl px-4 py-3 border border-sage/40 focus:border-moss" />
+              <button type="submit" disabled={status === "sending"} className="btn-organic w-full bg-moss text-white py-4 rounded-full font-bold text-lg disabled:opacity-50">
+                {status === "sending" ? "Sending..." : "Request a Callback 📞"}
+              </button>
+              {status === "error" && <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>}
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ====== FOOTER ====== */
+function Footer() {
+  return (
+    <footer className="bg-forest text-mint py-12">
+      <div className="max-w-6xl mx-auto px-5 text-center space-y-5">
+        <p className="font-display text-3xl">🧼 Rudra Organics</p>
+        <p className="text-mint/70 max-w-md mx-auto text-sm">Handcrafted organic soaps made with love, herbs and honesty.</p>
+        <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer"
+          className="btn-organic inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-full font-semibold">
+          📸 Follow us on Instagram
+        </a>
+        <p className="text-mint/50 text-sm pt-4 border-t border-mint/20">
+          © {new Date().getFullYear()} Rudra Organics. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
 </body>
 </html>
